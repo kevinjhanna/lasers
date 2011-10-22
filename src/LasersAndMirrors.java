@@ -88,7 +88,8 @@ public class LasersAndMirrors extends JFrame {
 	}
 
 	private void initializeBoard() {
-		boardPanel = new BoardPanel(10, 10, CELL_SIZE);
+		boardPanel = new BoardPanel(game.getBoardHeight(),
+				game.getBoardHeight(), CELL_SIZE);
 		boardPanel.setBackground(Color.WHITE);
 		boardPanel.setGridColor(Color.GRAY);
 		boardPanel.setListener(new BoardPanelListener() {
@@ -101,7 +102,7 @@ public class LasersAndMirrors extends JFrame {
 					JOptionPane.showMessageDialog(LasersAndMirrors.this,
 							"Can't rotate tile.", "Warning",
 							JOptionPane.WARNING_MESSAGE);
-				}				
+				}
 			}
 
 			public void cellDragged(int sourceRow, int sourceColumn,
@@ -296,10 +297,11 @@ public class LasersAndMirrors extends JFrame {
 			File f = fc.getSelectedFile();
 
 			try {
-				initializeBoard();
 				initializeScore();
 				gameObserver = new GameObserver(this);
 				game = Game.fromBoardFile(f, gameObserver);
+				initializeBoard();
+				game.start();
 				setGameVisible(true);
 			} catch (IOException e) {
 				JOptionPane.showMessageDialog(this, e.toString(), "Error",
@@ -329,7 +331,7 @@ public class LasersAndMirrors extends JFrame {
 			if (ret == JOptionPane.CANCEL_OPTION) {
 				return;
 			}
-			
+
 			setGameVisible(false);
 			game = null;
 			gameObserver = null;
@@ -375,7 +377,7 @@ public class LasersAndMirrors extends JFrame {
 			}
 		}
 	}
-	
+
 	public void setScore(int score) {
 		scoreLabel.setText("Score: " + score);
 	}

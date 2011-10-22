@@ -26,6 +26,7 @@ public class Game extends Observable {
 	private Integer boardWidth;
 	private Integer score;
 	private Board board;
+	private Map<Position, Tile> initialTiles;
 
 	public static Game fromBoardFile(File f, Observer o) throws IOException {
 		System.out.println("Archivo cargado de " + f.getName());
@@ -48,6 +49,11 @@ public class Game extends Observable {
 	public static Game fromSaveFile(File f, Observer o) throws IOException {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	public void start() {
+		populateBoard();
+		updateScore();
 	}
 
 	public Integer getBoardWidth() {
@@ -95,19 +101,19 @@ public class Game extends Observable {
 	}
 
 	private Game(Observer o, int boardWidth, int boardHeight,
-			Map<Position, Tile> tiles) {
+			Map<Position, Tile> initialTiles) {
 
 		addObserver(o);
 
 		this.boardWidth = boardWidth;
 		this.boardHeight = boardHeight;
+		this.initialTiles = initialTiles;
+		
 		board = new Board(boardWidth, boardHeight);
-		populateBoard(tiles);
-		updateScore();
 	}
 
-	private void populateBoard(Map<Position, Tile> tiles) {
-		for (Map.Entry<Position, Tile> e : tiles.entrySet()) {
+	private void populateBoard() {
+		for (Map.Entry<Position, Tile> e : initialTiles.entrySet()) {
 			board.setTile(e.getKey(), e.getValue());
 			setChanged();
 			notifyObservers(new TileSetEvent(e.getKey().row, e.getKey().column,
