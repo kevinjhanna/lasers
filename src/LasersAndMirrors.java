@@ -180,7 +180,11 @@ public class LasersAndMirrors extends JFrame {
 	 * tablero
 	 */
 	private void autoResize() {
-		setSize(boardPanel.getWidth() + 20, boardPanel.getHeight() + 63);
+		if (boardPanel != null) {
+			setSize(boardPanel.getWidth() + 20, boardPanel.getHeight() + 63);
+		} else {
+			setBounds(100, 100, 450, 300);
+		}
 	}
 
 	/**
@@ -339,6 +343,7 @@ public class LasersAndMirrors extends JFrame {
 			boardPanel = null;
 			this.remove(scoreLabel);
 			scoreLabel = null;
+			autoResize();
 		}
 	}
 
