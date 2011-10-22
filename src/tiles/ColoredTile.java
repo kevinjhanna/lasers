@@ -4,5 +4,9 @@ import java.awt.Color;
 
 public abstract class ColoredTile extends Tile {
 
-	private Color color;
+	protected Color color;
+	
+	public Color getColor() {
+		return color;
+	}
 }
