@@ -25,7 +25,9 @@ public class GamePanel extends JPanel implements View {
 	private BoardPanel boardPanel;
 	private JPanel statusPanel;
 	private JLabel scoreLabel;
-	private JLabel timerLabel;
+	private JLabel elapsedTimeLabel;
+	private String scoreFormat = "<html><b>Score:</b> %s</html>";
+	private String elapsedTimeFormat = "<html><b>Elapsed time:</b> %s</html>";
 	private int elapsedTime;
 	private ImageTileDrawer tileDrawer = new ImageTileDrawer();
 
@@ -82,17 +84,18 @@ public class GamePanel extends JPanel implements View {
 
 	private void initializeTimer() {
 		elapsedTime = 0;
-		timerLabel = new JLabel(formatTime(elapsedTime));
+		
+		elapsedTimeLabel = new JLabel(String.format(elapsedTimeFormat, formatTime(elapsedTime)));
 
 		Timer timer = new Timer(1000, new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				timerLabel.setText(formatTime(++elapsedTime));
+				elapsedTimeLabel.setText(String.format(elapsedTimeFormat, formatTime(++elapsedTime)));
 			}
 		});
 		timer.setRepeats(true);
 		timer.start();
-		statusPanel.add(timerLabel, BorderLayout.EAST);
+		statusPanel.add(elapsedTimeLabel, BorderLayout.EAST);
 	}
 
 	private String formatTime(int elapsedTime) {
@@ -113,6 +116,6 @@ public class GamePanel extends JPanel implements View {
 
 	@Override
 	public void updateScore(int score) {
-		scoreLabel.setText("Score: " + score);
+		scoreLabel.setText(String.format(scoreFormat , score));
 	}
 }
