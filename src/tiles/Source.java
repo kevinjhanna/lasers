@@ -6,25 +6,21 @@ import misc.Direction;
 
 public class Source extends ColoredTile implements Rotatable {
 	
-	private Direction orientation;
+	private Direction direction;
 	
 	public static final String name = "Source";
 
-	public Source(Color color, Direction orientation) {
+	public Source(Color color, Direction direction) {
 		this.color = color;
-		this.orientation = orientation;
+		this.direction = direction;
 	}
 
-	public Direction getOrientation() {
-		return orientation;
-	}
-	
-	public boolean canRotate() {
-		return true;
+	public Direction getDirection() {
+		return direction;
 	}
 	
 	public void rotate() {
-		orientation = orientation.rotate(1);
+		direction = direction.turn();
 	}
 
 }

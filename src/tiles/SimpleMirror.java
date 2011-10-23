@@ -4,20 +4,19 @@ import misc.Direction;
 
 public class SimpleMirror extends Tile implements Rotatable {
 	
-	public static final String name = "SimpleMirror";
-	private Direction orientation;
+	private Direction direction;
 
-	public SimpleMirror(Direction orientation) {
-		this.orientation = orientation;
+	public SimpleMirror(Direction direction) {
+		this.direction = direction;
 	}
 	
 	@Override
-	public Direction getOrientation() {
-		return orientation;
+	public Direction getDirection() {
+		return direction;
 	}
 
 	@Override
 	public void rotate() {
-		orientation = orientation.rotate(1);
+		direction = direction.turn();
 	}
 }

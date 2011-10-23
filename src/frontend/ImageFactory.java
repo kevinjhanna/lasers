@@ -53,7 +53,7 @@ class ImageFactory {
 			img = ImageUtils.replaceColor(img, maskColor, ((ColoredTile) t).getColor());
 		}
 		if (t instanceof Rotatable) {
-			img = ImageUtils.rotateImage(img, ((Rotatable) t).getOrientation().ordinal());
+			img = ImageUtils.rotateImage(img, ((Rotatable) t).getDirection().ordinal());
 		}
 		return img;
 	}

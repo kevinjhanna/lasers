@@ -5,21 +5,19 @@ import misc.Direction;
 
 public class Filter extends ColoredTile implements Rotatable {
 	
-	public static final String name = "Filter";
+	public Direction direction;
 	
-	public Direction orientation;
-	
-	public Filter(Color color, Direction orientation) {
+	public Filter(Color color, Direction direction) {
 		this.color = color;
-		this.orientation = orientation;
+		this.direction = direction;
 	}
 	
-	public Direction getOrientation() {
-		return orientation;
+	public Direction getDirection() {
+		return direction;
 	}
 	
 	public void rotate() {
-		orientation = orientation.rotate(1);
+		direction = direction.turn();
 	}
 	
 }

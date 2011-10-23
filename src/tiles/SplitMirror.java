@@ -5,19 +5,19 @@ import misc.Direction;
 public class SplitMirror extends Tile implements Rotatable {
 
 	public static final String name = "SplitMirror";
-	public Direction orientation;
+	public Direction direction;
 
-	public SplitMirror(Direction orientation) {
-		this.orientation = orientation;
+	public SplitMirror(Direction direction) {
+		this.direction = direction;
 	}
 
 	@Override
-	public Direction getOrientation() {
-		return orientation;
+	public Direction getDirection() {
+		return direction;
 	}
 
 	@Override
 	public void rotate() {
-		orientation = orientation.rotate(1);
+		direction = direction.turn();
 	}
 }
