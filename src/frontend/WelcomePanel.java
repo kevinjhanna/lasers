@@ -1,6 +1,5 @@
 package frontend;
 
-import game.Controller;
 
 import java.awt.Font;
 import java.awt.event.ActionEvent;

@@ -1,6 +1,5 @@
 package frontend;
 
-import game.Controller;
 import gui.BoardPanel;
 import gui.BoardPanelListener;
 
@@ -12,7 +11,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class GamePanel extends JPanel {
+public class GamePanel extends JPanel implements View {
 
 	private static final long serialVersionUID = -7317507468993791993L;
 	private static final int CELL_SIZE = 30;
@@ -66,11 +65,19 @@ public class GamePanel extends JPanel {
 		add(scoreLabel, BorderLayout.SOUTH);
 	}
 
+	/* (non-Javadoc)
+	 * @see frontend.View#setCellImage(int, int, java.awt.Image)
+	 */
+	@Override
 	public void setCellImage(int row, int column, Image image) {
 		boardPanel.setImage(row, column, image);
 		boardPanel.repaint();
 	}
 
+	/* (non-Javadoc)
+	 * @see frontend.View#updateScore(int)
+	 */
+	@Override
 	public void updateScore(int score) {
 		scoreLabel.setText("Score: " + score);
 	}

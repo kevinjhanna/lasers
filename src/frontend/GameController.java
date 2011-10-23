@@ -1,39 +1,37 @@
 package frontend;
 
-import game.Controller;
 import game.Game;
+import game.Observer;
 import game.SourceTileEmptyException;
 import game.TargetTileNotEmptyException;
 
 import java.io.File;
 import java.io.IOException;
 
-import javax.swing.JFileChooser;
-import javax.swing.JOptionPane;
-
 import tiles.RotationNotSupportedException;
 import tiles.Tile;
 
-public class GameController implements Controller {
+public class GameController implements Controller, Observer {
 
 	private Game game;
-	private Window window;
+	private ViewContainer container;
 	private ImageFactory image = ImageFactory.getInstance();
 
 	/**
 	 * Create the frame.
 	 */
-	public GameController() {
-		window = new Window(this);
-		window.setVisible(true);
+	public GameController(ViewContainer container) {
+		this.container = container;
+		container.setController(this);
+		container.initialize();
+		container.setVisible(true);
 	}
 
 	public void rotate(int row, int column) {
 		try {
 			game.rotate(row, column);
 		} catch (RotationNotSupportedException e) {
-			JOptionPane.showMessageDialog(window, "Can't rotate tile.",
-					"Warning", JOptionPane.WARNING_MESSAGE);
+			container.showWarning("Can't rotate tile.");
 		}
 	}
 
@@ -43,11 +41,9 @@ public class GameController implements Controller {
 		try {
 			game.move(sourceRow, sourceColumn, targetRow, targetColumn);
 		} catch (SourceTileEmptyException e) {
-			JOptionPane.showMessageDialog(window, "Source tile is empty.",
-					"Warning", JOptionPane.WARNING_MESSAGE);
+			container.showWarning("Source tile is empty.");
 		} catch (TargetTileNotEmptyException e) {
-			JOptionPane.showMessageDialog(window, "Target tile is not empty.",
-					"Warning", JOptionPane.WARNING_MESSAGE);
+			container.showWarning("Target tile is not empty.");
 		}
 	}
 
@@ -56,54 +52,39 @@ public class GameController implements Controller {
 			throw new NoGameException();
 		}
 
-		JFileChooser c = new JFileChooser();
-
-		int ret = c.showSaveDialog(window);
-		if (ret == JFileChooser.APPROVE_OPTION) {
-			File f = c.getSelectedFile();
+		File f = container.showSave();
+		if (f != null) { 
 			game.save(f);
 		}
 	}
 
 	public void newGame() {
-		JFileChooser fc = new JFileChooser();
-		fc.setFileFilter(new ExtensionFileFilter("board"));
-
-		int ret = fc.showOpenDialog(window);
-		if (ret == JFileChooser.APPROVE_OPTION) {
-			File f = fc.getSelectedFile();
-
+		File f = container.showLoad("board");
+		if (f != null) {
 			try {
 				game = Game.fromBoardFile(f);
 				startGame();
-
 			} catch (IOException e) {
-				JOptionPane.showMessageDialog(window, e.toString(), "Error",
-						JOptionPane.ERROR_MESSAGE);
+				container.showError("Unable to load board file.");
 			}
 		}
 	}
 
 	private void startGame() {
-		window.setGame(game.getBoardHeight(), game.getBoardWidth());
+		container.setGame(game.getBoardHeight(), game.getBoardWidth());
 		game.start(this);
-		window.setGameVisible(true);
+		container.setGameVisible(true);
 	}
 
 	@Override
 	public void loadGame() {
-		JFileChooser fc = new JFileChooser();
-		fc.setFileFilter(new ExtensionFileFilter("save"));
-
-		int ret = fc.showOpenDialog(window);
-		if (ret == JFileChooser.APPROVE_OPTION) {
-			File f = fc.getSelectedFile();
+		File f = container.showLoad("save");
+		if (f != null) {
 			try {
 				game = Game.fromSaveFile(f);
 				startGame();
 			} catch (IOException e) {
-				JOptionPane.showMessageDialog(window, e.toString(), "Error",
-						JOptionPane.ERROR_MESSAGE);
+				container.showError("Unable to load saved game.");
 			}
 		}
 	}
@@ -111,32 +92,29 @@ public class GameController implements Controller {
 	@Override
 	public void closeGame() {
 		if (game != null) {
-			int ret = JOptionPane.showConfirmDialog(window,
-					"Close without save?", "Close",
-					JOptionPane.YES_NO_CANCEL_OPTION);
+			ConfirmOption opt = container.showConfirm("Close without save?");
 
-			if (ret == JOptionPane.CANCEL_OPTION
-					|| ret == JOptionPane.CLOSED_OPTION) {
-				return;
-			}
-			if (ret == JOptionPane.NO_OPTION) {
+			if (opt == ConfirmOption.NO) {
 				saveGame();
 			}
-			window.setGameVisible(false);
+			if (opt == ConfirmOption.CANCEL) {
+				return;
+			}
+			game = null;
+			container.setGameVisible(false);
 		}
 	}
 
 	@Override
 	public void quit() {
 		if (game != null) {
-			int ret = JOptionPane.showConfirmDialog(window,
-					"Quit without save?", "Quit",
-					JOptionPane.YES_NO_CANCEL_OPTION);
+			ConfirmOption opt = container.showConfirm("Quit without save?");
 
-			if (ret == JOptionPane.NO_OPTION) {
-				saveGame();
+			if (opt == ConfirmOption.NO) {
+				File f = container.showSave();
+				game.save(f);
 			}
-			if (ret == JOptionPane.CANCEL_OPTION) {
+			if (opt == ConfirmOption.CANCEL) {
 				return;
 			}
 		}
@@ -147,23 +125,23 @@ public class GameController implements Controller {
 	public void onTileMove(int sourceRow, int sourceColumn, int targetRow,
 			int targetColumn, Tile tile) {
 
-		window.getGamePanel().setCellImage(sourceRow, sourceColumn, null);
-		window.getGamePanel().setCellImage(targetRow, targetColumn,
+		container.getView().setCellImage(sourceRow, sourceColumn, null);
+		container.getView().setCellImage(targetRow, targetColumn,
 				image.forTile(tile));
 	}
 
 	@Override
 	public void onTileRotated(int row, int column, Tile tile) {
-		window.getGamePanel().setCellImage(row, column, image.forTile(tile));
+		container.getView().setCellImage(row, column, image.forTile(tile));
 	}
 
 	@Override
 	public void onTileSet(int row, int column, Tile tile) {
-		window.getGamePanel().setCellImage(row, column, image.forTile(tile));
+		container.getView().setCellImage(row, column, image.forTile(tile));
 	}
 
 	@Override
 	public void onScoreChange(int score) {
-		window.getGamePanel().updateScore(score);
+		container.getView().updateScore(score);
 	}
 }

@@ -20,7 +20,7 @@ import tiles.Wall;
 
 public class Game {
 
-	private Controller controller;
+	private Observer observer;
 	private Integer boardHeight;
 	private Integer boardWidth;
 	private Integer score;
@@ -50,8 +50,8 @@ public class Game {
 		return null;
 	}
 
-	public void start(Controller controller) {
-		this.controller = controller;
+	public void start(Observer observer) {
+		this.observer = observer;
 		populateBoard();
 		updateScore();
 	}
@@ -76,7 +76,7 @@ public class Game {
 		Position target = new Position(targetRow, targetColumn);
 		board.moveTile(source, target);
 
-		controller.onTileMove(sourceRow, sourceColumn, targetRow, targetColumn,
+		observer.onTileMove(sourceRow, sourceColumn, targetRow, targetColumn,
 				getTile(targetRow, targetColumn));
 	}
 
@@ -88,7 +88,7 @@ public class Game {
 		} else {
 			throw new RotationNotSupportedException();
 		}
-		controller.onTileRotated(row, column, getTile(row, column));
+		observer.onTileRotated(row, column, getTile(row, column));
 	}
 
 	public void save(File f) {
@@ -97,7 +97,7 @@ public class Game {
 
 	private void updateScore() {
 		score = 42;
-		controller.onScoreChange(score);
+		observer.onScoreChange(score);
 	}
 
 	private Game(int boardHeight, int boardWidth,
@@ -114,7 +114,7 @@ public class Game {
 		for (Map.Entry<Position, Tile> e : initialTiles.entrySet()) {
 			board.setTile(e.getKey(), e.getValue());
 
-			controller.onTileSet(e.getKey().row, e.getKey().column,
+			observer.onTileSet(e.getKey().row, e.getKey().column,
 					e.getValue());
 		}
 	}

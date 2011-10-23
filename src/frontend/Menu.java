@@ -1,6 +1,5 @@
 package frontend;
 
-import game.Controller;
 
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
