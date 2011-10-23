@@ -15,7 +15,7 @@ public interface Observer {
 	 * @param sourceColumn
 	 * @param targetRow
 	 * @param targetColumn
-	 * @param tile
+	 * @param drawable
 	 */
 	void onTileMove(int sourceRow, int sourceColumn, int targetRow, int targetColumn, Drawable drawable);
 
@@ -24,7 +24,7 @@ public interface Observer {
 	 * 
 	 * @param row
 	 * @param column
-	 * @param tile
+	 * @param drawable
 	 */
 	void onTileRotated(int row, int column, Drawable drawable);
 
@@ -33,7 +33,7 @@ public interface Observer {
 	 * 
 	 * @param row
 	 * @param column
-	 * @param tile
+	 * @param drawable
 	 */
 	void onTileSet(int row, int column, Drawable drawable);
 

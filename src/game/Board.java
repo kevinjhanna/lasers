@@ -61,8 +61,8 @@ public class Board {
 	 * Mueve una celda desde una posici—n a la otra. La celda origen se completa
 	 * con una nueva celda vac’a
 	 * 
-	 * @param src
-	 * @param dst
+	 * @param source
+	 * @param target
 	 * @throws SourceTileEmptyException
 	 * @throws TargetTileNotEmptyException
 	 */

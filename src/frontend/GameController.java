@@ -169,7 +169,7 @@ public class GameController implements Controller, Observer {
 	 * @param sourceColumn
 	 * @param targetRow
 	 * @param targetColumn
-	 * @param tile
+	 * @param drawable
 	 */
 	@Override
 	public void onTileMove(int sourceRow, int sourceColumn, int targetRow,
@@ -185,7 +185,7 @@ public class GameController implements Controller, Observer {
 	 * 
 	 * @param row
 	 * @param column
-	 * @param tile
+	 * @param drawable
 	 */
 	@Override
 	public void onTileRotated(int row, int column, Drawable drawable) {
@@ -197,7 +197,7 @@ public class GameController implements Controller, Observer {
 	 * 
 	 * @param row
 	 * @param column
-	 * @param tile
+	 * @param drawable
 	 */
 	@Override
 	public void onTileSet(int row, int column, Drawable drawable) {
