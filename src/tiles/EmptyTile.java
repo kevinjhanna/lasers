@@ -7,10 +7,5 @@ public class EmptyTile extends Tile {
 	public boolean isEmpty() {
 		return true;
 	}
-
-	@Override
-	public String getName() {
-		return name;
-	}
 	
 }

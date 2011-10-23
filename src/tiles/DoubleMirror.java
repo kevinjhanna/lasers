@@ -12,11 +12,6 @@ public class DoubleMirror extends Tile implements Rotatable {
 	}
 	
 	@Override
-	public String getName() {
-		return name;
-	}
-	
-	@Override
 	public Direction getOrientation() {
 		return orientation;
 	}

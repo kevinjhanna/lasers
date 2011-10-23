@@ -5,8 +5,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Observable;
-import java.util.Observer;
 
 import misc.Direction;
 import misc.Position;
@@ -20,15 +18,16 @@ import tiles.Target;
 import tiles.Tile;
 import tiles.Wall;
 
-public class Game extends Observable {
+public class Game {
 
+	private Controller controller;
 	private Integer boardHeight;
 	private Integer boardWidth;
 	private Integer score;
 	private Board board;
 	private Map<Position, Tile> initialTiles;
 
-	public static Game fromBoardFile(File f, Observer o) throws IOException {
+	public static Game fromBoardFile(File f) throws IOException {
 		System.out.println("Archivo cargado de " + f.getName());
 
 		Map<Position, Tile> tiles = new HashMap<Position, Tile>();
@@ -43,15 +42,16 @@ public class Game extends Observable {
 		tiles.put(new Position(7, 7), new SimpleMirror(Direction.EAST));
 		tiles.put(new Position(6, 6), new DoubleMirror(Direction.WEST));
 		tiles.put(new Position(5, 5), new Target(new Color(233, 200, 150)));
-		return new Game(o, 10, 10, tiles);
+		return new Game(10, 15, tiles);
 	}
 
-	public static Game fromSaveFile(File f, Observer o) throws IOException {
+	public static Game fromSaveFile(File f) throws IOException {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
-	public void start() {
+
+	public void start(Controller controller) {
+		this.controller = controller;
 		populateBoard();
 		updateScore();
 	}
@@ -68,26 +68,27 @@ public class Game extends Observable {
 		return board.getTile(new Position(row, column));
 	}
 
-	public void move(int sourceRow, int sourceColumn, int destRow,
-			int destColumn) throws SourceTileEmptyException,
+	public void move(int sourceRow, int sourceColumn, int targetRow,
+			int targetColumn) throws SourceTileEmptyException,
 			TargetTileNotEmptyException {
 
-		board.moveTile(new Position(sourceRow, sourceColumn), new Position(
-				destRow, destColumn));
-		setChanged();
-		notifyObservers(new TileMovedEvent(sourceRow, sourceColumn, destRow,
-				destColumn, getTile(destRow, destColumn)));
+		Position source = new Position(sourceRow, sourceColumn);
+		Position target = new Position(targetRow, targetColumn);
+		board.moveTile(source, target);
+
+		controller.onTileMove(sourceRow, sourceColumn, targetRow, targetColumn,
+				getTile(targetRow, targetColumn));
 	}
 
-	public void rotate(int row, int column) throws RotationNotSupportedException {
+	public void rotate(int row, int column)
+			throws RotationNotSupportedException {
 		Tile tile = board.getTile(new Position(row, column));
 		if (tile instanceof Rotatable) {
 			((Rotatable) tile).rotate();
 		} else {
 			throw new RotationNotSupportedException();
 		}
-		setChanged();
-		notifyObservers(new TileRotatedEvent(row, column, getTile(row, column)));
+		controller.onTileRotated(row, column, getTile(row, column));
 	}
 
 	public void save(File f) {
@@ -96,28 +97,25 @@ public class Game extends Observable {
 
 	private void updateScore() {
 		score = 42;
-		setChanged();
-		notifyObservers(new ScoreChangedEvent(score));
+		controller.onScoreChange(score);
 	}
 
-	private Game(Observer o, int boardWidth, int boardHeight,
+	private Game(int boardHeight, int boardWidth,
 			Map<Position, Tile> initialTiles) {
 
-		addObserver(o);
-
-		this.boardWidth = boardWidth;
 		this.boardHeight = boardHeight;
+		this.boardWidth = boardWidth;
 		this.initialTiles = initialTiles;
-		
-		board = new Board(boardWidth, boardHeight);
+
+		board = new Board(boardHeight, boardWidth);
 	}
 
 	private void populateBoard() {
 		for (Map.Entry<Position, Tile> e : initialTiles.entrySet()) {
 			board.setTile(e.getKey(), e.getValue());
-			setChanged();
-			notifyObservers(new TileSetEvent(e.getKey().row, e.getKey().column,
-					e.getValue()));
+
+			controller.onTileSet(e.getKey().row, e.getKey().column,
+					e.getValue());
 		}
 	}
 

@@ -1,13 +1,7 @@
 package misc;
 public enum Direction {
 
-	NORTH(0), EAST(1), SOUTH(2), WEST(3);
-
-	private final int dir;
-	
-	Direction(int dir) {
-		this.dir = dir;
-	}
+	NORTH, EAST, SOUTH, WEST;
 	
 	public Direction rotate(int times) {
 		Direction[] values = Direction.values();

@@ -10,11 +10,6 @@ public class SplitMirror extends Tile implements Rotatable {
 	public SplitMirror(Direction orientation) {
 		this.orientation = orientation;
 	}
-	
-	@Override
-	public String getName() {
-		return name;
-	}
 
 	@Override
 	public Direction getOrientation() {

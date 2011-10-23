@@ -12,14 +12,19 @@ public class Board {
 
 	private Tile[][] content;
 
-	public Board(int width, int height) {
-		content = new Tile[width][height];
+	public Board(int height, int width) {
+
+		if (width < 5 || height < 5 || width > 25 || height > 25) {
+			throw new InvalidBoardSizeException();
+		}
+
+		content = new Tile[height][width];
 
 		for (int i = 0; i < height; i++) {
 			for (int j = 0; j < width; j++) {
 				content[i][j] = new EmptyTile();
 			}
-		}
+		}		
 	}
 
 	public Tile getTile(Position p) {

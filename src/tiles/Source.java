@@ -15,11 +15,6 @@ public class Source extends ColoredTile implements Rotatable {
 		this.orientation = orientation;
 	}
 
-	@Override
-	public String getName() {
-		return name;
-	}
-
 	public Direction getOrientation() {
 		return orientation;
 	}

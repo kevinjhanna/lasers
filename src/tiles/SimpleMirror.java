@@ -10,11 +10,6 @@ public class SimpleMirror extends Tile implements Rotatable {
 	public SimpleMirror(Direction orientation) {
 		this.orientation = orientation;
 	}
-
-	@Override
-	public String getName() {
-		return name;
-	}
 	
 	@Override
 	public Direction getOrientation() {

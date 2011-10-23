@@ -26,13 +26,13 @@ public class BoardTest extends TestCase {
 	@Test
 	public void testInvalidBoardSize() {
 		try {
-			Board b = new Board(4, 4);
+			new Board(4, 4);
 			fail();
 		} catch (InvalidBoardSizeException e) {
 		}
 
 		try {
-			Board b = new Board(26, 26);
+			new Board(26, 26);
 			fail();
 		} catch (InvalidBoardSizeException e) {
 		}

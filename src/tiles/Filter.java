@@ -13,11 +13,6 @@ public class Filter extends ColoredTile implements Rotatable {
 		this.color = color;
 		this.orientation = orientation;
 	}
-
-	@Override
-	public String getName() {
-		return name;
-	}
 	
 	public Direction getOrientation() {
 		return orientation;

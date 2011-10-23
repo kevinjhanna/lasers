@@ -1,3 +1,4 @@
+package frontend;
 import gui.ImageUtils;
 
 import java.awt.Color;
@@ -6,9 +7,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import tiles.ColoredTile;
-import tiles.Rotatable;
-import tiles.Tile;
+import tiles.*;
 
 class ImageFactory {
 
@@ -24,32 +23,32 @@ class ImageFactory {
 	private ImageFactory() {
 		try {
 			images = new HashMap<String, Image>();
-			images.put("Wall",
+			images.put(Wall.class.getName(),
 					ImageUtils.loadImage("resources/wall.png"));
-			images.put("DoubleMirror",
+			images.put(DoubleMirror.class.getName(),
 					ImageUtils.loadImage("resources/double-mirror.png"));
-			images.put("Filter",
+			images.put(Filter.class.getName(),
 					ImageUtils.loadImage("resources/filter.png"));
-			images.put("HalfLaser",
-					ImageUtils.loadImage("resources/half-laser.png"));
-			images.put("Laser",
-					ImageUtils.loadImage("resources/laser.png"));
-			images.put("SimpleMirror",
+			images.put(SimpleMirror.class.getName(),
 					ImageUtils.loadImage("resources/simple-mirror.png"));
-			images.put("Source",
+			images.put(Source.class.getName(),
 					ImageUtils.loadImage("resources/source.png"));
-			images.put("SplitMirror",
+			images.put(SplitMirror.class.getName(),
 					ImageUtils.loadImage("resources/split-mirror.png"));
-			images.put("Target",
+			images.put(Target.class.getName(),
 					ImageUtils.loadImage("resources/target.png"));
 		} catch (IOException e) {
-			System.out.println("Could not load images.");
+			System.out.println("Error: Could not load images.");
 			System.exit(0);
 		}
 	}
 
-	public Image tile(Tile t) {
-		Image img = images.get(t.getName());
+	public Image forTile(Tile t) {
+		Image img = images.get(t.getClass().getName());
+		if (img == null) {
+			return null;
+		}
+		
 		if (t instanceof ColoredTile) {
 			img = ImageUtils.replaceColor(img, maskColor, ((ColoredTile) t).getColor());
 		}
