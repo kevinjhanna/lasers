@@ -1,6 +1,6 @@
 package game;
 
-import tiles.Tile;
+import tiles.Drawable;
 
 /**
  * Interfaz con métodos que son llamados por el juego para actualizar el frontend
@@ -17,7 +17,7 @@ public interface Observer {
 	 * @param targetColumn
 	 * @param tile
 	 */
-	void onTileMove(int sourceRow, int sourceColumn, int targetRow, int targetColumn, Tile tile);
+	void onTileMove(int sourceRow, int sourceColumn, int targetRow, int targetColumn, Drawable drawable);
 
 	/**
 	 * Notificador de rotación de una celda en el tablero
@@ -26,7 +26,7 @@ public interface Observer {
 	 * @param column
 	 * @param tile
 	 */
-	void onTileRotated(int row, int column, Tile tile);
+	void onTileRotated(int row, int column, Drawable drawable);
 
 	/**
 	 * Notificador de adición de una celda al tablero
@@ -35,7 +35,7 @@ public interface Observer {
 	 * @param column
 	 * @param tile
 	 */
-	void onTileSet(int row, int column, Tile tile);
+	void onTileSet(int row, int column, Drawable drawable);
 
 	/**
 	 * Notificador de actualización de puntaje

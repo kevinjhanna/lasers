@@ -3,7 +3,7 @@ package tiles;
 import misc.Direction;
 import game.TileDrawer;
 
-public abstract class Tile {
+public abstract class Tile implements Drawable {
 
 	public boolean isEmpty() {
 		return false;

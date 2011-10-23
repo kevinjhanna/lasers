@@ -13,7 +13,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-import tiles.Tile;
+import tiles.Drawable;
 
 public class GamePanel extends JPanel implements View {
 
@@ -102,11 +102,11 @@ public class GamePanel extends JPanel implements View {
 	}
 
 	@Override
-	public void setCellImage(int row, int column, Tile tile) {
-		if (tile == null) {
+	public void setCellImage(int row, int column, Drawable drawable) {
+		if (drawable == null) {
 			boardPanel.clearImage(row, column);
 		} else {
-			boardPanel.setImage(row, column, tile.draw(tileDrawer));
+			boardPanel.setImage(row, column, drawable.draw(tileDrawer));
 			boardPanel.repaint();
 		}
 	}

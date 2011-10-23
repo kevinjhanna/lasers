@@ -9,8 +9,8 @@ import game.Observer;
 import java.io.File;
 import java.io.IOException;
 
+import tiles.Drawable;
 import tiles.RotationNotSupportedException;
-import tiles.Tile;
 
 /**
  * Controlador principal del juego. Contiene un ViewContainer para mostrar el
@@ -173,10 +173,10 @@ public class GameController implements Controller, Observer {
 	 */
 	@Override
 	public void onTileMove(int sourceRow, int sourceColumn, int targetRow,
-			int targetColumn, Tile tile) {
+			int targetColumn, Drawable drawable) {
 
 		container.getView().setCellImage(sourceRow, sourceColumn, null);
-		container.getView().setCellImage(targetRow, targetColumn, tile);
+		container.getView().setCellImage(targetRow, targetColumn, drawable);
 	}
 
 	/**
@@ -188,8 +188,8 @@ public class GameController implements Controller, Observer {
 	 * @param tile
 	 */
 	@Override
-	public void onTileRotated(int row, int column, Tile tile) {
-		container.getView().setCellImage(row, column, tile);
+	public void onTileRotated(int row, int column, Drawable drawable) {
+		container.getView().setCellImage(row, column, drawable);
 	}
 
 	/**
@@ -200,8 +200,8 @@ public class GameController implements Controller, Observer {
 	 * @param tile
 	 */
 	@Override
-	public void onTileSet(int row, int column, Tile tile) {
-		container.getView().setCellImage(row, column, tile);
+	public void onTileSet(int row, int column, Drawable drawable) {
+		container.getView().setCellImage(row, column, drawable);
 	}
 
 	/**
