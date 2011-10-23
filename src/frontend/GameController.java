@@ -43,7 +43,6 @@ public class GameController implements Controller, Observer {
 		try {
 			game.rotate(row, column);
 		} catch (RotationNotSupportedException e) {
-			container.showWarning("Can't rotate tile.");
 		}
 	}
 
@@ -65,7 +64,6 @@ public class GameController implements Controller, Observer {
 		} catch (TargetTileNotEmptyException e) {
 			container.showWarning("Target tile is not empty.");
 		} catch (TileIsFixedException e) {
-			container.showWarning("Tile is fixed.");
 		}
 	}
 
