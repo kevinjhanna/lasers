@@ -5,10 +5,13 @@ import gui.BoardPanelListener;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.Timer;
 
 import tiles.Tile;
 
@@ -20,7 +23,10 @@ public class GamePanel extends JPanel implements View {
 	private final int boardWidth;
 	private final int boardHeight;
 	private BoardPanel boardPanel;
+	private JPanel statusPanel;
 	private JLabel scoreLabel;
+	private JLabel timerLabel;
+	private int elapsedTime;
 	private ImageTileDrawer tileDrawer = new ImageTileDrawer();
 
 	public GamePanel(Controller controller, int boardHeight, int boardWidth) {
@@ -33,7 +39,7 @@ public class GamePanel extends JPanel implements View {
 	public void initialize() {
 		setLayout(new BorderLayout());
 		initializeBoard();
-		initializeScore();
+		initializeStatusPanel();
 		setSize(boardPanel.getWidth() + 20, boardPanel.getHeight() + 63);
 	}
 
@@ -59,12 +65,40 @@ public class GamePanel extends JPanel implements View {
 		});
 		add(boardPanel);
 	}
-
+	
+	private void initializeStatusPanel() {
+		statusPanel = new JPanel();
+		statusPanel.setLayout(new BorderLayout());
+		statusPanel.setBorder(BorderFactory.createEmptyBorder(5, 0, 0, 0));
+		initializeScore();
+		initializeTimer();
+		add(statusPanel, BorderLayout.SOUTH);
+	}
 
 	private void initializeScore() {
 		scoreLabel = new JLabel();
-		scoreLabel.setBorder(BorderFactory.createEmptyBorder(5, 0, 0, 0));
-		add(scoreLabel, BorderLayout.SOUTH);
+		statusPanel.add(scoreLabel, BorderLayout.WEST);
+	}
+
+	private void initializeTimer() {
+		elapsedTime = 0;
+		timerLabel = new JLabel(formatTime(elapsedTime));
+
+		Timer timer = new Timer(1000, new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				timerLabel.setText(formatTime(++elapsedTime));
+			}
+		});
+		timer.setRepeats(true);
+		timer.start();
+		statusPanel.add(timerLabel, BorderLayout.EAST);
+	}
+
+	private String formatTime(int elapsedTime) {
+		int minutes = elapsedTime / 60;
+		int seconds = elapsedTime % 60;
+		return String.format("%02d:%02d", minutes, seconds);
 	}
 
 	@Override
