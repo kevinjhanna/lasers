@@ -1,10 +1,10 @@
 package frontend;
 
+import exceptions.SourceTileEmptyException;
+import exceptions.TargetTileNotEmptyException;
+import exceptions.TileIsFixedException;
 import game.Game;
 import game.Observer;
-import game.SourceTileEmptyException;
-import game.TargetTileNotEmptyException;
-import game.TileIsFixedException;
 
 import java.io.File;
 import java.io.IOException;

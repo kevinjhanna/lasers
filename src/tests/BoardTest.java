@@ -1,7 +1,7 @@
 package tests;
 
+import exceptions.InvalidBoardSizeException;
 import game.Board;
-import game.InvalidBoardSizeException;
 import junit.framework.TestCase;
 import misc.Position;
 

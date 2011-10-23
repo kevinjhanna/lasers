@@ -1,4 +1,4 @@
-package game;
+package exceptions;
 
 public class TileIsFixedException extends Exception {
 

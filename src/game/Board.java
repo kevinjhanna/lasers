@@ -1,5 +1,8 @@
 package game;
 
+import exceptions.InvalidBoardSizeException;
+import exceptions.SourceTileEmptyException;
+import exceptions.TargetTileNotEmptyException;
 import misc.Position;
 import tiles.EmptyTile;
 import tiles.Tile;
