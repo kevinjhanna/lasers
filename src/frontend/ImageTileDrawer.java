@@ -1,5 +1,6 @@
 package frontend;
 
+import game.TileDrawer;
 import gui.ImageUtils;
 
 import java.awt.Color;
@@ -21,24 +22,28 @@ public class ImageTileDrawer implements TileDrawer<Image> {
 	public ImageTileDrawer() {
 		loadResources();
 	}
-	
+
 	private void loadResources() {
 		try {
 			images = new HashMap<String, Image>();
-			images.put(Wall.class.getName(),
-					ImageUtils.loadImage("resources/wall.png"));
-			images.put(DoubleMirror.class.getName(),
-					ImageUtils.loadImage("resources/double-mirror.png"));
-			images.put(Filter.class.getName(),
-					ImageUtils.loadImage("resources/filter.png"));
-			images.put(SimpleMirror.class.getName(),
-					ImageUtils.loadImage("resources/simple-mirror.png"));
-			images.put(Source.class.getName(),
-					ImageUtils.loadImage("resources/source.png"));
-			images.put(SplitMirror.class.getName(),
-					ImageUtils.loadImage("resources/split-mirror.png"));
-			images.put(Target.class.getName(),
-					ImageUtils.loadImage("resources/target.png"));
+			
+			Image source       = ImageUtils.loadImage("resources/source.png");
+			Image target       = ImageUtils.loadImage("resources/target.png");
+			Image wall         = ImageUtils.loadImage("resources/wall.png");
+			Image filter       = ImageUtils.loadImage("resources/filter.png");
+			Image simpleMirror = ImageUtils.loadImage("resources/simple-mirror.png");
+			Image doubleMirror = ImageUtils.loadImage("resources/double-mirror.png");
+			Image splitMirror  = ImageUtils.loadImage("resources/split-mirror.png");
+			
+			images.put(Source.class.getName(), source);
+			images.put(MoveableSource.class.getName(), source);
+			images.put(Target.class.getName(), target);
+			images.put(Wall.class.getName(), wall);
+			images.put(Filter.class.getName(), filter);
+			images.put(SimpleMirror.class.getName(), simpleMirror);
+			images.put(DoubleMirror.class.getName(), doubleMirror);
+			images.put(SplitMirror.class.getName(), splitMirror);
+			
 		} catch (IOException e) {
 			System.out.println("Error: Could not load images.");
 			System.exit(0);

@@ -1,13 +1,17 @@
 package tiles;
 
 import misc.Direction;
-import frontend.TileDrawer;
+import game.TileDrawer;
 
 public abstract class Tile {
 
 	public boolean isEmpty() {
 		return false;
 	}
+	
+	public boolean isFixed() {
+		return false;
+	} 
 
 	public Direction getDirection() {
 		return Direction.NORTH;

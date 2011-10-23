@@ -3,7 +3,7 @@ package tiles;
 import java.awt.Color;
 
 import misc.Direction;
-import frontend.TileDrawer;
+import game.TileDrawer;
 
 public class Filter extends ColoredTile {
 	

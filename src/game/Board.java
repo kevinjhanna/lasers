@@ -63,19 +63,10 @@ public class Board {
 	 * @throws SourceTileEmptyException
 	 * @throws TargetTileNotEmptyException
 	 */
-	public void moveTile(Position src, Position dst)
-			throws SourceTileEmptyException, TargetTileNotEmptyException {
-
-		if (getTile(src).isEmpty()) {
-			throw new SourceTileEmptyException();
-		}
-		if (!getTile(dst).isEmpty()) {
-			throw new TargetTileNotEmptyException();
-		}
-
-		Tile tile = getTile(src);
-		setTile(src, new EmptyTile());
-		setTile(dst, tile);
+	public void moveTile(Position source, Position target) {
+		Tile tile = getTile(source);
+		setTile(source, new EmptyTile());
+		setTile(target, tile);
 	}
 
 }

@@ -2,7 +2,7 @@ package tiles;
 
 import java.awt.Color;
 
-import frontend.TileDrawer;
+import game.TileDrawer;
 
 public abstract class ColoredTile extends Tile {
 

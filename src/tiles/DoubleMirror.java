@@ -1,7 +1,7 @@
 package tiles;
 
 import misc.Direction;
-import frontend.TileDrawer;
+import game.TileDrawer;
 
 public class DoubleMirror extends Tile {
 

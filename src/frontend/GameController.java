@@ -4,6 +4,7 @@ import game.Game;
 import game.Observer;
 import game.SourceTileEmptyException;
 import game.TargetTileNotEmptyException;
+import game.TileIsFixedException;
 
 import java.io.File;
 import java.io.IOException;
@@ -63,6 +64,8 @@ public class GameController implements Controller, Observer {
 			container.showWarning("Source tile is empty.");
 		} catch (TargetTileNotEmptyException e) {
 			container.showWarning("Target tile is not empty.");
+		} catch (TileIsFixedException e) {
+			container.showWarning("Tile is fixed.");
 		}
 	}
 

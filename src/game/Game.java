@@ -8,14 +8,7 @@ import java.util.Map;
 
 import misc.Direction;
 import misc.Position;
-import tiles.DoubleMirror;
-import tiles.Filter;
-import tiles.RotationNotSupportedException;
-import tiles.SimpleMirror;
-import tiles.Source;
-import tiles.Target;
-import tiles.Tile;
-import tiles.Wall;
+import tiles.*;
 
 /**
  * Clase que representa un juego de Lasers and Mirrors
@@ -47,7 +40,7 @@ public class Game {
 		tiles.put(new Position(1, 7), new Wall());
 		tiles.put(new Position(8, 8), new Filter(new Color(0, 255, 0),
 				Direction.NORTH));
-		tiles.put(new Position(8, 6), new Source(new Color(255, 0, 0),
+		tiles.put(new Position(8, 6), new MoveableSource(new Color(255, 0, 0),
 				Direction.SOUTH));
 		tiles.put(new Position(7, 7), new SimpleMirror(Direction.EAST));
 		tiles.put(new Position(6, 6), new DoubleMirror(Direction.WEST));
@@ -117,7 +110,17 @@ public class Game {
 	 */
 	public void move(int sourceRow, int sourceColumn, int targetRow,
 			int targetColumn) throws SourceTileEmptyException,
-			TargetTileNotEmptyException {
+			TargetTileNotEmptyException, TileIsFixedException {
+
+		if (getTile(sourceRow, sourceColumn).isFixed()) {
+			throw new TileIsFixedException();
+		}
+		if (getTile(sourceRow, sourceColumn).isEmpty()) {
+			throw new SourceTileEmptyException();
+		}
+		if (!getTile(targetRow, targetColumn).isEmpty()) {
+			throw new TargetTileNotEmptyException();
+		}
 
 		Position source = new Position(sourceRow, sourceColumn);
 		Position target = new Position(targetRow, targetColumn);
@@ -136,7 +139,7 @@ public class Game {
 	 */
 	public void rotate(int row, int column)
 			throws RotationNotSupportedException {
-		
+
 		board.getTile(new Position(row, column)).rotate();
 		observer.onTileRotated(row, column, getTile(row, column));
 	}
