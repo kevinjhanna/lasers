@@ -1,10 +1,10 @@
 package frontend;
 
-import java.awt.Image;
+import tiles.Tile;
 
 public interface View {
 
-	public abstract void setCellImage(int row, int column, Image image);
+	public abstract void setCellImage(int row, int column, Tile tile);
 
 	public abstract void updateScore(int score);
 

@@ -1,4 +1,5 @@
 package frontend;
+
 import gui.ImageUtils;
 
 import java.awt.Color;
@@ -7,20 +8,21 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import misc.Direction;
+
 import tiles.*;
 
-class ImageFactory {
+public class ImageTileDrawer implements TileDrawer<Image> {
 
-	private static final ImageFactory instance = new ImageFactory();
 	private static final Color maskColor = new Color(0, 0, 255);
-	
-	private Map<String, Image> images;
-	
-	public static ImageFactory getInstance() {
-		return instance;
-	}
 
-	private ImageFactory() {
+	private Map<String, Image> images;
+
+	public ImageTileDrawer() {
+		loadResources();
+	}
+	
+	private void loadResources() {
 		try {
 			images = new HashMap<String, Image>();
 			images.put(Wall.class.getName(),
@@ -43,18 +45,15 @@ class ImageFactory {
 		}
 	}
 
-	public Image forTile(Tile t) {
-		Image img = images.get(t.getClass().getName());
-		if (img == null) {
-			return null;
-		}
-		
-		if (t instanceof ColoredTile) {
-			img = ImageUtils.replaceColor(img, maskColor, ((ColoredTile) t).getColor());
-		}
-		if (t instanceof Rotatable) {
-			img = ImageUtils.rotateImage(img, ((Rotatable) t).getDirection().ordinal());
-		}
-		return img;
+	public Image draw(String base) {
+		return images.get(base);
+	}
+
+	public Image withColor(Image img, Color color) {
+		return ImageUtils.replaceColor(img, maskColor, color);
+	}
+
+	public Image withDirection(Image img, Direction direction) {
+		return ImageUtils.rotateImage(img, direction.ordinal());
 	}
 }

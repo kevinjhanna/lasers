@@ -1,9 +1,11 @@
 package tiles;
 
 import java.awt.Color;
-import misc.Direction;
 
-public class Filter extends ColoredTile implements Rotatable {
+import misc.Direction;
+import frontend.TileDrawer;
+
+public class Filter extends ColoredTile {
 	
 	public Direction direction;
 	
@@ -19,5 +21,9 @@ public class Filter extends ColoredTile implements Rotatable {
 	public void rotate() {
 		direction = direction.turn();
 	}
-	
+
+	@Override
+	public <T> T draw(TileDrawer<T> drawer) {
+		return drawer.withDirection(super.draw(drawer), direction);
+	}
 }

@@ -12,17 +12,17 @@ import tiles.RotationNotSupportedException;
 import tiles.Tile;
 
 /**
- * Controlador principal del juego.
- * Contiene un ViewContainer para mostrar el juego en pantalla
+ * Controlador principal del juego. Contiene un ViewContainer para mostrar el
+ * juego en pantalla
  */
 public class GameController implements Controller, Observer {
 
 	private Game game;
 	private ViewContainer container;
-	private ImageFactory image = ImageFactory.getInstance();
 
 	/**
 	 * Constructor del controlador
+	 * 
 	 * @param container
 	 */
 	public GameController(ViewContainer container) {
@@ -31,7 +31,7 @@ public class GameController implements Controller, Observer {
 		container.initialize();
 		container.setVisible(true);
 	}
-	
+
 	/**
 	 * Rota una pieza del tablero de juego
 	 * 
@@ -75,7 +75,7 @@ public class GameController implements Controller, Observer {
 		}
 
 		File f = container.showSave();
-		if (f != null) { 
+		if (f != null) {
 			game.save(f);
 		}
 	}
@@ -159,7 +159,8 @@ public class GameController implements Controller, Observer {
 	}
 
 	/**
-	 * Actualiza las celdas del tablero correspondientes cuando ocurre un movimiento de piezas
+	 * Actualiza las celdas del tablero correspondientes cuando ocurre un
+	 * movimiento de piezas
 	 * 
 	 * @param sourceRow
 	 * @param sourceColumn
@@ -172,12 +173,12 @@ public class GameController implements Controller, Observer {
 			int targetColumn, Tile tile) {
 
 		container.getView().setCellImage(sourceRow, sourceColumn, null);
-		container.getView().setCellImage(targetRow, targetColumn,
-				image.forTile(tile));
+		container.getView().setCellImage(targetRow, targetColumn, tile);
 	}
 
 	/**
-	 * Actualiza la celda del tablero correspondiente cuando ocurre una rotaci—n de pieza
+	 * Actualiza la celda del tablero correspondiente cuando ocurre una rotaci—n
+	 * de pieza
 	 * 
 	 * @param row
 	 * @param column
@@ -185,7 +186,7 @@ public class GameController implements Controller, Observer {
 	 */
 	@Override
 	public void onTileRotated(int row, int column, Tile tile) {
-		container.getView().setCellImage(row, column, image.forTile(tile));
+		container.getView().setCellImage(row, column, tile);
 	}
 
 	/**
@@ -197,7 +198,7 @@ public class GameController implements Controller, Observer {
 	 */
 	@Override
 	public void onTileSet(int row, int column, Tile tile) {
-		container.getView().setCellImage(row, column, image.forTile(tile));
+		container.getView().setCellImage(row, column, tile);
 	}
 
 	/**

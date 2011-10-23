@@ -5,11 +5,12 @@ import gui.BoardPanelListener;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Image;
 
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+
+import tiles.Tile;
 
 public class GamePanel extends JPanel implements View {
 
@@ -20,6 +21,7 @@ public class GamePanel extends JPanel implements View {
 	private final int boardHeight;
 	private BoardPanel boardPanel;
 	private JLabel scoreLabel;
+	private ImageTileDrawer tileDrawer = new ImageTileDrawer();
 
 	public GamePanel(Controller controller, int boardHeight, int boardWidth) {
 		this.controller = controller;
@@ -65,18 +67,16 @@ public class GamePanel extends JPanel implements View {
 		add(scoreLabel, BorderLayout.SOUTH);
 	}
 
-	/* (non-Javadoc)
-	 * @see frontend.View#setCellImage(int, int, java.awt.Image)
-	 */
 	@Override
-	public void setCellImage(int row, int column, Image image) {
-		boardPanel.setImage(row, column, image);
-		boardPanel.repaint();
+	public void setCellImage(int row, int column, Tile tile) {
+		if (tile == null) {
+			boardPanel.clearImage(row, column);
+		} else {
+			boardPanel.setImage(row, column, tile.draw(tileDrawer));
+			boardPanel.repaint();
+		}
 	}
 
-	/* (non-Javadoc)
-	 * @see frontend.View#updateScore(int)
-	 */
 	@Override
 	public void updateScore(int score) {
 		scoreLabel.setText("Score: " + score);

@@ -1,8 +1,9 @@
 package tiles;
 
 import misc.Direction;
+import frontend.TileDrawer;
 
-public class DoubleMirror extends Tile implements Rotatable {
+public class DoubleMirror extends Tile {
 
 	private Direction direction;
 	
@@ -18,5 +19,10 @@ public class DoubleMirror extends Tile implements Rotatable {
 	@Override
 	public void rotate() {
 		direction = direction.turn();
+	}
+	
+	@Override
+	public <T> T draw(TileDrawer<T> drawer) {
+		return drawer.withDirection(super.draw(drawer), direction);
 	}
 }

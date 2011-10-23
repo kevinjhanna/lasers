@@ -10,7 +10,6 @@ import misc.Direction;
 import misc.Position;
 import tiles.DoubleMirror;
 import tiles.Filter;
-import tiles.Rotatable;
 import tiles.RotationNotSupportedException;
 import tiles.SimpleMirror;
 import tiles.Source;
@@ -137,12 +136,8 @@ public class Game {
 	 */
 	public void rotate(int row, int column)
 			throws RotationNotSupportedException {
-		Tile tile = board.getTile(new Position(row, column));
-		if (tile instanceof Rotatable) {
-			((Rotatable) tile).rotate();
-		} else {
-			throw new RotationNotSupportedException();
-		}
+		
+		board.getTile(new Position(row, column)).rotate();
 		observer.onTileRotated(row, column, getTile(row, column));
 	}
 

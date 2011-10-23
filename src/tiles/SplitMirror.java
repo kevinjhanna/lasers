@@ -1,10 +1,10 @@
 package tiles;
 
 import misc.Direction;
+import frontend.TileDrawer;
 
-public class SplitMirror extends Tile implements Rotatable {
+public class SplitMirror extends Tile {
 
-	public static final String name = "SplitMirror";
 	public Direction direction;
 
 	public SplitMirror(Direction direction) {
@@ -19,5 +19,10 @@ public class SplitMirror extends Tile implements Rotatable {
 	@Override
 	public void rotate() {
 		direction = direction.turn();
+	}
+	
+	@Override
+	public <T> T draw(TileDrawer<T> drawer) {
+		return drawer.withDirection(super.draw(drawer), direction);
 	}
 }
