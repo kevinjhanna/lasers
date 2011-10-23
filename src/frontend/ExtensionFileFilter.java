@@ -3,7 +3,6 @@ import java.io.File;
 
 import javax.swing.filechooser.FileFilter;
 
-
 public class ExtensionFileFilter extends FileFilter {
 	
 	private String extension;
