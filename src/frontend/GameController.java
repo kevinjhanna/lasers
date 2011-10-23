@@ -12,7 +12,7 @@ import tiles.RotationNotSupportedException;
 import tiles.Tile;
 
 /**
- * Controlador princiapal del juego
+ * Controlador principal del juego.
  * Contiene un ViewContainer para mostrar el juego en pantalla
  */
 public class GameController implements Controller, Observer {
