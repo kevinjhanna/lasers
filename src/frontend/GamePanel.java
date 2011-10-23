@@ -22,6 +22,7 @@ public class GamePanel extends JPanel implements View {
 	private Controller controller;
 	private final int boardWidth;
 	private final int boardHeight;
+	private ImageTileDrawer tileDrawer = new ImageTileDrawer();
 	private BoardPanel boardPanel;
 	private JPanel statusPanel;
 	private JLabel scoreLabel;
@@ -29,7 +30,6 @@ public class GamePanel extends JPanel implements View {
 	private String scoreFormat = "<html><b>Score:</b> %s</html>";
 	private String elapsedTimeFormat = "<html><b>Elapsed time:</b> %s</html>";
 	private int elapsedTime;
-	private ImageTileDrawer tileDrawer = new ImageTileDrawer();
 
 	public GamePanel(Controller controller, int boardHeight, int boardWidth) {
 		this.controller = controller;
@@ -42,7 +42,7 @@ public class GamePanel extends JPanel implements View {
 		setLayout(new BorderLayout());
 		initializeBoard();
 		initializeStatusPanel();
-		setSize(boardPanel.getWidth() + 20, boardPanel.getHeight() + 63);
+		setSize(boardPanel.getWidth() + 20, boardPanel.getHeight() + 68);
 	}
 
 	private void initializeBoard() {
@@ -67,11 +67,11 @@ public class GamePanel extends JPanel implements View {
 		});
 		add(boardPanel);
 	}
-	
+
 	private void initializeStatusPanel() {
 		statusPanel = new JPanel();
 		statusPanel.setLayout(new BorderLayout());
-		statusPanel.setBorder(BorderFactory.createEmptyBorder(5, 0, 0, 0));
+		statusPanel.setBorder(BorderFactory.createEmptyBorder(10, 0, 0, 0));
 		initializeScore();
 		initializeTimer();
 		add(statusPanel, BorderLayout.SOUTH);
