@@ -11,6 +11,10 @@ import java.io.IOException;
 import tiles.RotationNotSupportedException;
 import tiles.Tile;
 
+/**
+ * Controlador princiapal del juego
+ * Contiene un ViewContainer para mostrar el juego en pantalla
+ */
 public class GameController implements Controller, Observer {
 
 	private Game game;
@@ -18,7 +22,8 @@ public class GameController implements Controller, Observer {
 	private ImageFactory image = ImageFactory.getInstance();
 
 	/**
-	 * Create the frame.
+	 * Constructor del controlador
+	 * @param container
 	 */
 	public GameController(ViewContainer container) {
 		this.container = container;
@@ -26,7 +31,13 @@ public class GameController implements Controller, Observer {
 		container.initialize();
 		container.setVisible(true);
 	}
-
+	
+	/**
+	 * Rota una pieza del tablero de juego
+	 * 
+	 * @param row
+	 * @param column
+	 */
 	public void rotate(int row, int column) {
 		try {
 			game.rotate(row, column);
@@ -35,6 +46,14 @@ public class GameController implements Controller, Observer {
 		}
 	}
 
+	/**
+	 * Mueve una pieza del tablero de juego
+	 * 
+	 * @param sourceRow
+	 * @param sourceColumn
+	 * @param targetRow
+	 * @param targetColumn
+	 */
 	public void move(int sourceRow, int sourceColumn, int targetRow,
 			int targetColumn) {
 
@@ -47,6 +66,9 @@ public class GameController implements Controller, Observer {
 		}
 	}
 
+	/**
+	 * Guarda el juego en curso
+	 */
 	public void saveGame() {
 		if (game == null) {
 			throw new NoGameException();
@@ -58,6 +80,9 @@ public class GameController implements Controller, Observer {
 		}
 	}
 
+	/**
+	 * Crea un juego nuevo a partir de un archivo de tablero
+	 */
 	public void newGame() {
 		File f = container.showLoad("board");
 		if (f != null) {
@@ -70,12 +95,18 @@ public class GameController implements Controller, Observer {
 		}
 	}
 
+	/**
+	 * Comienza el juego creado
+	 */
 	private void startGame() {
 		container.setGame(game.getBoardHeight(), game.getBoardWidth());
 		game.start(this);
 		container.setGameVisible(true);
 	}
 
+	/**
+	 * Carga un juego a partir de un archivo de juego guardado
+	 */
 	@Override
 	public void loadGame() {
 		File f = container.showLoad("save");
@@ -89,6 +120,9 @@ public class GameController implements Controller, Observer {
 		}
 	}
 
+	/**
+	 * Cierra el juego
+	 */
 	@Override
 	public void closeGame() {
 		if (game != null) {
@@ -105,6 +139,9 @@ public class GameController implements Controller, Observer {
 		}
 	}
 
+	/**
+	 * Sale del programa
+	 */
 	@Override
 	public void quit() {
 		if (game != null) {
@@ -121,6 +158,15 @@ public class GameController implements Controller, Observer {
 		System.exit(0);
 	}
 
+	/**
+	 * Actualiza las celdas del tablero correspondientes cuando ocurre un movimiento de piezas
+	 * 
+	 * @param sourceRow
+	 * @param sourceColumn
+	 * @param targetRow
+	 * @param targetColumn
+	 * @param tile
+	 */
 	@Override
 	public void onTileMove(int sourceRow, int sourceColumn, int targetRow,
 			int targetColumn, Tile tile) {
@@ -130,18 +176,37 @@ public class GameController implements Controller, Observer {
 				image.forTile(tile));
 	}
 
+	/**
+	 * Actualiza la celda del tablero correspondiente cuando ocurre una rotaci—n de pieza
+	 * 
+	 * @param row
+	 * @param column
+	 * @param tile
+	 */
 	@Override
 	public void onTileRotated(int row, int column, Tile tile) {
 		container.getView().setCellImage(row, column, image.forTile(tile));
 	}
 
+	/**
+	 * Actualiza la celda del tablero correspondiente cuando se a–ade una pieza
+	 * 
+	 * @param row
+	 * @param column
+	 * @param tile
+	 */
 	@Override
 	public void onTileSet(int row, int column, Tile tile) {
 		container.getView().setCellImage(row, column, image.forTile(tile));
 	}
 
+	/**
+	 * Actualiza el puntaje mostrado cuando ocurre un cambio de puntaje
+	 * 
+	 * @param newScore
+	 */
 	@Override
-	public void onScoreChange(int score) {
-		container.getView().updateScore(score);
+	public void onScoreChange(int newScore) {
+		container.getView().updateScore(newScore);
 	}
 }

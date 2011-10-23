@@ -12,6 +12,13 @@ public class Board {
 
 	private Tile[][] content;
 
+	/**
+	 * Constructor de un tablero de dimensiones datas Las dimensiones no pueden
+	 * ser menores a 5 ni mayores a 25, tanto de ancho como de alto
+	 * 
+	 * @param height
+	 * @param width
+	 */
 	public Board(int height, int width) {
 
 		if (width < 5 || height < 5 || width > 25 || height > 25) {
@@ -24,17 +31,38 @@ public class Board {
 			for (int j = 0; j < width; j++) {
 				content[i][j] = new EmptyTile();
 			}
-		}		
+		}
 	}
 
+	/**
+	 * Retorna la celda ubicada en la posici—n dada
+	 * 
+	 * @param p
+	 * @return Tile
+	 */
 	public Tile getTile(Position p) {
 		return content[p.row][p.column];
 	}
 
+	/**
+	 * Reemplaza una celda en la posici—n dada
+	 * 
+	 * @param p
+	 * @param tile
+	 */
 	public void setTile(Position p, Tile tile) {
 		content[p.row][p.column] = tile;
 	}
 
+	/**
+	 * Mueve una celda desde una posici—n a la otra. La celda origen se completa
+	 * con una nueva celda vac’a
+	 * 
+	 * @param src
+	 * @param dst
+	 * @throws SourceTileEmptyException
+	 * @throws TargetTileNotEmptyException
+	 */
 	public void moveTile(Position src, Position dst)
 			throws SourceTileEmptyException, TargetTileNotEmptyException {
 
