@@ -13,7 +13,7 @@ public class ExtensionFileFilter extends FileFilter {
 
 	@Override
 	public boolean accept(File f) {
-		return f.getName().toLowerCase().endsWith("." + extension);
+		return f.getName().endsWith("." + extension) || f.isDirectory();
 	}
 
 	@Override
