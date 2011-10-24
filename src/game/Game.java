@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import exceptions.InvalidBoardSizeException;
 import exceptions.RotationNotSupportedException;
 import exceptions.SourceTileEmptyException;
 import exceptions.TargetTileNotEmptyException;
@@ -29,6 +30,11 @@ public class Game {
 	private Integer score;
 	private Board board;
 	private Map<Position, Tile> initialTiles;
+	
+	public static final int MAXHEIGHT = 20;
+	public static final int MAXWIDTH = 20;
+	public static final int MINHEIGHT = 5;
+	public static final int MINWIDTH = 5;
 
 	/**
 	 * Crea un nuevo juego a partir de un archivo de tablero
@@ -201,6 +207,10 @@ public class Game {
 	 */
 	private Game(int boardHeight, int boardWidth,
 			Map<Position, Tile> initialTiles) {
+		
+		if (boardHeight > MAXHEIGHT || boardHeight < MINHEIGHT || boardWidth > MAXWIDTH || boardWidth < MINWIDTH){
+			throw new InvalidBoardSizeException();
+		}
 
 		this.boardHeight = boardHeight;
 		this.boardWidth = boardWidth;

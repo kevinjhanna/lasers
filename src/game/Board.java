@@ -24,10 +24,6 @@ public class Board {
 	 */
 	public Board(int height, int width) {
 
-		if (width < 5 || height < 5 || width > 25 || height > 25) {
-			throw new InvalidBoardSizeException();
-		}
-
 		content = new Tile[height][width];
 
 		for (int i = 0; i < height; i++) {
