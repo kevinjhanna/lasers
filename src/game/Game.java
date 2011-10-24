@@ -1,22 +1,18 @@
 package game;
 
-import gameparser.*;
-
-import java.awt.Color;
-import java.io.File;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-
 import exceptions.InvalidBoardSizeException;
 import exceptions.RotationNotSupportedException;
 import exceptions.SourceTileEmptyException;
 import exceptions.TargetTileNotEmptyException;
 import exceptions.TileIsFixedException;
+import gameparser.GameParser;
 
-import misc.Direction;
+import java.io.File;
+import java.io.IOException;
+import java.util.Map;
+
 import misc.Position;
-import tiles.*;
+import tiles.Tile;
 
 /**
  * Clase que representa un juego de Lasers and Mirrors

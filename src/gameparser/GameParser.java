@@ -3,14 +3,16 @@ package gameparser;
 import game.Game;
 
 import java.awt.Color;
-import java.io.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
+import misc.Direction;
+import misc.Position;
 import tiles.*;
-
-import misc.*;
 
 public class GameParser {
 	private File f;
@@ -142,7 +144,6 @@ public class GameParser {
 			break;
 		}
 
-		System.out.println(realTile);
 		tiles.put(position, realTile);
 	}
 

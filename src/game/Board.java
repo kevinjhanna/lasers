@@ -1,11 +1,10 @@
 package game;
 
-import exceptions.InvalidBoardSizeException;
-import exceptions.SourceTileEmptyException;
-import exceptions.TargetTileNotEmptyException;
 import misc.Position;
 import tiles.EmptyTile;
 import tiles.Tile;
+import exceptions.SourceTileEmptyException;
+import exceptions.TargetTileNotEmptyException;
 
 /**
  * Clase que representa un tablero del juego
