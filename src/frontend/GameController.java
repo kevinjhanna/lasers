@@ -35,7 +35,6 @@ public class GameController implements Controller, Observer {
 	/**
 	 * Cierra el juego
 	 */
-	@Override
 	public void closeGame() {
 		if (game != null) {
 			ConfirmOption opt = container.showConfirm("Close without save?");
@@ -54,7 +53,6 @@ public class GameController implements Controller, Observer {
 	/**
 	 * Carga un juego a partir de un archivo de juego guardado
 	 */
-	@Override
 	public void loadGame() {
 		File f = container.showLoad();
 		if (f != null) {
@@ -108,7 +106,6 @@ public class GameController implements Controller, Observer {
 	 * 
 	 * @param newScore
 	 */
-	@Override
 	public void onScoreChange(int newScore) {
 		container.getView().updateScore(newScore);
 	}
@@ -123,7 +120,6 @@ public class GameController implements Controller, Observer {
 	 * @param targetColumn
 	 * @param drawable
 	 */
-	@Override
 	public void onTileMove(int sourceRow, int sourceColumn, int targetRow,
 			int targetColumn, Drawable drawable) {
 
@@ -139,7 +135,7 @@ public class GameController implements Controller, Observer {
 	 * @param column
 	 * @param drawable
 	 */
-	@Override
+	
 	public void onTileRotated(int row, int column, Drawable drawable) {
 		container.getView().setCell(row, column, drawable);
 	}
@@ -151,7 +147,6 @@ public class GameController implements Controller, Observer {
 	 * @param column
 	 * @param drawable
 	 */
-	@Override
 	public void onTileSet(int row, int column, Drawable drawable) {
 		container.getView().setCell(row, column, drawable);
 	}
@@ -159,7 +154,6 @@ public class GameController implements Controller, Observer {
 	/**
 	 * Sale del programa
 	 */
-	@Override
 	public void quit() {
 		if (game != null) {
 			ConfirmOption opt = container.showConfirm("Quit without save?");

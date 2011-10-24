@@ -16,7 +16,7 @@ public class Board {
 	private Tile[][] content;
 
 	/**
-	 * Constructor de un tablero de dimensiones datas Las dimensiones no pueden
+	 * Constructor de un tablero de dimensiones dadas. Las dimensiones no pueden
 	 * ser menores a 5 ni mayores a 25, tanto de ancho como de alto
 	 * 
 	 * @param height

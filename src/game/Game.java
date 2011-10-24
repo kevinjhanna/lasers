@@ -1,5 +1,7 @@
 package game;
 
+import gameparser.*;
+
 import java.awt.Color;
 import java.io.File;
 import java.io.IOException;
@@ -36,20 +38,30 @@ public class Game {
 	 * @throws IOException
 	 */
 	public static Game fromBoardFile(File f) throws IOException {
-		System.out.println("Archivo cargado de " + f.getName());
-
+		
+		GameParser parser = new GameParser(f);
+		try{
+			parser.parse();
+		}
+		catch(Exception e){
+			
+		}
+//		System.out.println("Archivo cargado de " + f.getName());
+//
 		Map<Position, Tile> tiles = new HashMap<Position, Tile>();
-		tiles.put(new Position(3, 4), new Wall());
-		tiles.put(new Position(3, 5), new Wall());
-		tiles.put(new Position(2, 4), new Wall());
-		tiles.put(new Position(1, 7), new Wall());
-		tiles.put(new Position(8, 8), new Filter(new Color(0, 255, 0),
-				Direction.NORTH));
-		tiles.put(new Position(8, 6), new MoveableSource(new Color(255, 0, 0),
-				Direction.SOUTH));
-		tiles.put(new Position(7, 7), new SimpleMirror(Direction.EAST));
-		tiles.put(new Position(6, 6), new DoubleMirror(Direction.WEST));
-		tiles.put(new Position(5, 5), new Target(new Color(233, 200, 150)));
+//		tiles.put(new Position(3, 4), new Wall());
+//		tiles.put(new Position(3, 5), new Wall());
+//		tiles.put(new Position(2, 4), new Wall());
+//		tiles.put(new Position(1, 7), new Wall());
+//		tiles.put(new Position(8, 8), new Filter(new Color(0, 255, 0),
+//				Direction.NORTH));
+//		tiles.put(new Position(8, 6), new MoveableSource(new Color(255, 0, 0),
+//				Direction.SOUTH));
+//		tiles.put(new Position(7, 7), new SimpleMirror(Direction.EAST));
+//		tiles.put(new Position(7, 10), new SplitMirror(Direction.EAST));
+//		tiles.put(new Position(6, 6), new DoubleMirror(Direction.WEST));
+//		tiles.put(new Position(5, 5), new Target(new Color(233, 200, 150)));
+//		
 		return new Game(10, 15, tiles);
 	}
 

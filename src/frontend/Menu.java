@@ -36,7 +36,7 @@ public class Menu extends JMenuBar {
 		fileNew.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, mask));
 		fileNew.addActionListener(new ActionListener() {
 
-			@Override
+			
 			public void actionPerformed(ActionEvent e) {
 				controller.newGame();
 			}
@@ -49,7 +49,7 @@ public class Menu extends JMenuBar {
 		fileOpen.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, mask));
 		fileOpen.addActionListener(new ActionListener() {
 
-			@Override
+			
 			public void actionPerformed(ActionEvent e) {
 				controller.loadGame();
 			}
@@ -63,7 +63,6 @@ public class Menu extends JMenuBar {
 		fileSave.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, mask));
 		fileSave.addActionListener(new ActionListener() {
 
-			@Override
 			public void actionPerformed(ActionEvent e) {
 				controller.saveGame();
 			}
@@ -77,7 +76,7 @@ public class Menu extends JMenuBar {
 		fileClose.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_W, mask));
 		fileClose.addActionListener(new ActionListener() {
 
-			@Override
+			
 			public void actionPerformed(ActionEvent e) {
 				controller.closeGame();
 			}
@@ -89,7 +88,7 @@ public class Menu extends JMenuBar {
 		fileQuit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q, mask));
 		fileQuit.addActionListener(new ActionListener() {
 
-			@Override
+			
 			public void actionPerformed(ActionEvent e) {
 				controller.quit();
 			}

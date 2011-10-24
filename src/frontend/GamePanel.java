@@ -51,12 +51,10 @@ public class GamePanel extends JPanel implements View {
 		boardPanel.setGridColor(Color.GRAY);
 		boardPanel.setListener(new BoardPanelListener() {
 
-			@Override
 			public void cellClicked(int row, int column) {
 				controller.rotate(row, column);
 			}
 
-			@Override
 			public void cellDragged(int sourceRow, int sourceColumn,
 					int targetRow, int targetColumn) {
 
@@ -88,7 +86,6 @@ public class GamePanel extends JPanel implements View {
 		elapsedTimeLabel = new JLabel(String.format(elapsedTimeFormat, formatTime(elapsedTime)));
 
 		Timer timer = new Timer(1000, new ActionListener() {
-			@Override
 			public void actionPerformed(ActionEvent e) {
 				elapsedTimeLabel.setText(String.format(elapsedTimeFormat, formatTime(++elapsedTime)));
 			}
@@ -104,7 +101,6 @@ public class GamePanel extends JPanel implements View {
 		return String.format("%02d:%02d", minutes, seconds);
 	}
 
-	@Override
 	public void setCell(int row, int column, Drawable drawable) {
 		if (drawable == null) {
 			boardPanel.clearImage(row, column);
@@ -114,7 +110,6 @@ public class GamePanel extends JPanel implements View {
 		}
 	}
 
-	@Override
 	public void updateScore(int score) {
 		scoreLabel.setText(String.format(scoreFormat , score));
 	}

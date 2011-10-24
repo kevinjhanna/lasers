@@ -49,7 +49,7 @@ public class Window extends JFrame implements ViewContainer {
 	 * 
 	 * @see frontend.ViewContainer#setGame(int, int)
 	 */
-	@Override
+	
 	public void setGame(int boardHeight, int boardWidth) {
 		gamePanel = new GamePanel(controller, boardHeight, boardWidth);
 	}
@@ -59,7 +59,7 @@ public class Window extends JFrame implements ViewContainer {
 	 * 
 	 * @see frontend.ViewContainer#setGameVisible(boolean)
 	 */
-	@Override
+	
 	public void setGameVisible(boolean b) {
 		if (b) {
 			getContentPane().remove(welcomePanel);
@@ -82,19 +82,19 @@ public class Window extends JFrame implements ViewContainer {
 		return gamePanel;
 	}
 
-	@Override
+	
 	public void showWarning(String message) {
 		JOptionPane.showMessageDialog(this, message, "Warning",
 				JOptionPane.WARNING_MESSAGE);
 	}
 
-	@Override
+	
 	public void showError(String message) {
 		JOptionPane.showMessageDialog(this, message, "Error",
 				JOptionPane.ERROR_MESSAGE);
 	}
 
-	@Override
+	
 	public ConfirmOption showConfirm(String message) {
 		int ret = JOptionPane.showConfirmDialog(this, message, "Confirm",
 				JOptionPane.YES_NO_CANCEL_OPTION);
@@ -108,7 +108,7 @@ public class Window extends JFrame implements ViewContainer {
 		}
 	}
 
-	@Override
+	
 	public File showSave() {
 		JFileChooser fc = new JFileChooser();
 		fc.setFileFilter(new ExtensionFileFilter("board"));
@@ -120,7 +120,7 @@ public class Window extends JFrame implements ViewContainer {
 		return null;
 	}
 
-	@Override
+	
 	public File showLoad() {
 		JFileChooser fc = new JFileChooser();
 		fc.setFileFilter(new ExtensionFileFilter("save"));
@@ -132,7 +132,7 @@ public class Window extends JFrame implements ViewContainer {
 		return null;
 	}
 
-	@Override
+	
 	public File showNew() {
 		JFileChooser fc = new JFileChooser();
 		fc.setFileFilter(new ExtensionFileFilter("board"));

@@ -41,7 +41,7 @@ public class WelcomePanel extends JPanel {
 		newGame.setBounds(117, 73, 200, 40);
 		newGame.addActionListener(new ActionListener() {
 
-			@Override
+			
 			public void actionPerformed(ActionEvent e) {
 				controller.newGame();
 			}
@@ -55,7 +55,7 @@ public class WelcomePanel extends JPanel {
 		loadGame.setBounds(117, 115, 200, 40);
 		loadGame.addActionListener(new ActionListener() {
 
-			@Override
+			
 			public void actionPerformed(ActionEvent e) {
 				controller.loadGame();
 			}
@@ -69,7 +69,7 @@ public class WelcomePanel extends JPanel {
 		quit.setBounds(117, 157, 200, 40);
 		quit.addActionListener(new ActionListener() {
 
-			@Override
+			
 			public void actionPerformed(ActionEvent e) {
 				controller.quit();
 			}
