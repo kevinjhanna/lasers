@@ -1,5 +1,6 @@
 package frontend;
 
+import exceptions.RotationNotSupportedException;
 import exceptions.SourceTileEmptyException;
 import exceptions.TargetTileNotEmptyException;
 import exceptions.TileIsFixedException;
@@ -10,7 +11,6 @@ import java.io.File;
 import java.io.IOException;
 
 import tiles.Drawable;
-import tiles.RotationNotSupportedException;
 
 /**
  * Controlador principal del juego. Contiene un ViewContainer para mostrar el

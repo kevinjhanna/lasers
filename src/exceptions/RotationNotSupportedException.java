@@ -1,4 +1,4 @@
-package tiles;
+package exceptions;
 
 public class RotationNotSupportedException extends Exception {
 

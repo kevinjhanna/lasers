@@ -1,5 +1,6 @@
 package tiles;
 
+import exceptions.RotationNotSupportedException;
 import misc.Direction;
 import game.TileDrawer;
 
