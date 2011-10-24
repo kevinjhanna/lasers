@@ -1,6 +1,5 @@
 package frontend;
 
-
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -28,12 +27,13 @@ public class Menu extends JMenuBar {
 	}
 
 	private void initialize() {
+		int mask = Toolkit.getDefaultToolkit().getMenuShortcutKeyMask();
+
 		file = new JMenu("File");
 
 		// File -> New game...
 		fileNew = new JMenuItem("New game...");
-		fileNew.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, Toolkit
-				.getDefaultToolkit().getMenuShortcutKeyMask()));
+		fileNew.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, mask));
 		fileNew.addActionListener(new ActionListener() {
 
 			@Override
@@ -46,8 +46,7 @@ public class Menu extends JMenuBar {
 
 		// File -> Open saved game...
 		fileOpen = new JMenuItem("Open saved game...");
-		fileOpen.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, Toolkit
-				.getDefaultToolkit().getMenuShortcutKeyMask()));
+		fileOpen.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, mask));
 		fileOpen.addActionListener(new ActionListener() {
 
 			@Override
@@ -61,8 +60,7 @@ public class Menu extends JMenuBar {
 		// File -> Save
 		fileSave = new JMenuItem("Save");
 		fileSave.setEnabled(false);
-		fileSave.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, Toolkit
-				.getDefaultToolkit().getMenuShortcutKeyMask()));
+		fileSave.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, mask));
 		fileSave.addActionListener(new ActionListener() {
 
 			@Override
@@ -76,8 +74,7 @@ public class Menu extends JMenuBar {
 		// File -> Close
 		fileClose = new JMenuItem("Close");
 		fileClose.setEnabled(false);
-		fileClose.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_W, Toolkit
-				.getDefaultToolkit().getMenuShortcutKeyMask()));
+		fileClose.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_W, mask));
 		fileClose.addActionListener(new ActionListener() {
 
 			@Override
@@ -89,8 +86,7 @@ public class Menu extends JMenuBar {
 		file.add(fileClose);
 
 		fileQuit = new JMenuItem("Quit");
-		fileQuit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q, Toolkit
-				.getDefaultToolkit().getMenuShortcutKeyMask()));
+		fileQuit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q, mask));
 		fileQuit.addActionListener(new ActionListener() {
 
 			@Override
@@ -103,7 +99,7 @@ public class Menu extends JMenuBar {
 
 		add(file);
 	}
-	
+
 	public void enableGameItems(boolean b) {
 		fileSave.setEnabled(b);
 		fileClose.setEnabled(b);
