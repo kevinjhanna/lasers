@@ -105,7 +105,7 @@ public class GamePanel extends JPanel implements View {
 	}
 
 	@Override
-	public void setCellImage(int row, int column, Drawable drawable) {
+	public void setCell(int row, int column, Drawable drawable) {
 		if (drawable == null) {
 			boardPanel.clearImage(row, column);
 		} else {

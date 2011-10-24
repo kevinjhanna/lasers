@@ -22,7 +22,7 @@ public class Window extends JFrame implements ViewContainer {
 	}
 
 	public void initialize() {
-		
+
 		setTitle("Lasers & Mirrors");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -64,7 +64,8 @@ public class Window extends JFrame implements ViewContainer {
 		if (b) {
 			getContentPane().remove(welcomePanel);
 			getContentPane().add(gamePanel);
-			setSize(gamePanel.getWidth(), menu.getHeight() + gamePanel.getHeight());
+			setSize(gamePanel.getWidth(),
+					menu.getHeight() + gamePanel.getHeight());
 			menu.enableGameItems(true);
 		} else {
 			getContentPane().remove(gamePanel);
@@ -110,7 +111,7 @@ public class Window extends JFrame implements ViewContainer {
 	@Override
 	public File showSave() {
 		JFileChooser fc = new JFileChooser();
-		fc.setFileFilter(new ExtensionFileFilter("save"));
+		fc.setFileFilter(new ExtensionFileFilter("board"));
 
 		int ret = fc.showSaveDialog(this);
 		if (ret == JFileChooser.APPROVE_OPTION) {
@@ -120,9 +121,21 @@ public class Window extends JFrame implements ViewContainer {
 	}
 
 	@Override
-	public File showLoad(String extensionFilter) {
+	public File showLoad() {
 		JFileChooser fc = new JFileChooser();
-		fc.setFileFilter(new ExtensionFileFilter(extensionFilter));
+		fc.setFileFilter(new ExtensionFileFilter("save"));
+
+		int ret = fc.showOpenDialog(this);
+		if (ret == JFileChooser.APPROVE_OPTION) {
+			return fc.getSelectedFile();
+		}
+		return null;
+	}
+
+	@Override
+	public File showNew() {
+		JFileChooser fc = new JFileChooser();
+		fc.setFileFilter(new ExtensionFileFilter("board"));
 
 		int ret = fc.showOpenDialog(this);
 		if (ret == JFileChooser.APPROVE_OPTION) {

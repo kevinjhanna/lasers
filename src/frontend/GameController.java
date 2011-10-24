@@ -19,30 +19,51 @@ import tiles.RotationNotSupportedException;
 public class GameController implements Controller, Observer {
 
 	private Game game;
-	private ViewContainer container;
+	private ViewContainer container = new Window();
 
 	/**
 	 * Constructor del controlador
 	 * 
 	 * @param container
 	 */
-	public GameController(ViewContainer container) {
-		this.container = container;
+	public GameController() {
 		container.setController(this);
 		container.initialize();
 		container.setVisible(true);
 	}
 
 	/**
-	 * Rota una pieza del tablero de juego
-	 * 
-	 * @param row
-	 * @param column
+	 * Cierra el juego
 	 */
-	public void rotate(int row, int column) {
-		try {
-			game.rotate(row, column);
-		} catch (RotationNotSupportedException e) {
+	@Override
+	public void closeGame() {
+		if (game != null) {
+			ConfirmOption opt = container.showConfirm("Close without save?");
+
+			if (opt == ConfirmOption.NO) {
+				saveGame();
+			}
+			if (opt == ConfirmOption.CANCEL) {
+				return;
+			}
+			game = null;
+			container.setGameVisible(false);
+		}
+	}
+
+	/**
+	 * Carga un juego a partir de un archivo de juego guardado
+	 */
+	@Override
+	public void loadGame() {
+		File f = container.showLoad();
+		if (f != null) {
+			try {
+				game = Game.fromSaveFile(f);
+				startGame();
+			} catch (IOException e) {
+				container.showError("Unable to load saved game.");
+			}
 		}
 	}
 
@@ -68,24 +89,10 @@ public class GameController implements Controller, Observer {
 	}
 
 	/**
-	 * Guarda el juego en curso
-	 */
-	public void saveGame() {
-		if (game == null) {
-			throw new NoGameException();
-		}
-
-		File f = container.showSave();
-		if (f != null) {
-			game.save(f);
-		}
-	}
-
-	/**
 	 * Crea un juego nuevo a partir de un archivo de tablero
 	 */
 	public void newGame() {
-		File f = container.showLoad("board");
+		File f = container.showNew();
 		if (f != null) {
 			try {
 				game = Game.fromBoardFile(f);
@@ -97,47 +104,56 @@ public class GameController implements Controller, Observer {
 	}
 
 	/**
-	 * Comienza el juego creado
+	 * Actualiza el puntaje mostrado cuando ocurre un cambio de puntaje
+	 * 
+	 * @param newScore
 	 */
-	private void startGame() {
-		container.setGame(game.getBoardHeight(), game.getBoardWidth());
-		game.start(this);
-		container.setGameVisible(true);
+	@Override
+	public void onScoreChange(int newScore) {
+		container.getView().updateScore(newScore);
 	}
 
 	/**
-	 * Carga un juego a partir de un archivo de juego guardado
+	 * Actualiza las celdas del tablero correspondientes cuando ocurre un
+	 * movimiento de piezas
+	 * 
+	 * @param sourceRow
+	 * @param sourceColumn
+	 * @param targetRow
+	 * @param targetColumn
+	 * @param drawable
 	 */
 	@Override
-	public void loadGame() {
-		File f = container.showLoad("save");
-		if (f != null) {
-			try {
-				game = Game.fromSaveFile(f);
-				startGame();
-			} catch (IOException e) {
-				container.showError("Unable to load saved game.");
-			}
-		}
+	public void onTileMove(int sourceRow, int sourceColumn, int targetRow,
+			int targetColumn, Drawable drawable) {
+
+		container.getView().setCell(sourceRow, sourceColumn, null);
+		container.getView().setCell(targetRow, targetColumn, drawable);
 	}
 
 	/**
-	 * Cierra el juego
+	 * Actualiza la celda del tablero correspondiente cuando ocurre una rotaci—n
+	 * de pieza
+	 * 
+	 * @param row
+	 * @param column
+	 * @param drawable
 	 */
 	@Override
-	public void closeGame() {
-		if (game != null) {
-			ConfirmOption opt = container.showConfirm("Close without save?");
+	public void onTileRotated(int row, int column, Drawable drawable) {
+		container.getView().setCell(row, column, drawable);
+	}
 
-			if (opt == ConfirmOption.NO) {
-				saveGame();
-			}
-			if (opt == ConfirmOption.CANCEL) {
-				return;
-			}
-			game = null;
-			container.setGameVisible(false);
-		}
+	/**
+	 * Actualiza la celda del tablero correspondiente cuando se a–ade una pieza
+	 * 
+	 * @param row
+	 * @param column
+	 * @param drawable
+	 */
+	@Override
+	public void onTileSet(int row, int column, Drawable drawable) {
+		container.getView().setCell(row, column, drawable);
 	}
 
 	/**
@@ -160,55 +176,39 @@ public class GameController implements Controller, Observer {
 	}
 
 	/**
-	 * Actualiza las celdas del tablero correspondientes cuando ocurre un
-	 * movimiento de piezas
-	 * 
-	 * @param sourceRow
-	 * @param sourceColumn
-	 * @param targetRow
-	 * @param targetColumn
-	 * @param drawable
-	 */
-	@Override
-	public void onTileMove(int sourceRow, int sourceColumn, int targetRow,
-			int targetColumn, Drawable drawable) {
-
-		container.getView().setCellImage(sourceRow, sourceColumn, null);
-		container.getView().setCellImage(targetRow, targetColumn, drawable);
-	}
-
-	/**
-	 * Actualiza la celda del tablero correspondiente cuando ocurre una rotaci—n
-	 * de pieza
+	 * Rota una pieza del tablero de juego
 	 * 
 	 * @param row
 	 * @param column
-	 * @param drawable
 	 */
-	@Override
-	public void onTileRotated(int row, int column, Drawable drawable) {
-		container.getView().setCellImage(row, column, drawable);
+	public void rotate(int row, int column) {
+		try {
+			game.rotate(row, column);
+		} catch (RotationNotSupportedException e) {
+		}
 	}
 
 	/**
-	 * Actualiza la celda del tablero correspondiente cuando se a–ade una pieza
-	 * 
-	 * @param row
-	 * @param column
-	 * @param drawable
+	 * Guarda el juego en curso
 	 */
-	@Override
-	public void onTileSet(int row, int column, Drawable drawable) {
-		container.getView().setCellImage(row, column, drawable);
+	public void saveGame() {
+
+		if (game == null) {
+			throw new NoGameException();
+		}
+
+		File f = container.showSave();
+		if (f != null) {
+			game.save(f);
+		}
 	}
 
 	/**
-	 * Actualiza el puntaje mostrado cuando ocurre un cambio de puntaje
-	 * 
-	 * @param newScore
+	 * Comienza el juego creado
 	 */
-	@Override
-	public void onScoreChange(int newScore) {
-		container.getView().updateScore(newScore);
+	private void startGame() {
+		container.setGame(game.getBoardHeight(), game.getBoardWidth());
+		game.start(this);
+		container.setGameVisible(true);
 	}
 }

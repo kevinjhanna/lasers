@@ -24,6 +24,8 @@ public interface ViewContainer {
 	
 	public abstract File showSave();
 
-	public abstract File showLoad(String extensionFilter);
+	public abstract File showLoad();
+
+	public abstract File showNew();
 	
 }
