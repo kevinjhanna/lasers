@@ -45,30 +45,15 @@ public class Game {
 	 */
 	public static Game fromBoardFile(File f) throws IOException {
 		
-		GameParser parser = new GameParser(f);
+		GameParser gameParser = new GameParser(f);
+		Game game = null;
 		try{
-			parser.parse();
+			game = gameParser.parse();
 		}
 		catch(Exception e){
 			
 		}
-//		System.out.println("Archivo cargado de " + f.getName());
-//
-		Map<Position, Tile> tiles = new HashMap<Position, Tile>();
-//		tiles.put(new Position(3, 4), new Wall());
-//		tiles.put(new Position(3, 5), new Wall());
-//		tiles.put(new Position(2, 4), new Wall());
-//		tiles.put(new Position(1, 7), new Wall());
-//		tiles.put(new Position(8, 8), new Filter(new Color(0, 255, 0),
-//				Direction.NORTH));
-//		tiles.put(new Position(8, 6), new MoveableSource(new Color(255, 0, 0),
-//				Direction.SOUTH));
-//		tiles.put(new Position(7, 7), new SimpleMirror(Direction.EAST));
-//		tiles.put(new Position(7, 10), new SplitMirror(Direction.EAST));
-//		tiles.put(new Position(6, 6), new DoubleMirror(Direction.WEST));
-//		tiles.put(new Position(5, 5), new Target(new Color(233, 200, 150)));
-//		
-		return new Game(10, 15, tiles);
+		return game;
 	}
 
 	/**
@@ -205,7 +190,7 @@ public class Game {
 	 * @param boardWidth
 	 * @param initialTiles
 	 */
-	private Game(int boardHeight, int boardWidth,
+	public Game(int boardHeight, int boardWidth,
 			Map<Position, Tile> initialTiles) {
 		
 		if (boardHeight > MAXHEIGHT || boardHeight < MINHEIGHT || boardWidth > MAXWIDTH || boardWidth < MINWIDTH){
@@ -223,6 +208,7 @@ public class Game {
 	 * Completa el tablero con las celdas provistas inicialmente
 	 */
 	private void populateBoard() {
+		// TODO deberia chequiar que esten las position dentro del rango del board, se usa tanto cuando se carga del parser, o de juego cargado
 		for (Map.Entry<Position, Tile> e : initialTiles.entrySet()) {
 			board.setTile(e.getKey(), e.getValue());
 
