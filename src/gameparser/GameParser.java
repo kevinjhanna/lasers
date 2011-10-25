@@ -1,5 +1,6 @@
 package gameparser;
 
+import exceptions.InvalidBoardSizeException;
 import game.Game;
 
 import java.awt.Color;
@@ -12,15 +13,34 @@ import java.util.Scanner;
 
 import misc.Direction;
 import misc.Position;
-import tiles.*;
+import tiles.DoubleMirror;
+import tiles.Filter;
+import tiles.MoveableSource;
+import tiles.SimpleMirror;
+import tiles.Source;
+import tiles.SplitMirror;
+import tiles.Target;
+import tiles.Tile;
+import tiles.Wall;
 
+/**
+ * .board file parser
+ */
 public class GameParser {
+	
 	private File f;
 	private Scanner stream;
-
 	private int width;
 	private int height;
 
+	/**
+	 * Creates a new parser for the given file
+	 * 
+	 * @param f
+	 * 		The file to parse
+	 * @throws IOException
+	 * 		In case the file exists
+	 */
 	public GameParser(File f) throws IOException {
 		if (f.exists() && f.isFile()) {
 			this.f = f;
@@ -29,7 +49,14 @@ public class GameParser {
 		}
 	}
 
-	public Game parse() throws IOException, InvalidLoadedBoardException {
+	/**
+	 * Parses the file and returns a new game
+	 * 
+	 * @return Game
+	 * @throws IOException
+	 * @throws InvalidLoadedBoardException
+	 */
+	public Game parse() throws IOException, InvalidBoardSizeException {
 		Map<Position, Tile> tiles = new HashMap<Position, Tile>();
 
 		try {
