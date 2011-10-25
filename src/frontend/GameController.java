@@ -1,5 +1,6 @@
 package frontend;
 
+import exceptions.InvalidBoardFileException;
 import exceptions.RotationNotSupportedException;
 import exceptions.SourceTileEmptyException;
 import exceptions.TargetTileNotEmptyException;
@@ -98,6 +99,12 @@ public class GameController implements Controller, Observer {
 				startGame();
 			} catch (IOException e) {
 				container.showError("Unable to load board file.");
+			} catch (InvalidBoardFileException e) {
+				String message = "Error while trying to load board file";
+				if (e.getMessage() != null) {
+					message += ": " + e.getMessage();
+				}
+				container.showError(message);
 			}
 		}
 	}

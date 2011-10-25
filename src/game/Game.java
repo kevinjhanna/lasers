@@ -1,5 +1,6 @@
 package game;
 
+import exceptions.InvalidBoardFileException;
 import exceptions.RotationNotSupportedException;
 import exceptions.SourceTileEmptyException;
 import exceptions.TargetTileNotEmptyException;
@@ -39,17 +40,11 @@ public class Game {
 	 * @return Game The new game
 	 * @throws IOException
 	 *             in case there is a problem reading the file
+	 * @throws InvalidBoardFileException 
 	 */
-	public static Game fromBoardFile(File f) throws IOException {
-
-		GameParser gameParser = new GameParser(f);
-		Game game = null;
-		try {
-			game = gameParser.parse();
-		} catch (Exception e) {
-
-		}
-		return game;
+	public static Game fromBoardFile(File f) throws IOException, InvalidBoardFileException {
+		GameParser parser = new GameParser(f);
+		return parser.parse();
 	}
 
 	/**
