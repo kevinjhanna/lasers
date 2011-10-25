@@ -1,8 +1,5 @@
 package gameparser;
 
-import exceptions.InvalidBoardSizeException;
-import game.Game;
-
 import java.awt.Color;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -23,6 +20,8 @@ import tiles.SplitMirror;
 import tiles.Target;
 import tiles.Tile;
 import tiles.Wall;
+import exceptions.InvalidBoardFileException;
+import game.Game;
 
 /**
  * Board file parser
@@ -55,9 +54,9 @@ public class GameParser {
 	 * 
 	 * @return Game
 	 * @throws IOException
-	 * @throws InvalidLoadedBoardException
+	 * @throws InvalidBoardFileException
 	 */
-	public Game parse() throws IOException, InvalidBoardSizeException {
+	public Game parse() throws IOException, InvalidBoardFileException {
 		
 		List<Pair<Position, Tile>> tiles = new ArrayList<Pair<Position, Tile>>();
 
@@ -80,26 +79,22 @@ public class GameParser {
 			}
 			return new Game(width, height, tiles);
 
-		} catch (Exception e) {
-			System.out.println(e);
 		} finally {
 			if (stream != null) {
 				stream.close();
 			}
 		}
-		return new Game(width, height, tiles);
-
 	}
 
 	/**
 	 * Processes the board size
 	 * 
 	 * @param aLine
-	 * @throws InvalidLoadedBoardException
+	 * @throws InvalidBoardFileException
 	 */
-	private void processSize(String aLine) throws InvalidLoadedBoardException {
+	private void processSize(String aLine) throws InvalidBoardFileException {
 		if (!aLine.matches("\\d*,\\d*")) {
-			throw new InvalidLoadedBoardException();
+			throw new InvalidBoardFileException();
 		}
 
 		Scanner lineScanner = new Scanner(aLine);
@@ -115,12 +110,12 @@ public class GameParser {
 	 * 
 	 * @param aLine
 	 * @param tiles
-	 * @throws InvalidLoadedBoardException
+	 * @throws InvalidBoardFileException
 	 */
 	private void processTile(String aLine, List<Pair<Position, Tile>> tiles)
-			throws InvalidLoadedBoardException {
+			throws InvalidBoardFileException {
 		if (!aLine.matches("(\\d*,){6}\\d*")) {
-			throw new InvalidLoadedBoardException();
+			throw new InvalidBoardFileException();
 		}
 
 		Scanner lineScanner = new Scanner(aLine);
@@ -136,7 +131,7 @@ public class GameParser {
 
 		int rotation = Integer.parseInt(lineScanner.next());
 		if (!mockTile.possibleRotation(rotation)) {
-			throw new InvalidLoadedBoardException();
+			throw new InvalidBoardFileException();
 		}
 
 		// Colors
@@ -144,7 +139,7 @@ public class GameParser {
 		for (int i = 0; i < 3; i++) {
 			rgb[i] = Integer.parseInt(lineScanner.next());
 			if (!mockTile.validColor(rgb[i])) {
-				throw new InvalidLoadedBoardException();
+				throw new InvalidBoardFileException();
 			}
 		}
 

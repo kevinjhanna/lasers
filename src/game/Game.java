@@ -1,6 +1,5 @@
 package game;
 
-import exceptions.InvalidBoardSizeException;
 import exceptions.RotationNotSupportedException;
 import exceptions.SourceTileEmptyException;
 import exceptions.TargetTileNotEmptyException;
@@ -199,11 +198,6 @@ public class Game {
 	 */
 	public Game(int boardHeight, int boardWidth,
 			List<Pair<Position, Tile>> initialTiles) {
-
-		if (boardHeight > MAX_HEIGHT || boardHeight < MIN_HEIGHT
-				|| boardWidth > MAX_WIDTH || boardWidth < MIN_WIDTH) {
-			throw new InvalidBoardSizeException();
-		}
 
 		this.boardHeight = boardHeight;
 		this.boardWidth = boardWidth;
