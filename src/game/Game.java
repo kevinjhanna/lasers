@@ -72,7 +72,6 @@ public class Game {
 		this.observer = observer;
 		populateBoard();
 		updateScore();
-		observer.onWin();
 	}
 
 	/**
