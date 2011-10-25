@@ -79,10 +79,11 @@ public class GameController implements Controller, Observer {
 		try {
 			game.move(sourceRow, sourceColumn, targetRow, targetColumn);
 		} catch (SourceTileEmptyException e) {
-			container.showWarning("Source tile is empty.");
+			// Empty catch on purpose. Do nothing
 		} catch (TargetTileNotEmptyException e) {
-			container.showWarning("Target tile is not empty.");
+			// Empty catch on purpose. Do nothing
 		} catch (TileIsFixedException e) {
+			// Empty catch on purpose. Do nothing
 		}
 	}
 
@@ -204,5 +205,12 @@ public class GameController implements Controller, Observer {
 		container.setGame(game.getBoardHeight(), game.getBoardWidth());
 		game.start(this);
 		container.setGameVisible(true);
+	}
+
+	/**
+	 * Shows win message
+	 */
+	public void onWin() {
+		container.showWinMessage();
 	}
 }

@@ -3,13 +3,12 @@ package game;
 import tiles.Drawable;
 
 /**
- * Interfaz con métodos que son llamados por el juego para actualizar el frontend
- * 
+ * Interface with callbacks from the game
  */
 public interface Observer {
 
 	/**
-	 * Notificador de cambio de posición de una celda del tablero
+	 * Callback that fires when a tile has been moved
 	 * 
 	 * @param sourceRow
 	 * @param sourceColumn
@@ -20,7 +19,7 @@ public interface Observer {
 	void onTileMove(int sourceRow, int sourceColumn, int targetRow, int targetColumn, Drawable drawable);
 
 	/**
-	 * Notificador de rotación de una celda en el tablero
+	 * Callback that fires when a tile has been rotated
 	 * 
 	 * @param row
 	 * @param column
@@ -29,7 +28,7 @@ public interface Observer {
 	void onTileRotated(int row, int column, Drawable drawable);
 
 	/**
-	 * Notificador de adición de una celda al tablero
+	 * Callback that fires when a tile has been set
 	 * 
 	 * @param row
 	 * @param column
@@ -38,10 +37,14 @@ public interface Observer {
 	void onTileSet(int row, int column, Drawable drawable);
 
 	/**
-	 * Notificador de actualización de puntaje
+	 * Callback that fires when the score has changed
 	 * 
 	 * @param newScore
 	 */
 	void onScoreChange(int newScore);
 	
+	/**
+	 * Callaback that fires when the game is won
+	 */
+	void onWin();
 }

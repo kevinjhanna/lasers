@@ -27,5 +27,7 @@ public interface ViewContainer {
 	public abstract File showLoad();
 
 	public abstract File showNew();
+
+	public abstract void showWinMessage();
 	
 }

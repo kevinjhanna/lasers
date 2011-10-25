@@ -89,6 +89,14 @@ public class Game {
 	public int getBoardHeight() {
 		return boardHeight;
 	}
+	
+	/**
+	 * Returns the current game score
+	 * @return Integer
+	 */
+	public Integer getScore() {
+		return score;
+	}
 
 	/**
 	 * Obtiene la celda del tablero ubicada en la posici—n dada

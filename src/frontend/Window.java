@@ -21,8 +21,12 @@ public class Window extends JFrame implements ViewContainer {
 		this.controller = controller;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see frontend.ViewContainer#initialize()
+	 */
 	public void initialize() {
-
 		setTitle("Lasers & Mirrors");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -49,7 +53,6 @@ public class Window extends JFrame implements ViewContainer {
 	 * 
 	 * @see frontend.ViewContainer#setGame(int, int)
 	 */
-	
 	public void setGame(int boardHeight, int boardWidth) {
 		gamePanel = new GamePanel(controller, boardHeight, boardWidth);
 	}
@@ -59,7 +62,6 @@ public class Window extends JFrame implements ViewContainer {
 	 * 
 	 * @see frontend.ViewContainer#setGameVisible(boolean)
 	 */
-	
 	public void setGameVisible(boolean b) {
 		if (b) {
 			getContentPane().remove(welcomePanel);
@@ -75,6 +77,11 @@ public class Window extends JFrame implements ViewContainer {
 		}
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see frontend.ViewContainer#getView()
+	 */
 	public View getView() {
 		if (gamePanel == null) {
 			throw new NoGameException();
@@ -82,19 +89,41 @@ public class Window extends JFrame implements ViewContainer {
 		return gamePanel;
 	}
 
-	
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see frontend.ViewContainer#showWarning(message)
+	 */
 	public void showWarning(String message) {
 		JOptionPane.showMessageDialog(this, message, "Warning",
 				JOptionPane.WARNING_MESSAGE);
 	}
 
-	
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see frontend.ViewContainer#showError(message)
+	 */
 	public void showError(String message) {
 		JOptionPane.showMessageDialog(this, message, "Error",
 				JOptionPane.ERROR_MESSAGE);
 	}
-
 	
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see frontend.ViewContainer#showWinMessage()
+	 */
+	public void showWinMessage() {
+		JOptionPane.showMessageDialog(this, "You have won!", "Win", JOptionPane.INFORMATION_MESSAGE);
+		JOptionPane.showConfirmDialog(this, "Restart game?", "Restart", JOptionPane.YES_NO_OPTION);
+	}
+	
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see frontend.ViewContainer#showConfirm(message)
+	 */
 	public ConfirmOption showConfirm(String message) {
 		int ret = JOptionPane.showConfirmDialog(this, message, "Confirm",
 				JOptionPane.YES_NO_CANCEL_OPTION);
@@ -108,7 +137,11 @@ public class Window extends JFrame implements ViewContainer {
 		}
 	}
 
-	
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see frontend.ViewContainer#showSave()
+	 */
 	public File showSave() {
 		JFileChooser fc = new JFileChooser();
 		fc.setFileFilter(new ExtensionFileFilter("board"));
@@ -120,7 +153,11 @@ public class Window extends JFrame implements ViewContainer {
 		return null;
 	}
 
-	
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see frontend.ViewContainer#showLoad()
+	 */
 	public File showLoad() {
 		JFileChooser fc = new JFileChooser();
 		fc.setFileFilter(new ExtensionFileFilter("save"));
@@ -132,7 +169,11 @@ public class Window extends JFrame implements ViewContainer {
 		return null;
 	}
 
-	
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see frontend.ViewContainer#showNew()
+	 */
 	public File showNew() {
 		JFileChooser fc = new JFileChooser();
 		fc.setFileFilter(new ExtensionFileFilter("board"));
