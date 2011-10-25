@@ -7,11 +7,12 @@ import java.awt.Color;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 import misc.Direction;
+import misc.Pair;
 import misc.Position;
 import tiles.DoubleMirror;
 import tiles.Filter;
@@ -24,11 +25,11 @@ import tiles.Tile;
 import tiles.Wall;
 
 /**
- * .board file parser
+ * Board file parser
  */
 public class GameParser {
 	
-	private File f;
+	private File file;
 	private Scanner stream;
 	private int width;
 	private int height;
@@ -41,9 +42,9 @@ public class GameParser {
 	 * @throws IOException
 	 * 		In case the file exists
 	 */
-	public GameParser(File f) throws IOException {
-		if (f.exists() && f.isFile()) {
-			this.f = f;
+	public GameParser(File file) throws IOException {
+		if (file.exists() && file.isFile()) {
+			this.file = file;
 		} else {
 			throw new FileNotFoundException();
 		}
@@ -57,10 +58,11 @@ public class GameParser {
 	 * @throws InvalidLoadedBoardException
 	 */
 	public Game parse() throws IOException, InvalidBoardSizeException {
-		Map<Position, Tile> tiles = new HashMap<Position, Tile>();
+		
+		List<Pair<Position, Tile>> tiles = new ArrayList<Pair<Position, Tile>>();
 
 		try {
-			stream = new Scanner(f);
+			stream = new Scanner(file);
 
 			boolean gotSize = false;
 			while (stream.hasNextLine()) {
@@ -89,6 +91,12 @@ public class GameParser {
 
 	}
 
+	/**
+	 * Processes the board size
+	 * 
+	 * @param aLine
+	 * @throws InvalidLoadedBoardException
+	 */
 	private void processSize(String aLine) throws InvalidLoadedBoardException {
 		if (!aLine.matches("\\d*,\\d*")) {
 			throw new InvalidLoadedBoardException();
@@ -102,7 +110,14 @@ public class GameParser {
 
 	}
 
-	private void processTile(String aLine, Map<Position, Tile> tiles)
+	/**
+	 * Processes a single tile
+	 * 
+	 * @param aLine
+	 * @param tiles
+	 * @throws InvalidLoadedBoardException
+	 */
+	private void processTile(String aLine, List<Pair<Position, Tile>> tiles)
 			throws InvalidLoadedBoardException {
 		if (!aLine.matches("(\\d*,){6}\\d*")) {
 			throw new InvalidLoadedBoardException();
@@ -135,8 +150,8 @@ public class GameParser {
 
 		// ahora se crea el tile
 		Tile realTile = null;
-		Direction direction = Direction.NORTH;// TODO pasar un int de rotation a
-												// un Direction
+		// TODO pasar un int de rotation a un Direction
+		Direction direction = Direction.NORTH;
 
 		Color color = new Color(rgb[0], rgb[1], rgb[2]);
 
@@ -167,7 +182,7 @@ public class GameParser {
 			break;
 		}
 
-		tiles.put(position, realTile);
+		tiles.add(new Pair<Position, Tile>(position, realTile));
 	}
 
 }

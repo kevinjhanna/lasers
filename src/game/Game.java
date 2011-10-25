@@ -9,8 +9,9 @@ import gameparser.GameParser;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Map;
+import java.util.List;
 
+import misc.Pair;
 import misc.Position;
 import tiles.Tile;
 
@@ -19,40 +20,41 @@ import tiles.Tile;
  */
 public class Game {
 
+	public static final int MIN_HEIGHT = 5;
+	public static final int MIN_WIDTH = 5;
+	public static final int MAX_HEIGHT = 20;
+	public static final int MAX_WIDTH = 20;
+
 	private Observer observer;
 	private Integer boardHeight;
 	private Integer boardWidth;
 	private Integer score;
 	private Board board;
-	private Map<Position, Tile> initialTiles;
-	
-	public static final int MAXHEIGHT = 20;
-	public static final int MAXWIDTH = 20;
-	public static final int MINHEIGHT = 5;
-	public static final int MINWIDTH = 5;
+	private List<Pair<Position, Tile>> initialTiles;
 
 	/**
-	 * Instantiates a new game from a .board file
+	 * Instantiates a new game from a board file
 	 * 
-	 * @param f The .board file
+	 * @param f
+	 *            The .board file
 	 * @return Game The new game
-	 * @throws IOException in case there is a problem reading the file
+	 * @throws IOException
+	 *             in case there is a problem reading the file
 	 */
 	public static Game fromBoardFile(File f) throws IOException {
-		
+
 		GameParser gameParser = new GameParser(f);
 		Game game = null;
-		try{
+		try {
 			game = gameParser.parse();
-		}
-		catch(Exception e){
-			
+		} catch (Exception e) {
+
 		}
 		return game;
 	}
 
 	/**
-	 * Crea un nuevo juego a partir de un juego guardado
+	 * Creates a new game from a saved game file
 	 * 
 	 * @param f
 	 * @return Game
@@ -64,34 +66,45 @@ public class Game {
 	}
 
 	/**
-	 * Comienza el juego
+	 * Starts the game
 	 */
 	public void start(Observer observer) {
 		this.observer = observer;
 		populateBoard();
 		updateScore();
+		observer.onWin();
 	}
 
 	/**
-	 * Retorna el ancho del tablero
-	 * 
-	 * @return int
+	 * Restarts the game
 	 */
-	public int getBoardWidth() {
+	public void restart() {
+		score = 0;
+		board = new Board(boardWidth, boardHeight);
+		populateBoard();
+	}
+
+	/**
+	 * Returns the width of the game board
+	 * 
+	 * @return Integer
+	 */
+	public Integer getBoardWidth() {
 		return boardWidth;
 	}
 
 	/**
-	 * Retorna el alto del tablero
+	 * Returns the height of the game board
 	 * 
-	 * @return int
+	 * @return Integer
 	 */
-	public int getBoardHeight() {
+	public Integer getBoardHeight() {
 		return boardHeight;
 	}
-	
+
 	/**
 	 * Returns the current game score
+	 * 
 	 * @return Integer
 	 */
 	public Integer getScore() {
@@ -99,18 +112,18 @@ public class Game {
 	}
 
 	/**
-	 * Obtiene la celda del tablero ubicada en la posici—n dada
+	 * Returns the tile located at the given row and column
 	 * 
 	 * @param row
 	 * @param column
 	 * @return tile
 	 */
-	public Tile getTile(int row, int column) {
+	private Tile getTile(int row, int column) {
 		return board.getTile(new Position(row, column));
 	}
 
 	/**
-	 * Mueve una celda en el tablero e informa al observer del cambio
+	 * Moves a tile from the source position to the target position
 	 * 
 	 * @param sourceRow
 	 * @param sourceColumn
@@ -132,7 +145,7 @@ public class Game {
 	}
 
 	/**
-	 * Rota una pieza en el tablero e informa al observer del cambio
+	 * Rotates the tile at the given position
 	 * 
 	 * @param row
 	 * @param column
@@ -146,16 +159,17 @@ public class Game {
 	}
 
 	/**
-	 * Guarda el juego en el archivo dado
+	 * Saves the game in the file given
 	 * 
 	 * @param f
+	 * 		The file to save the game into
 	 */
 	public void save(File f) {
 		System.out.println("Archivo guardado en " + f.getName());
 	}
 
 	/**
-	 * Actualiza el puntaje y notifica al Observer del cambio
+	 * Updates the score and notifies the observer
 	 */
 	private void updateScore() {
 		Integer old = score;
@@ -167,7 +181,7 @@ public class Game {
 	}
 
 	/**
-	 * Recalcula el puntaje actual
+	 * Recalculate game score
 	 * 
 	 * @return int
 	 */
@@ -176,17 +190,19 @@ public class Game {
 	}
 
 	/**
-	 * Constructor interno para crear un juego de las dimensiones dadas con la
-	 * disposici—n de celdas provista
+	 * Creates a new game with a board of the dimensions given and a set of
+	 * initial tiles. Does not populate the board with the tiles to enable the
+	 * setup of an observer to track board changes
 	 * 
 	 * @param boardHeight
 	 * @param boardWidth
 	 * @param initialTiles
 	 */
 	public Game(int boardHeight, int boardWidth,
-			Map<Position, Tile> initialTiles) {
-		
-		if (boardHeight > MAXHEIGHT || boardHeight < MINHEIGHT || boardWidth > MAXWIDTH || boardWidth < MINWIDTH){
+			List<Pair<Position, Tile>> initialTiles) {
+
+		if (boardHeight > MAX_HEIGHT || boardHeight < MIN_HEIGHT
+				|| boardWidth > MAX_WIDTH || boardWidth < MIN_WIDTH) {
 			throw new InvalidBoardSizeException();
 		}
 
@@ -198,16 +214,16 @@ public class Game {
 	}
 
 	/**
-	 * Completa el tablero con las celdas provistas inicialmente
+	 * Populates the board with the initial set of tiles and their corresponding
+	 * locations
 	 */
 	private void populateBoard() {
-		// TODO deberia chequiar que esten las position dentro del rango del board, se usa tanto cuando se carga del parser, o de juego cargado
-		for (Map.Entry<Position, Tile> e : initialTiles.entrySet()) {
-			board.setTile(e.getKey(), e.getValue());
+		for (Pair<Position, Tile> p : initialTiles) {
+			board.setTile(p.getFirst(), p.getSecond());
 
-			observer.onTileSet(e.getKey().row, e.getKey().column, e.getValue());
+			observer.onTileSet(p.getFirst().row, p.getFirst().column,
+					p.getSecond());
 		}
 	}
-
 
 }
