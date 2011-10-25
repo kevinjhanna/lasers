@@ -1,12 +1,16 @@
 package frontend;
-import java.io.File;
 
+import java.io.File;
 import javax.swing.filechooser.FileFilter;
 
+/**
+ * Implementation of FileFilter to filter files in a JFileChooser based in
+ * extension
+ */
 public class ExtensionFileFilter extends FileFilter {
-	
+
 	private String extension;
-	
+
 	public ExtensionFileFilter(String extension) {
 		this.extension = extension;
 	}

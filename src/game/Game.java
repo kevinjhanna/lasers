@@ -15,8 +15,7 @@ import misc.Position;
 import tiles.Tile;
 
 /**
- * Clase que representa un juego de Lasers and Mirrors
- * 
+ * Class that models a Lasers and Mirrors game
  */
 public class Game {
 
@@ -33,11 +32,11 @@ public class Game {
 	public static final int MINWIDTH = 5;
 
 	/**
-	 * Crea un nuevo juego a partir de un archivo de tablero
+	 * Instantiates a new game from a .board file
 	 * 
-	 * @param f
-	 * @return Game
-	 * @throws IOException
+	 * @param f The .board file
+	 * @return Game The new game
+	 * @throws IOException in case there is a problem reading the file
 	 */
 	public static Game fromBoardFile(File f) throws IOException {
 		
@@ -115,16 +114,6 @@ public class Game {
 	public void move(int sourceRow, int sourceColumn, int targetRow,
 			int targetColumn) throws SourceTileEmptyException,
 			TargetTileNotEmptyException, TileIsFixedException {
-
-		if (getTile(sourceRow, sourceColumn).isFixed()) {
-			throw new TileIsFixedException();
-		}
-		if (getTile(sourceRow, sourceColumn).isEmpty()) {
-			throw new SourceTileEmptyException();
-		}
-		if (!getTile(targetRow, targetColumn).isEmpty()) {
-			throw new TargetTileNotEmptyException();
-		}
 
 		Position source = new Position(sourceRow, sourceColumn);
 		Position target = new Position(targetRow, targetColumn);
@@ -211,5 +200,6 @@ public class Game {
 			observer.onTileSet(e.getKey().row, e.getKey().column, e.getValue());
 		}
 	}
+
 
 }

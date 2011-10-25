@@ -24,7 +24,6 @@ public class GameParser {
 	public GameParser(File f) throws IOException {
 		if (f.exists() && f.isFile()) {
 			this.f = f;
-
 		} else {
 			throw new FileNotFoundException();
 		}
@@ -38,11 +37,8 @@ public class GameParser {
 
 			boolean gotSize = false;
 			while (stream.hasNextLine()) {
-				String aLine = stream.nextLine().replaceAll("(#.*|\\s)", ""); // dejamos
-																				// de
-																				// lado
-																				// los
-																				// comentarios
+				// dejamos de lado los comentarios
+				String aLine = stream.nextLine().replaceAll("(#.*|\\s)", ""); 
 				if (!aLine.matches("^\\s*$")) {
 					// no procesamos lineas en blanco CAMBIAR a length=0
 					if (!gotSize) {

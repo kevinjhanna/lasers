@@ -5,12 +5,17 @@ import java.awt.Color;
 import misc.Direction;
 import game.TileDrawer;
 
+/**
+ * Filter. Supports rotation and movement
+ * @author federicobond
+ *
+ */
 public class Filter extends ColoredTile {
 	
 	public Direction direction;
 	
 	public Filter(Color color, Direction direction) {
-		this.color = color;
+		super(color);
 		this.direction = direction;
 	}
 	

@@ -13,8 +13,8 @@ import java.io.IOException;
 import tiles.Drawable;
 
 /**
- * Controlador principal del juego. Contiene un ViewContainer para mostrar el
- * juego en pantalla
+ * Main game controller. Acts as connector between de the view (which lives in a
+ * container) and the game logic
  */
 public class GameController implements Controller, Observer {
 
@@ -22,7 +22,7 @@ public class GameController implements Controller, Observer {
 	private ViewContainer container = new Window();
 
 	/**
-	 * Constructor del controlador
+	 * GameController constructor
 	 * 
 	 * @param container
 	 */
@@ -33,7 +33,7 @@ public class GameController implements Controller, Observer {
 	}
 
 	/**
-	 * Cierra el juego
+	 * Closes the current game
 	 */
 	public void closeGame() {
 		if (game != null) {
@@ -51,7 +51,7 @@ public class GameController implements Controller, Observer {
 	}
 
 	/**
-	 * Carga un juego a partir de un archivo de juego guardado
+	 * Loads a game from a previously saved game
 	 */
 	public void loadGame() {
 		File f = container.showLoad();
@@ -66,7 +66,7 @@ public class GameController implements Controller, Observer {
 	}
 
 	/**
-	 * Mueve una pieza del tablero de juego
+	 * Moves a tile in the game
 	 * 
 	 * @param sourceRow
 	 * @param sourceColumn
@@ -102,7 +102,7 @@ public class GameController implements Controller, Observer {
 	}
 
 	/**
-	 * Actualiza el puntaje mostrado cuando ocurre un cambio de puntaje
+	 * Updates the score in the view when it changes
 	 * 
 	 * @param newScore
 	 */
@@ -111,8 +111,7 @@ public class GameController implements Controller, Observer {
 	}
 
 	/**
-	 * Actualiza las celdas del tablero correspondientes cuando ocurre un
-	 * movimiento de piezas
+	 * Updates the cell in the view when a tile has been moved
 	 * 
 	 * @param sourceRow
 	 * @param sourceColumn
@@ -123,36 +122,36 @@ public class GameController implements Controller, Observer {
 	public void onTileMove(int sourceRow, int sourceColumn, int targetRow,
 			int targetColumn, Drawable drawable) {
 
-		container.getView().setCell(sourceRow, sourceColumn, null);
-		container.getView().setCell(targetRow, targetColumn, drawable);
+		container.getView().updateCell(sourceRow, sourceColumn, null);
+		container.getView().updateCell(targetRow, targetColumn, drawable);
 	}
 
 	/**
-	 * Actualiza la celda del tablero correspondiente cuando ocurre una rotaci—n
-	 * de pieza
+	 * Updates the cell in the view when a tile has been rotated
 	 * 
 	 * @param row
 	 * @param column
 	 * @param drawable
 	 */
-	
+
 	public void onTileRotated(int row, int column, Drawable drawable) {
-		container.getView().setCell(row, column, drawable);
+		container.getView().updateCell(row, column, drawable);
 	}
 
 	/**
-	 * Actualiza la celda del tablero correspondiente cuando se a–ade una pieza
+	 * Updates the cell in the view when a tile has been set
 	 * 
 	 * @param row
 	 * @param column
 	 * @param drawable
 	 */
 	public void onTileSet(int row, int column, Drawable drawable) {
-		container.getView().setCell(row, column, drawable);
+		container.getView().updateCell(row, column, drawable);
 	}
 
 	/**
-	 * Sale del programa
+	 * Quits the program. If there is a game in progress, asks the user whether
+	 * he/she wants to save it
 	 */
 	public void quit() {
 		if (game != null) {
@@ -170,7 +169,7 @@ public class GameController implements Controller, Observer {
 	}
 
 	/**
-	 * Rota una pieza del tablero de juego
+	 * Rotates a tile in the game
 	 * 
 	 * @param row
 	 * @param column
@@ -179,11 +178,12 @@ public class GameController implements Controller, Observer {
 		try {
 			game.rotate(row, column);
 		} catch (RotationNotSupportedException e) {
+			// Don't do anything
 		}
 	}
 
 	/**
-	 * Guarda el juego en curso
+	 * Saves the current game
 	 */
 	public void saveGame() {
 
@@ -198,7 +198,7 @@ public class GameController implements Controller, Observer {
 	}
 
 	/**
-	 * Comienza el juego creado
+	 * Starts the loaded game
 	 */
 	private void startGame() {
 		container.setGame(game.getBoardHeight(), game.getBoardWidth());

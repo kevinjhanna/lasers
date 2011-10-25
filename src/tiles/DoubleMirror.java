@@ -3,6 +3,9 @@ package tiles;
 import misc.Direction;
 import game.TileDrawer;
 
+/**
+ * Double Mirror. Supports rotation and movement
+ */
 public class DoubleMirror extends Tile {
 
 	private Direction direction;

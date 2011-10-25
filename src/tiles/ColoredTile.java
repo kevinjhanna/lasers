@@ -4,11 +4,20 @@ import java.awt.Color;
 
 import game.TileDrawer;
 
+/**
+ * Abtract class that represents a 
+ * @author federicobond
+ *
+ */
 public abstract class ColoredTile extends Tile {
 
-	protected Color color;
+	private Color color;
 	
-	public Color getColor() {
+	protected ColoredTile(Color color) {
+		this.color = color;
+	}
+	
+	protected Color getColor() {
 		return color;
 	}
 	

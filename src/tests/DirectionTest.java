@@ -1,11 +1,11 @@
 package tests;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.assertEquals;
 import misc.Direction;
 
 import org.junit.Test;
 
-public class DirectionTest extends TestCase {
+public class DirectionTest {
 	
 	@Test
 	public void testTurn() {

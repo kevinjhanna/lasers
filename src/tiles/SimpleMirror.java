@@ -3,6 +3,9 @@ package tiles;
 import misc.Direction;
 import game.TileDrawer;
 
+/**
+ * Simple Mirror. Supports rotation and movement
+ */
 public class SimpleMirror extends Tile {
 	
 	private Direction direction;

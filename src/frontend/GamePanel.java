@@ -101,7 +101,7 @@ public class GamePanel extends JPanel implements View {
 		return String.format("%02d:%02d", minutes, seconds);
 	}
 
-	public void setCell(int row, int column, Drawable drawable) {
+	public void updateCell(int row, int column, Drawable drawable) {
 		if (drawable == null) {
 			boardPanel.clearImage(row, column);
 		} else {

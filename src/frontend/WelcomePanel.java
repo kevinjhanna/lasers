@@ -14,11 +14,33 @@ import javax.swing.SwingConstants;
 public class WelcomePanel extends JPanel {
 
 	private static final long serialVersionUID = 3633909978988836502L;
+	
+	/**
+	 * Panel controller
+	 */
 	private Controller controller;
+	
+	/**
+	 * New Game button
+	 */
 	private JButton newGame;
+	
+	/**
+	 * Load Game button
+	 */
 	private JButton loadGame;
+	
+	/**
+	 * Quit button
+	 */
 	private JButton quit;
 	
+	/**
+	 * Creates a new Welcome panel that responds to the controller parameter
+	 * 
+	 * @param controller
+	 * 		The controller that will respond to this panel
+	 */
 	public WelcomePanel(Controller controller) {
 		this.controller = controller;
 		initialize();

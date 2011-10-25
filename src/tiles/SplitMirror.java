@@ -3,6 +3,9 @@ package tiles;
 import misc.Direction;
 import game.TileDrawer;
 
+/**
+ * Split Mirror. Supports rotation and movement
+ */
 public class SplitMirror extends Tile {
 
 	public Direction direction;

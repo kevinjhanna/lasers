@@ -10,22 +10,45 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
 
+/**
+ * Application menu. Component of the ViewContainer
+ * 
+ * @see ViewContainer
+ */
 public class Menu extends JMenuBar {
 
 	private static final long serialVersionUID = 3451850427555533566L;
+	
+	/**
+	 * The view controller
+	 */
 	private Controller controller;
+	
+	/**
+	 * File menu
+	 */
 	private JMenu file;
+
 	private JMenuItem fileNew;
 	private JMenuItem fileOpen;
 	private JMenuItem fileSave;
 	private JMenuItem fileClose;
 	private JMenuItem fileQuit;
 
+	/**
+	 * Creates a new menu
+	 * 
+	 * @param controller
+	 * 		The controller to dispatch actions to
+	 */
 	public Menu(final Controller controller) {
 		this.controller = controller;
 		initialize();
 	}
 
+	/**
+	 * Initializes every element of the menu
+	 */
 	private void initialize() {
 		int mask = Toolkit.getDefaultToolkit().getMenuShortcutKeyMask();
 
@@ -76,7 +99,6 @@ public class Menu extends JMenuBar {
 		fileClose.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_W, mask));
 		fileClose.addActionListener(new ActionListener() {
 
-			
 			public void actionPerformed(ActionEvent e) {
 				controller.closeGame();
 			}
@@ -88,7 +110,6 @@ public class Menu extends JMenuBar {
 		fileQuit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q, mask));
 		fileQuit.addActionListener(new ActionListener() {
 
-			
 			public void actionPerformed(ActionEvent e) {
 				controller.quit();
 			}
