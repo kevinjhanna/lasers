@@ -1,11 +1,20 @@
 package tiles;
 
+import java.util.*;
+
 import exceptions.RotationNotSupportedException;
 import misc.Direction;
+import game.Ray;
 import game.TileDrawer;
 
 public abstract class Tile implements Drawable {
-
+	private Ray[] rays = new Ray[4];
+	
+	
+	/* each react depends on the tile implementation*/
+	public abstract void react(Ray ray);
+	
+	
 	public boolean isEmpty() {
 		return false;
 	}

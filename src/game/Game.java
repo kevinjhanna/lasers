@@ -7,10 +7,12 @@ import exceptions.TargetTileNotEmptyException;
 import exceptions.TileIsFixedException;
 import gameparser.GameParser;
 
+import java.awt.Color;
 import java.io.File;
 import java.io.IOException;
 import java.util.Map;
 
+import misc.Direction;
 import misc.Position;
 import tiles.Tile;
 
@@ -204,12 +206,19 @@ public class Game {
 	 * Completa el tablero con las celdas provistas inicialmente
 	 */
 	private void populateBoard() {
-		// TODO deberia chequiar que esten las position dentro del rango del board, se usa tanto cuando se carga del parser, o de juego cargado
 		for (Map.Entry<Position, Tile> e : initialTiles.entrySet()) {
 			board.setTile(e.getKey(), e.getValue());
 
 			observer.onTileSet(e.getKey().row, e.getKey().column, e.getValue());
 		}
+	}
+	
+	private void propagate(){
+		Ray[] initialRays = new Ray[1];
+		initialRays[0] = new Ray(Direction.NORTH, new Color(0,0,0));
+	}
+	
+		
 	}
 
 }

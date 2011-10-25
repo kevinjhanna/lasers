@@ -1,17 +1,33 @@
 package game;
+import java.awt.Color;
+import misc.*;
 
 public class Ray {
+	private Direction direction;
+	private Color color;
+	private boolean moving;
 	
-	public Ray bifurcate(){
-		return new Ray();
+	public Ray(Direction d, Color c){
+		direction = d;
+		color = c;
+		moving = true;
 	}
 	
-	public void propagate(){
+	public Ray bifurcate(){
+		this.keepMoving();
+		return new Ray(direction.turn(), color);
+	}
+	
+	public void keepMoving(){
 		
 	}
 	
 	public void changeColor(){
 		
+	}
+	
+	public void stop(){
+		moving = false;
 	}
 	
 }
