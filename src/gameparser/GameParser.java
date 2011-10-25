@@ -36,18 +36,16 @@ public class GameParser {
 		try {
 			stream = new Scanner(f);
 
-			boolean gotSize = false;
+			boolean hasSize = false;
 			while (stream.hasNextLine()) {
-				String aLine = stream.nextLine().replaceAll("(#.*|\\s)", ""); // dejamos
-																				// de
-																				// lado
-																				// los
-																				// comentarios
+				/* leave out comments (starting with #) and whitespaces */
+				String aLine = stream.nextLine().replaceAll("(#.*|\\s)", ""); 
+																				
 				if (!aLine.matches("^\\s*$")) {
-					// no procesamos lineas en blanco CAMBIAR a length=0
-					if (!gotSize) {
+					/* do not process empty lines */
+					if (!hasSize) {
 						processSize(aLine);
-						gotSize = true;
+						hasSize = true;
 					} else {
 						processTile(aLine, tiles);
 					}
@@ -110,7 +108,7 @@ public class GameParser {
 			}
 		}
 
-		// ahora se crea el tile
+		// now we do create the Tile
 		Tile realTile = null;
 		Direction direction = Direction.NORTH;// TODO pasar un int de rotation a
 												// un Direction
