@@ -1,6 +1,7 @@
 exceptions
 frontend
 game
+gameparser
 gui
 misc
 tests
