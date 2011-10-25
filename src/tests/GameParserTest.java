@@ -83,5 +83,14 @@ public class GameParserTest {
 				"boards/tests/InvalidTileColor.board"));
 		parser.parse();
 	}
+	
+	@Test
+	public void testSpaces() throws IOException,
+			InvalidBoardFileException, InvalidBoardSizeException {
+
+		GameParser parser = new GameParser(new File(
+				"boards/tests/Spaces.board"));
+		parser.parse();
+	}
 
 }
