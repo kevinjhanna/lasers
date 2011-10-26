@@ -13,11 +13,10 @@ import game.TileDrawer;
  */
 public class Filter extends ColoredTile {
 	
-	protected RotationComponent rotation = new TwoWayRotation();
-	
 	public Filter(Color color, Direction direction) {
 		super(color);
-		rotation.setDirection(direction);
+		setRotationComponent(new TwoWayRotation());
+		setDirection(direction);
 	}
 
 	public void react(Ray ray){

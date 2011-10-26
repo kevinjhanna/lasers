@@ -8,11 +8,10 @@ import misc.Direction;
  * Split Mirror. Supports rotation and movement
  */
 public class SplitMirror extends Tile {
-
-	protected RotationComponent rotation = new TwoWayRotation();
 	
 	public SplitMirror(Direction direction) {
-		rotation.setDirection(direction);
+		setRotationComponent(new TwoWayRotation());
+		setDirection(direction);
 	}
 	
 	public void react(Ray ray){

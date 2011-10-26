@@ -8,10 +8,9 @@ import game.TileDrawer;
  */
 public class DoubleMirror extends Tile {
 
-	protected RotationComponent rotation = new TwoWayRotation();
-	
 	public DoubleMirror(Direction direction) {
-		rotation.setDirection(direction);
+		setRotationComponent(new TwoWayRotation());
+		setDirection(direction);
 	}
 	
 	@Override

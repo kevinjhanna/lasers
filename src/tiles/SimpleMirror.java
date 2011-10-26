@@ -9,10 +9,9 @@ import game.TileDrawer;
  */
 public class SimpleMirror extends Tile {
 	
-	protected RotationComponent rotation = new FourWayRotation();
-
 	public SimpleMirror(Direction direction) {
-		rotation.setDirection(direction);
+		setRotationComponent(new FourWayRotation());
+		setDirection(direction);
 	}
 	
 	public void react(Ray ray){

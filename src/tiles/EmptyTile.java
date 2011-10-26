@@ -7,8 +7,6 @@ import game.Ray;
  */
 public class EmptyTile extends Tile {
 
-	protected RotationComponent rotation = new NoRotation();
-	
 	public boolean isEmpty() {
 		return true;
 	}

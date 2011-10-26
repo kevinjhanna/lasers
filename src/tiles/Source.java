@@ -13,11 +13,10 @@ import game.TileDrawer;
  */
 public class Source extends ColoredTile {	
 	
-	protected RotationComponent rotation = new FourWayRotation();
-	
 	public Source(Color color, Direction direction) {
 		super(color);
-		rotation.setDirection(direction);
+		setRotationComponent(new FourWayRotation());
+		setDirection(direction);
 	}
 	
 	public boolean isFixed() {
