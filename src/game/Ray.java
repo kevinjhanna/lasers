@@ -17,8 +17,9 @@ public class Ray {
 	}
 	
 	public void bifurcate(){
+		generatedRay = new Ray(position, direction.turn(), color);
 		// the generated ray one step ahead
-		generatedRay = new Ray(new Position(direction.turn().row + position.row, direction.turn().column + position.column), direction.turn(), color);
+		generatedRay.moveStraight();
 		this.moveStraight();
 		System.out.println("It's time to bifurcate, baby!");
 	}

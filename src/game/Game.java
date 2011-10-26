@@ -34,7 +34,7 @@ public class Game {
 	private Integer score;
 	private Board board;
 	private List<Pair<Position, Tile>> initialTiles;
-	private Map<Position, Source> sources;
+	private Map<Source, Position> sources;
 
 	/**
 	 * Instantiates a new game from a board file
@@ -211,13 +211,13 @@ public class Game {
 
 	}
 
-	private Map<Position, Source> getSources(List<Pair<Position, Tile>> tiles) {
+	private Map<Source, Position> getSources(List<Pair<Position, Tile>> tiles) {
 
-		Map<Position, Source> sources = new HashMap<Position, Source>();
+		Map<Source, Position> sources = new HashMap<Source, Position>();
 
 		for (Pair<Position, Tile> entry : tiles) {
 			if (entry.getSecond() instanceof Source) {
-				sources.put(entry.getFirst(), (Source) entry.getSecond());
+				sources.put((Source) entry.getSecond(), entry.getFirst());
 			}
 		}
 
@@ -242,15 +242,13 @@ public class Game {
 		List<Ray> initialRays = new LinkedList<Ray>();// maybe an instance
 														// variable??
 
-		for (Map.Entry<Position, Source> entry : sources.entrySet()) {
-			// Creates the ray one tile ahead of the source
-			Position rayOffsetPosition = new Position(entry.getValue()
-					.getDirection().row + entry.getKey().row, entry.getValue()
-					.getDirection().column + entry.getKey().column);
-			initialRays.add(new Ray(rayOffsetPosition, entry.getValue()
-					.getDirection(), entry.getValue().getColor()));
+		for (Map.Entry<Source, Position> entry : sources.entrySet()) {
+			// Creates the ray one tile ahead of the source			
+			Ray ray = new Ray(entry.getValue(), entry.getKey().getDirection(), entry.getKey().getColor());
+			ray.moveStraight();
+			initialRays.add(ray);
 			System.out.println("Source position = " + entry.getKey());
-			System.out.println("Ray position = " + rayOffsetPosition);
+			System.out.println("Ray position = " + entry.getKey());
 		}
 
 		for (Ray ray : initialRays) {
