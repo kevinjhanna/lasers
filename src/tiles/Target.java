@@ -1,5 +1,7 @@
 package tiles;
 
+import game.Ray;
+
 import java.awt.Color;
 
 public class Target extends ColoredTile {
@@ -11,4 +13,9 @@ public class Target extends ColoredTile {
 	public boolean isFixed() {
 		return true;
 	}
+	
+	public void react(Ray ray){
+		
+	}
+	
 }

@@ -3,6 +3,7 @@ package tiles;
 import java.awt.Color;
 
 import misc.Direction;
+import game.Ray;
 import game.TileDrawer;
 
 public class Filter extends ColoredTile {
@@ -22,6 +23,12 @@ public class Filter extends ColoredTile {
 		direction = direction.turn();
 	}
 
+	public void react(Ray ray){
+		ray.changeColor();//dummy
+		ray.moveStraight();
+	
+	}
+	
 	@Override
 	public <T> T draw(TileDrawer<T> drawer) {
 		return drawer.withDirection(super.draw(drawer), direction);

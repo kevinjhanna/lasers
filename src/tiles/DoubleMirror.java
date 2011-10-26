@@ -21,6 +21,8 @@ public class DoubleMirror extends Tile {
 		direction = direction.turn();
 	}
 	
+	
+	
 	@Override
 	public <T> T draw(TileDrawer<T> drawer) {
 		return drawer.withDirection(super.draw(drawer), direction);
