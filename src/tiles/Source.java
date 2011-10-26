@@ -32,6 +32,6 @@ public class Source extends ColoredTile {
 
 	@Override
 	protected RotationComponent getRotationComponent() {
-		return new FourWayRotation();
+		return new FourWayRotation(true);
 	}
 }
