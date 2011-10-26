@@ -24,8 +24,6 @@ public class GameController implements Controller, Observer {
 
 	/**
 	 * GameController constructor
-	 * 
-	 * @param container
 	 */
 	public GameController() {
 		container.setController(this);

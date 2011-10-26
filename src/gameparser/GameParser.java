@@ -36,7 +36,7 @@ public class GameParser {
 	/**
 	 * Creates a new parser for the given file
 	 * 
-	 * @param f
+	 * @param file
 	 * 		The file to parse
 	 * @throws IOException
 	 * 		In case the file exists
