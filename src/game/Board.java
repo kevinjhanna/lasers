@@ -109,15 +109,15 @@ public class Board {
 	}
 	
 	public boolean insideBounds(Position p) {
-		return (p.row < boardHeight && p.row >= 0 && p.column < boardWidth && p.column >= 0);
+		return (p.row < getHeight() && p.row >= 0 && p.column < getWidth() && p.column >= 0);
 	}
 	
 	public int getWidth(){
-		return boardWidth;
+		return width;
 	}
 	
 	public int getHeight(){
-		return boardHeight;
+		return height;
 	}
 	
 }
