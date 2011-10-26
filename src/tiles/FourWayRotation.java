@@ -12,7 +12,6 @@ public class FourWayRotation implements RotationComponent {
 		this.mutable = mutable;
 	}
 	
-	@Override
 	public boolean canRotate() {
 		return mutable;
 	}

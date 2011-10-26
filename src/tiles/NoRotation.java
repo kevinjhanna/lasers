@@ -5,7 +5,6 @@ import misc.Direction;
 
 public class NoRotation implements RotationComponent {
 	
-	@Override
 	public boolean canRotate() {
 		return false;
 	}

@@ -12,7 +12,6 @@ public class TwoWayRotation implements RotationComponent {
 		this.mutable = mutable;
 	}
 	
-	@Override
 	public boolean canRotate() {
 		return mutable;
 	}
