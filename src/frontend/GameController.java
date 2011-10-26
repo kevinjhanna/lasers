@@ -164,8 +164,7 @@ public class GameController implements Controller, Observer {
 			ConfirmOption opt = container.showConfirm("Quit without save?");
 
 			if (opt == ConfirmOption.NO) {
-				File f = container.showSave();
-				game.save(f);
+				saveGame();
 			}
 			if (opt == ConfirmOption.CANCEL) {
 				return;
@@ -199,7 +198,12 @@ public class GameController implements Controller, Observer {
 
 		File f = container.showSave();
 		if (f != null) {
-			game.save(f);
+			try{
+				game.save(f);
+			}
+			catch(IOException e){
+				container.showError("Unable to save game.");
+			}
 		}
 	}
 

@@ -1,7 +1,11 @@
 package game;
 
+import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -21,20 +25,20 @@ import gameparser.GameParser;
 /**
  * Class that models a Lasers and Mirrors game
  */
-public class Game {
+public class Game implements Serializable{
 
 	public static final int MIN_HEIGHT = 5;
 	public static final int MIN_WIDTH = 5;
 	public static final int MAX_HEIGHT = 20;
 	public static final int MAX_WIDTH = 20;
 
-	private Observer observer;
+	private transient Observer observer;
 	private Integer boardHeight;
 	private Integer boardWidth;
 	private Integer score;
-	private Board board;
-	private List<Pair<Position, Tile>> initialTiles;
-	private Map<Source, Position> sources;
+	private transient Board board;
+	private transient List<Pair<Position, Tile>> initialTiles;
+	private transient Map<Source, Position> sources;
 
 	/**
 	 * Instantiates a new game from a board file
@@ -164,8 +168,19 @@ public class Game {
 	 * 
 	 * @param f
 	 *            The file to save the game into
+	 * @throws IOException 
+	 * @throws  
 	 */
-	public void save(File f) {
+	public void save(File f) throws IOException {
+		// tiene que tirar IOException en realidad
+		ObjectOutputStream file = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(f)));
+		try{			
+		}
+
+		finally{
+			file.close();
+		}
+		
 		System.out.println("Archivo guardado en " + f.getName());
 	}
 
@@ -278,5 +293,8 @@ public class Game {
 	private boolean insideBounds(Position p) {
 		return (p.row < boardHeight && p.row >= 0 && p.column < boardWidth && p.column >= 0);
 	}
+	
+	
+	
 
 }
