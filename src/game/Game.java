@@ -1,19 +1,22 @@
 package game;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+
+import misc.Pair;
+import misc.Position;
+import tiles.Source;
+import tiles.Tile;
 import exceptions.InvalidBoardFileException;
 import exceptions.RotationNotSupportedException;
 import exceptions.SourceTileEmptyException;
 import exceptions.TargetTileNotEmptyException;
 import exceptions.TileIsFixedException;
 import gameparser.GameParser;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.List;
-
-import misc.Pair;
-import misc.Position;
-import tiles.Tile;
 
 /**
  * Class that models a Lasers and Mirrors game
@@ -31,6 +34,7 @@ public class Game {
 	private Integer score;
 	private Board board;
 	private List<Pair<Position, Tile>> initialTiles;
+	private Map<Position, Source> sources;
 
 	/**
 	 * Instantiates a new game from a board file
@@ -40,9 +44,10 @@ public class Game {
 	 * @return Game The new game
 	 * @throws IOException
 	 *             in case there is a problem reading the file
-	 * @throws InvalidBoardFileException 
+	 * @throws InvalidBoardFileException
 	 */
-	public static Game fromBoardFile(File f) throws IOException, InvalidBoardFileException {
+	public static Game fromBoardFile(File f) throws IOException,
+			InvalidBoardFileException {
 		GameParser parser = new GameParser(f);
 		return parser.parse();
 	}
@@ -135,6 +140,8 @@ public class Game {
 
 		observer.onTileMove(sourceRow, sourceColumn, targetRow, targetColumn,
 				getTile(targetRow, targetColumn));
+
+		propagateBoard();
 	}
 
 	/**
@@ -149,13 +156,14 @@ public class Game {
 
 		board.getTile(new Position(row, column)).rotate();
 		observer.onTileRotated(row, column, getTile(row, column));
+		propagateBoard();
 	}
 
 	/**
 	 * Saves the game in the file given
 	 * 
 	 * @param f
-	 * 		The file to save the game into
+	 *            The file to save the game into
 	 */
 	public void save(File f) {
 		System.out.println("Archivo guardado en " + f.getName());
@@ -199,6 +207,21 @@ public class Game {
 		this.initialTiles = initialTiles;
 
 		board = new Board(boardHeight, boardWidth);
+		sources = getSources(initialTiles);
+
+	}
+
+	private Map<Position, Source> getSources(List<Pair<Position, Tile>> tiles) {
+
+		Map<Position, Source> sources = new HashMap<Position, Source>();
+
+		for (Pair<Position, Tile> entry : tiles) {
+			if (entry.getSecond() instanceof Source) {
+				sources.put(entry.getFirst(), (Source) entry.getSecond());
+			}
+		}
+
+		return sources;
 	}
 
 	/**
@@ -212,6 +235,50 @@ public class Game {
 			observer.onTileSet(p.getFirst().row, p.getFirst().column,
 					p.getSecond());
 		}
+	}
+
+	// TODO WHEN MOVING A MOVABLE SOURCE WE NEED TO UPDATE THE SOURCES
+	private void propagateBoard() {
+		List<Ray> initialRays = new LinkedList<Ray>();// maybe an instance
+														// variable??
+
+		for (Map.Entry<Position, Source> entry : sources.entrySet()) {
+			// Creates the ray one tile ahead of the source
+			Position rayOffsetPosition = new Position(entry.getValue()
+					.getDirection().row + entry.getKey().row, entry.getValue()
+					.getDirection().column + entry.getKey().column);
+			initialRays.add(new Ray(rayOffsetPosition, entry.getValue()
+					.getDirection(), entry.getValue().getColor()));
+			System.out.println("Source position = " + entry.getKey());
+			System.out.println("Ray position = " + rayOffsetPosition);
+		}
+
+		for (Ray ray : initialRays) {
+			spread(ray);
+		}
+	}
+
+	private void spread(Ray ray) {
+		while (ray.canReact()) {
+			if (insideBounds(ray.getPosition())) {
+				System.out.println(ray.getPosition());
+				// should we have another board with ray position as to be able
+				// to change ray colors when they collide?
+				board.getTile(ray.getPosition()).react(ray);
+				if (ray.hasGeneratedRay()) {
+					// HERE WE SHOULD PROCESS THE GENERATED RAY onda recursiva?
+					spread(ray.getGeneratedRay());
+				}
+			} else {
+				ray.stopMovement();
+			}
+		}
+	}
+
+	// TODO the board should be less "dumb" maybe move this along with MAX
+	// constants to the Board
+	private boolean insideBounds(Position p) {
+		return (p.row < boardHeight && p.row >= 0 && p.column < boardWidth && p.column >= 0);
 	}
 
 }

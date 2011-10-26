@@ -8,7 +8,7 @@ import game.TileDrawer;
  */
 public class DoubleMirror extends Tile {
 
-	protected final RotationComponent rotation = new TwoWayRotation();
+	protected RotationComponent rotation = new TwoWayRotation();
 	
 	public DoubleMirror(Direction direction) {
 		rotation.setDirection(direction);

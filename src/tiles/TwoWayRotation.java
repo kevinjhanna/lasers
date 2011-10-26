@@ -14,9 +14,13 @@ public class TwoWayRotation implements RotationComponent {
 	
 	@Override
 	public void setDirection(Direction direction) {
-		if (direction != Direction.NORTH || direction != Direction.EAST) {
+		if (direction == null) {
+			throw new IllegalArgumentException();
+		}
+		if (direction != Direction.NORTH && direction != Direction.EAST) {
 			throw new RotationNotSupportedException();
 		}
+		this.direction = direction;
 	}
 	
 	@Override

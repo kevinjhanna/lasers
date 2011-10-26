@@ -5,8 +5,6 @@ import misc.Direction;
 
 public class NoRotation implements RotationComponent {
 
-	public Direction direction;
-	
 	@Override
 	public Direction getDirection() {
 		return Direction.NORTH;

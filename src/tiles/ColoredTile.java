@@ -1,8 +1,8 @@
 package tiles;
 
-import java.awt.Color;
-
 import game.TileDrawer;
+
+import java.awt.Color;
 
 /**
  * Abtract class that represents a 
@@ -17,7 +17,7 @@ public abstract class ColoredTile extends Tile {
 		this.color = color;
 	}
 	
-	protected Color getColor() {
+	public Color getColor() {
 		return color;
 	}
 	

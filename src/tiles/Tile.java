@@ -1,17 +1,17 @@
 package tiles;
 
-import misc.Direction;
 import exceptions.RotationNotSupportedException;
+import game.Ray;
 import game.TileDrawer;
+import misc.Direction;
 
 /**
  * Abstract class that models a game tile
  */
 public abstract class Tile implements Drawable {
 
-	protected final RotationComponent rotation = new FourWayRotation();
+	protected RotationComponent rotation;
 	
-	/* each react depends on the tile implementation*/
 	public void react(Ray ray){
 		ray.moveStraight();
 	}
@@ -28,6 +28,10 @@ public abstract class Tile implements Drawable {
 	public boolean isFixed() {
 		return false;
 	}
+	
+	public final RotationComponent getRotationComponent() {
+		return rotation;
+	}
 
 	/**
 	 * Returns the direction of the tile. For tiles that have no defined
@@ -36,7 +40,7 @@ public abstract class Tile implements Drawable {
 	 * @see Direction
 	 * @return Direction
 	 */
-	public Direction getDirection() {
+	public final Direction getDirection() {
 		return rotation.getDirection();
 	}
 
@@ -46,7 +50,7 @@ public abstract class Tile implements Drawable {
 	 * @throws RotationNotSupportedException
 	 *             If the tile does not support rotation
 	 */	
-	public void rotate() {
+	public final void rotate() {
 		rotation.rotate();
 	}
 

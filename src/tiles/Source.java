@@ -3,6 +3,7 @@ package tiles;
 import java.awt.Color;
 
 import misc.Direction;
+import game.Ray;
 import game.TileDrawer;
 
 /**
@@ -12,18 +13,22 @@ import game.TileDrawer;
  */
 public class Source extends ColoredTile {	
 	
-private Direction direction;
+	protected RotationComponent rotation = new FourWayRotation();
 	
 	public Source(Color color, Direction direction) {
 		super(color);
-		this.direction = direction;
+		rotation.setDirection(direction);
 	}
 	
 	public boolean isFixed() {
 		return true;
 	}
 
+	public void react(Ray ray){
+		ray.stopMovement();
+	}
+	
 	public <T> T draw(TileDrawer<T> drawer) {
-		return drawer.withDirection(super.draw(drawer), direction);
+		return drawer.withDirection(super.draw(drawer), getDirection());
 	}
 }

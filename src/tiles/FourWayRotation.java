@@ -13,6 +13,9 @@ public class FourWayRotation implements RotationComponent {
 
 	@Override
 	public void setDirection(Direction direction) {
+		if (direction == null) {
+			throw new IllegalArgumentException();
+		}
 		this.direction = direction;
 	}
 	
