@@ -20,8 +20,8 @@ public class Board {
 	public static final int MAX_HEIGHT = 20;
 	public static final int MAX_WIDTH = 20;
 	
-	private int boardHeight;
-	private int boardWidth;
+	private int height;
+	private int width;
 	
 
 	
@@ -35,7 +35,8 @@ public class Board {
 	 * @throws InvalidBoardSizeException 
 	 */
 	public Board(int height, int width) throws InvalidBoardSizeException {
-		if (!insideBounds(new Position(height, width))){
+		
+		if (height < MAX_WIDTH && height >= MIN_WIDTH && height < MAX_HEIGHT && height >= MIN_HEIGHT){
 			throw new InvalidBoardSizeException();
 		}
 		
