@@ -17,12 +17,10 @@ public class FourWayRotation implements RotationComponent {
 		return mutable;
 	}
 	
-	@Override
 	public Direction getDirection() {
 		return direction;
 	}
 
-	@Override
 	public void setDirection(Direction direction) {
 		if (!mutable) {
 			throw new RotationNotSupportedException();
@@ -33,7 +31,6 @@ public class FourWayRotation implements RotationComponent {
 		this.direction = direction;
 	}
 	
-	@Override
 	public void rotate() {
 		direction = direction.turn();
 	}

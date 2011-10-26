@@ -20,7 +20,7 @@ public class Target extends ColoredTile {
 	}
 	
 	public void react(Ray ray){
-		
+		ray.stopMovement();
 	}
 
 	@Override

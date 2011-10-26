@@ -17,12 +17,10 @@ public class TwoWayRotation implements RotationComponent {
 		return mutable;
 	}
 	
-	@Override
 	public Direction getDirection() {
 		return direction;
 	}
 	
-	@Override
 	public void setDirection(Direction direction) {
 		if (direction == null) {
 			throw new IllegalArgumentException();
@@ -33,7 +31,6 @@ public class TwoWayRotation implements RotationComponent {
 		this.direction = direction;
 	}
 	
-	@Override
 	public void rotate() {
 		if (direction == Direction.NORTH) {
 			direction = Direction.EAST;
