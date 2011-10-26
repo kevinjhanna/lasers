@@ -10,7 +10,6 @@ import misc.Direction;
 public class SplitMirror extends Tile {
 	
 	public SplitMirror(Direction direction) {
-		setRotationComponent(new TwoWayRotation());
 		setDirection(direction);
 	}
 	
@@ -23,5 +22,10 @@ public class SplitMirror extends Tile {
 	@Override
 	public <T> T draw(TileDrawer<T> drawer) {
 		return drawer.withDirection(super.draw(drawer), getDirection());
+	}
+
+	@Override
+	protected RotationComponent getRotationComponent() {
+		return new TwoWayRotation();
 	}
 }

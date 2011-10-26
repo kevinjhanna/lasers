@@ -15,7 +15,6 @@ public class Filter extends ColoredTile {
 	
 	public Filter(Color color, Direction direction) {
 		super(color);
-		setRotationComponent(new TwoWayRotation());
 		setDirection(direction);
 	}
 
@@ -28,5 +27,10 @@ public class Filter extends ColoredTile {
 	@Override
 	public <T> T draw(TileDrawer<T> drawer) {
 		return drawer.withDirection(super.draw(drawer), getDirection());
+	}
+
+	@Override
+	protected RotationComponent getRotationComponent() {
+		return new TwoWayRotation();
 	}
 }

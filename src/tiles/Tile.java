@@ -10,7 +10,11 @@ import misc.Direction;
  */
 public abstract class Tile implements Drawable {
 
-	private RotationComponent rotation = new NoRotation();
+	private RotationComponent rotation;
+	
+	protected Tile() {
+		rotation = getRotationComponent();
+	}
 	
 	public void react(Ray ray){
 		ray.moveStraight();
@@ -27,14 +31,6 @@ public abstract class Tile implements Drawable {
 	 */
 	public boolean isFixed() {
 		return false;
-	}
-	
-	protected final RotationComponent getRotationComponent() {
-		return rotation;
-	}
-	
-	protected final void setRotationComponent(RotationComponent rotation) {
-		this.rotation = rotation;
 	}
 
 	/**
@@ -72,4 +68,7 @@ public abstract class Tile implements Drawable {
 	public <T> T draw(TileDrawer<T> tileDrawer) {
 		return tileDrawer.draw(this.getClass().getName());
 	}
+	
+	protected abstract RotationComponent getRotationComponent();
+	
 }

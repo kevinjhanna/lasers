@@ -10,7 +10,6 @@ import game.TileDrawer;
 public class SimpleMirror extends Tile {
 	
 	public SimpleMirror(Direction direction) {
-		setRotationComponent(new FourWayRotation());
 		setDirection(direction);
 	}
 	
@@ -21,5 +20,10 @@ public class SimpleMirror extends Tile {
 	@Override
 	public <T> T draw(TileDrawer<T> drawer) {
 		return drawer.withDirection(super.draw(drawer), getDirection());
+	}
+
+	@Override
+	protected RotationComponent getRotationComponent() {
+		return new FourWayRotation();
 	}
 }

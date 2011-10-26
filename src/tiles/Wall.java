@@ -14,5 +14,10 @@ public class Wall extends Tile {
 	public void react(Ray ray){
 		ray.stopMovement();
 	}
+
+	@Override
+	protected RotationComponent getRotationComponent() {
+		return new NoRotation();
+	}
 	
 }

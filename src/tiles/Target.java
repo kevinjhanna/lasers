@@ -22,5 +22,10 @@ public class Target extends ColoredTile {
 	public void react(Ray ray){
 		
 	}
+
+	@Override
+	protected RotationComponent getRotationComponent() {
+		return new NoRotation();
+	}
 	
 }

@@ -15,5 +15,10 @@ public class EmptyTile extends Tile {
 		ray.moveStraight();
 		
 	}
+
+	@Override
+	protected RotationComponent getRotationComponent() {
+		return new NoRotation();
+	}
 	
 }

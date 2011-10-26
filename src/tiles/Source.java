@@ -15,7 +15,6 @@ public class Source extends ColoredTile {
 	
 	public Source(Color color, Direction direction) {
 		super(color);
-		setRotationComponent(new FourWayRotation());
 		setDirection(direction);
 	}
 	
@@ -29,5 +28,10 @@ public class Source extends ColoredTile {
 	
 	public <T> T draw(TileDrawer<T> drawer) {
 		return drawer.withDirection(super.draw(drawer), getDirection());
+	}
+
+	@Override
+	protected RotationComponent getRotationComponent() {
+		return new FourWayRotation();
 	}
 }
