@@ -8,24 +8,14 @@ import game.TileDrawer;
  */
 public class DoubleMirror extends Tile {
 
-	private Direction direction;
+	protected final RotationComponent rotation = new TwoWayRotation();
 	
-	public DoubleMirror(Direction orientation) {
-		this.direction = orientation;
-	}
-	
-	@Override
-	public Direction getDirection() {
-		return direction;
-	}
-
-	@Override
-	public void rotate() {
-		direction = direction.turn();
+	public DoubleMirror(Direction direction) {
+		rotation.setDirection(direction);
 	}
 	
 	@Override
 	public <T> T draw(TileDrawer<T> drawer) {
-		return drawer.withDirection(super.draw(drawer), direction);
+		return drawer.withDirection(super.draw(drawer), getDirection());
 	}
 }

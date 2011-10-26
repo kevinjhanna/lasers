@@ -1,7 +1,7 @@
 package tiles;
 
-import exceptions.RotationNotSupportedException;
 import misc.Direction;
+import exceptions.RotationNotSupportedException;
 import game.TileDrawer;
 
 /**
@@ -9,11 +9,13 @@ import game.TileDrawer;
  */
 public abstract class Tile implements Drawable {
 
-	/**
-	 * Returns whether the tile is empty
-	 * 
-	 * @return boolean
-	 */
+	protected final RotationComponent rotation = new FourWayRotation();
+	
+	/* each react depends on the tile implementation*/
+	public void react(Ray ray){
+		ray.moveStraight();
+	}
+
 	public boolean isEmpty() {
 		return false;
 	}
@@ -35,7 +37,7 @@ public abstract class Tile implements Drawable {
 	 * @return Direction
 	 */
 	public Direction getDirection() {
-		return Direction.NORTH;
+		return rotation.getDirection();
 	}
 
 	/**
@@ -43,9 +45,9 @@ public abstract class Tile implements Drawable {
 	 * 
 	 * @throws RotationNotSupportedException
 	 *             If the tile does not support rotation
-	 */
-	public void rotate() throws RotationNotSupportedException {
-		throw new RotationNotSupportedException();
+	 */	
+	public void rotate() {
+		rotation.rotate();
 	}
 
 	/**

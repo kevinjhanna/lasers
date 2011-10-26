@@ -12,23 +12,14 @@ import game.TileDrawer;
  */
 public class Filter extends ColoredTile {
 	
-	public Direction direction;
+	protected final RotationComponent rotation = new TwoWayRotation();
 	
 	public Filter(Color color, Direction direction) {
 		super(color);
-		this.direction = direction;
-	}
-	
-	public Direction getDirection() {
-		return direction;
-	}
-	
-	public void rotate() {
-		direction = direction.turn();
 	}
 
 	@Override
 	public <T> T draw(TileDrawer<T> drawer) {
-		return drawer.withDirection(super.draw(drawer), direction);
+		return drawer.withDirection(super.draw(drawer), getDirection());
 	}
 }
