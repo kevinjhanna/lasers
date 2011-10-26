@@ -19,6 +19,7 @@
 			
 			<test name="tests.BoardTest" />
 			<test name="tests.DirectionTest" />
+			<test name="tests.GameParserTest" />
 		</junit>
 	</target>
 			
