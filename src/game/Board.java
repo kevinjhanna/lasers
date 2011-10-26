@@ -3,6 +3,8 @@ package game;
 import misc.Position;
 import tiles.EmptyTile;
 import tiles.Tile;
+import exceptions.InvalidBoardSizeException;
+import exceptions.PositionOutOfBounds;
 import exceptions.SourceTileEmptyException;
 import exceptions.TargetTileNotEmptyException;
 import exceptions.TileIsFixedException;
@@ -13,7 +15,16 @@ import exceptions.TileIsFixedException;
 public class Board {
 
 	private Tile[][] content;
+	public static final int MIN_HEIGHT = 5;
+	public static final int MIN_WIDTH = 5;
+	public static final int MAX_HEIGHT = 20;
+	public static final int MAX_WIDTH = 20;
+	
+	private int boardHeight;
+	private int boardWidth;
+	
 
+	
 	/**
 	 * Creates a new board with the given dimensions
 	 * 
@@ -21,9 +32,13 @@ public class Board {
 	 * 		The height of the new board
 	 * @param width
 	 * 		The width of the new board
+	 * @throws InvalidBoardSizeException 
 	 */
-	public Board(int height, int width) {
-
+	public Board(int height, int width) throws InvalidBoardSizeException {
+		if (!insideBounds(new Position(height, width))){
+			throw new InvalidBoardSizeException();
+		}
+		
 		content = new Tile[height][width];
 
 		for (int i = 0; i < height; i++) {
@@ -41,6 +56,9 @@ public class Board {
 	 * @return Tile
 	 */
 	public Tile getTile(Position p) {
+		if (!insideBounds(p)){
+			throw new PositionOutOfBounds();
+		}
 		return content[p.row][p.column];
 	}
 
@@ -53,6 +71,9 @@ public class Board {
 	 * 		The tile to put in position
 	 */
 	public void setTile(Position p, Tile tile) {
+		if (!insideBounds(p)){
+			throw new PositionOutOfBounds();
+		}
 		content[p.row][p.column] = tile;
 	}
 
@@ -85,5 +106,17 @@ public class Board {
 		setTile(source, new EmptyTile());
 		setTile(target, tile);
 	}
-
+	
+	public boolean insideBounds(Position p) {
+		return (p.row < boardHeight && p.row >= 0 && p.column < boardWidth && p.column >= 0);
+	}
+	
+	public int getWidth(){
+		return boardWidth;
+	}
+	
+	public int getHeight(){
+		return boardHeight;
+	}
+	
 }

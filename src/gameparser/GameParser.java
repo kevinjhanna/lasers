@@ -21,6 +21,8 @@ import tiles.Target;
 import tiles.Tile;
 import tiles.Wall;
 import exceptions.InvalidBoardFileException;
+import exceptions.InvalidBoardSizeException;
+
 import game.Game;
 
 /**
@@ -56,7 +58,7 @@ public class GameParser {
 	 * @throws IOException
 	 * @throws InvalidBoardFileException
 	 */
-	public Game parse() throws IOException, InvalidBoardFileException {
+	public Game parse() throws IOException, InvalidBoardFileException, InvalidBoardSizeException {
 		
 		List<Pair<Position, Tile>> tiles = new ArrayList<Pair<Position, Tile>>();
 

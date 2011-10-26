@@ -16,6 +16,7 @@ import misc.Position;
 import tiles.Source;
 import tiles.Tile;
 import exceptions.InvalidBoardFileException;
+import exceptions.InvalidBoardSizeException;
 import exceptions.RotationNotSupportedException;
 import exceptions.SourceTileEmptyException;
 import exceptions.TargetTileNotEmptyException;
@@ -27,14 +28,7 @@ import gameparser.GameParser;
  */
 public class Game implements Serializable{
 
-	public static final int MIN_HEIGHT = 5;
-	public static final int MIN_WIDTH = 5;
-	public static final int MAX_HEIGHT = 20;
-	public static final int MAX_WIDTH = 20;
-
 	private transient Observer observer;
-	private Integer boardHeight;
-	private Integer boardWidth;
 	private Integer score;
 	private transient Board board;
 	private transient List<Pair<Position, Tile>> initialTiles;
@@ -51,7 +45,7 @@ public class Game implements Serializable{
 	 * @throws InvalidBoardFileException
 	 */
 	public static Game fromBoardFile(File f) throws IOException,
-			InvalidBoardFileException {
+			InvalidBoardFileException, InvalidBoardSizeException {
 		GameParser parser = new GameParser(f);
 		return parser.parse();
 	}
@@ -80,10 +74,8 @@ public class Game implements Serializable{
 	/**
 	 * Restarts the game
 	 */
-	public void restart() {
-		score = 0;
-		board = new Board(boardWidth, boardHeight);
-		populateBoard();
+	public Game restart() throws InvalidBoardSizeException{
+		return new Game(getBoardHeight(), getBoardWidth(), initialTiles);
 	}
 
 	/**
@@ -92,7 +84,7 @@ public class Game implements Serializable{
 	 * @return Integer
 	 */
 	public Integer getBoardWidth() {
-		return boardWidth;
+		return board.getWidth();
 	}
 
 	/**
@@ -101,7 +93,7 @@ public class Game implements Serializable{
 	 * @return Integer
 	 */
 	public Integer getBoardHeight() {
-		return boardHeight;
+		return board.getHeight();
 	}
 
 	/**
@@ -213,12 +205,11 @@ public class Game implements Serializable{
 	 * @param boardHeight
 	 * @param boardWidth
 	 * @param initialTiles
+	 * @throws InvalidBoardSizeException 
 	 */
 	public Game(int boardHeight, int boardWidth,
-			List<Pair<Position, Tile>> initialTiles) {
+			List<Pair<Position, Tile>> initialTiles) throws InvalidBoardSizeException {
 
-		this.boardHeight = boardHeight;
-		this.boardWidth = boardWidth;
 		this.initialTiles = initialTiles;
 
 		board = new Board(boardHeight, boardWidth);
@@ -273,7 +264,7 @@ public class Game implements Serializable{
 
 	private void spread(Ray ray) {
 		while (ray.canReact()) {
-			if (insideBounds(ray.getPosition())) {
+			if (board.insideBounds(ray.getPosition())) {
 				System.out.println(ray.getPosition());
 				// should we have another board with ray position as to be able
 				// to change ray colors when they collide?
@@ -290,9 +281,7 @@ public class Game implements Serializable{
 
 	// TODO the board should be less "dumb" maybe move this along with MAX
 	// constants to the Board
-	private boolean insideBounds(Position p) {
-		return (p.row < boardHeight && p.row >= 0 && p.column < boardWidth && p.column >= 0);
-	}
+
 	
 	
 	
