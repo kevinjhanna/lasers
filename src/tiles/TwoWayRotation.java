@@ -5,7 +5,17 @@ import exceptions.RotationNotSupportedException;
 
 public class TwoWayRotation implements RotationComponent {
 
-	public Direction direction;
+	private Direction direction;
+	private boolean mutable;
+	
+	public TwoWayRotation(boolean mutable) {
+		this.mutable = mutable;
+	}
+	
+	@Override
+	public boolean canRotate() {
+		return mutable;
+	}
 	
 	@Override
 	public Direction getDirection() {

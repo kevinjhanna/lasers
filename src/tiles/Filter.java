@@ -31,6 +31,6 @@ public class Filter extends ColoredTile {
 
 	@Override
 	protected RotationComponent getRotationComponent() {
-		return new TwoWayRotation();
+		return new TwoWayRotation(true);
 	}
 }

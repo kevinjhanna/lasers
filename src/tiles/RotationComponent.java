@@ -4,6 +4,8 @@ import misc.Direction;
 
 interface RotationComponent {
 
+	public boolean canRotate();
+	
 	public void rotate();
 	
 	public Direction getDirection();

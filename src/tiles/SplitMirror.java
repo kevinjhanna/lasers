@@ -26,6 +26,6 @@ public class SplitMirror extends Tile {
 
 	@Override
 	protected RotationComponent getRotationComponent() {
-		return new TwoWayRotation();
+		return new TwoWayRotation(true);
 	}
 }
