@@ -10,6 +10,20 @@ public class Position {
 		this.column = column;
 	}
 	
+	public Position move(Direction d) {
+		switch (d) {
+		case NORTH:
+			return new Position(row - 1, column);
+		case EAST:
+			return new Position(row, column + 1);
+		case SOUTH:
+			return new Position(row + 1, column);
+		case WEST:
+			return new Position(row, column - 1);
+		}
+		return null;
+	}
+	
 	@Override
 	public String toString() {
 		return "Position [row=" + row + ", column=" + column + "]";

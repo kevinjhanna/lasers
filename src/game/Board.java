@@ -19,27 +19,28 @@ public class Board {
 	public static final int MIN_WIDTH = 5;
 	public static final int MAX_HEIGHT = 20;
 	public static final int MAX_WIDTH = 20;
-	
+
 	private int height;
 	private int width;
-	
 
-	
 	/**
 	 * Creates a new board with the given dimensions
 	 * 
 	 * @param height
-	 * 		The height of the new board
+	 *            The height of the new board
 	 * @param width
-	 * 		The width of the new board
-	 * @throws InvalidBoardSizeException 
+	 *            The width of the new board
+	 * @throws InvalidBoardSizeException
 	 */
-	public Board(int height, int width) throws InvalidBoardSizeException {
-		
-		if (height < MAX_WIDTH && height >= MIN_WIDTH && height < MAX_HEIGHT && height >= MIN_HEIGHT){
+	public Board(int height, int width) {
+
+		if (height < MIN_HEIGHT || height > MAX_HEIGHT || width < MIN_WIDTH
+				|| height > MAX_HEIGHT) {
 			throw new InvalidBoardSizeException();
 		}
-		
+
+		this.width = width;
+		this.height = height;
 		content = new Tile[height][width];
 
 		for (int i = 0; i < height; i++) {
@@ -53,11 +54,11 @@ public class Board {
 	 * Returns the tile at the given position
 	 * 
 	 * @param p
-	 * 		The position to look
+	 *            The position to look
 	 * @return Tile
 	 */
 	public Tile getTile(Position p) {
-		if (!insideBounds(p)){
+		if (!validPosition(p)) {
 			throw new PositionOutOfBounds();
 		}
 		return content[p.row][p.column];
@@ -67,12 +68,12 @@ public class Board {
 	 * Replaces the tile at the given position by the tile given as parameter
 	 * 
 	 * @param p
-	 * 		The position to replace
+	 *            The position to replace
 	 * @param tile
-	 * 		The tile to put in position
+	 *            The tile to put in position
 	 */
 	public void setTile(Position p, Tile tile) {
-		if (!insideBounds(p)){
+		if (!validPosition(p)) {
 			throw new PositionOutOfBounds();
 		}
 		content[p.row][p.column] = tile;
@@ -82,9 +83,9 @@ public class Board {
 	 * Moves a tile from a source position to a target position
 	 * 
 	 * @param source
-	 * 		The source position
+	 *            The source position
 	 * @param target
-	 * 		The target position
+	 *            The target position
 	 * @throws TileIsFixedException
 	 * @throws SourceTileEmptyException
 	 * @throws TargetTileNotEmptyException
@@ -107,17 +108,18 @@ public class Board {
 		setTile(source, new EmptyTile());
 		setTile(target, tile);
 	}
-	
-	public boolean insideBounds(Position p) {
-		return (p.row < getHeight() && p.row >= 0 && p.column < getWidth() && p.column >= 0);
+
+	public boolean validPosition(Position p) {
+		return p.row >= 0 && p.row < height && p.column >= 0
+				&& p.column < width;
 	}
-	
-	public int getWidth(){
+
+	public int getWidth() {
 		return width;
 	}
-	
-	public int getHeight(){
+
+	public int getHeight() {
 		return height;
 	}
-	
+
 }

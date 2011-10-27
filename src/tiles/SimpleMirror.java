@@ -1,8 +1,7 @@
 package tiles;
 
-import misc.Direction;
-import game.Ray;
 import game.TileDrawer;
+import misc.Direction;
 
 /**
  * Simple Mirror. Supports rotation and movement
@@ -11,10 +10,6 @@ public class SimpleMirror extends Tile {
 	
 	public SimpleMirror(Direction direction) {
 		setDirection(direction);
-	}
-	
-	public void react(Ray ray){
-		ray.reflect();
 	}
 	
 	@Override
