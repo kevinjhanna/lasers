@@ -3,7 +3,6 @@ package game;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -116,7 +115,7 @@ public class Game {
 	 * @param column
 	 * @return tile
 	 */
-	private Tile getTile(int row, int column) {
+	private  Tile getTile(int row, int column) {
 		return board.getTile(new Position(row, column));
 	}
 
@@ -141,7 +140,7 @@ public class Game {
 		observer.onTileMove(sourceRow, sourceColumn, targetRow, targetColumn,
 				getTile(targetRow, targetColumn));
 
-		propagateBoard();
+		calculateRays();
 	}
 
 	/**
@@ -156,7 +155,8 @@ public class Game {
 
 		board.getTile(new Position(row, column)).rotate();
 		observer.onTileRotated(row, column, getTile(row, column));
-		propagateBoard();
+		
+		calculateRays();
 	}
 
 	/**
@@ -235,48 +235,22 @@ public class Game {
 			observer.onTileSet(p.getFirst().row, p.getFirst().column,
 					p.getSecond());
 		}
+		calculateRays();
 	}
 
 	// TODO WHEN MOVING A MOVABLE SOURCE WE NEED TO UPDATE THE SOURCES
-	private void propagateBoard() {
-		List<Ray> initialRays = new LinkedList<Ray>();// maybe an instance
-														// variable??
-
-		for (Map.Entry<Source, Position> entry : sources.entrySet()) {
-			// Creates the ray one tile ahead of the source			
-			Ray ray = new Ray(entry.getValue(), entry.getKey().getDirection(), entry.getKey().getColor());
-			ray.moveStraight();
-			initialRays.add(ray);
-			System.out.println("Source position = " + entry.getKey());
-			System.out.println("Ray position = " + entry.getKey());
-		}
-
-		for (Ray ray : initialRays) {
-			spread(ray);
+	private void calculateRays() {
+		clearBoardRays();
+		for (Map.Entry<Source, Position> e : sources.entrySet()) {
+			new Ray(board, e.getValue(), e.getKey().getDirection(), e.getKey().getColor());
 		}
 	}
-
-	private void spread(Ray ray) {
-		while (ray.canReact()) {
-			if (insideBounds(ray.getPosition())) {
-				System.out.println(ray.getPosition());
-				// should we have another board with ray position as to be able
-				// to change ray colors when they collide?
-				board.getTile(ray.getPosition()).react(ray);
-				if (ray.hasGeneratedRay()) {
-					// HERE WE SHOULD PROCESS THE GENERATED RAY onda recursiva?
-					spread(ray.getGeneratedRay());
-				}
-			} else {
-				ray.stopMovement();
+	
+	private void clearBoardRays() {
+		for (int i = 0; i < boardHeight; i++) {
+			for (int j = 0; j < boardWidth; j++) {
+				getTile(i, j).clearRays();
 			}
 		}
 	}
-
-	// TODO the board should be less "dumb" maybe move this along with MAX
-	// constants to the Board
-	private boolean insideBounds(Position p) {
-		return (p.row < boardHeight && p.row >= 0 && p.column < boardWidth && p.column >= 0);
-	}
-
 }

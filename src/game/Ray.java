@@ -1,68 +1,50 @@
 package game;
+
 import java.awt.Color;
 import misc.*;
 
 public class Ray {
+	private Board board;
+	private Position position;
 	private Direction direction;
 	private Color color;
-	private Position position;
-	private boolean moving;
-	private Ray generatedRay = null;
-	
-	public Ray(Position p, Direction d, Color c){
-		position = p;
-		direction = d;
-		color = c;
-		moving = true;
-	}
-	
-	public void bifurcate(){
-		generatedRay = new Ray(position, direction.turn(), color);
-		// the generated ray one step ahead
-		generatedRay.moveStraight();
-		this.moveStraight();
-		System.out.println("It's time to bifurcate, baby!");
-	}
-	
-	public boolean hasGeneratedRay(){
-		return generatedRay != null;
-	}
-	
-	public Ray getGeneratedRay(){
-		Ray ray = generatedRay;
-		generatedRay = null;
-		return ray;
-	}
-	
-	public void moveStraight(){
-		position = new Position(position.row + direction.row, position.column + direction.column);
-	}
-	
-	public void reflect(){
-		direction = direction.turn(3);
-		moveStraight();
-		System.out.println("Turns!");
-	}
-	
-	public void changeColor(){
-		
-	}
-	
-	public void stopMovement(){
-		moving = false;
-	}
-	
 
+	public Ray(Board board, Position position, Direction direction, Color color) {
+		this.board = board;
+		this.position = position;
+		this.direction = direction;
+		this.color = color;
+		move(direction, color);
+	}
 
-	public Position getPosition(){
-		return position;
+	private void move(Direction direction, Color color) {
+		this.direction = direction;
+		this.color = color;
+		move();
 	}
 	
-	public void setPosition(Position p){
-		position = p;
+	public void move() {
+		position = position.move(direction);
+		if (board.validPosition(position)) {
+			System.out.println(position + " -> " + direction.name());
+			hit();			
+		}
+	}
+
+	public void bifurcate(Direction d1, Color c1, Direction d2, Color c2) {
+		new Ray(board, position, d2, c2);
+		move(d1, c1);
+	}
+
+	private void hit() {
+		board.getTile(position).hit(this);
 	}
 	
-	public boolean canReact(){
-		return moving;
+	public Color getColor() {
+		return color;
+	}
+	
+	public Direction getDirection() {
+		return direction;
 	}
 }

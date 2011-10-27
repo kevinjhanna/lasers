@@ -18,9 +18,9 @@ public class Board {
 	 * Creates a new board with the given dimensions
 	 * 
 	 * @param height
-	 * 		The height of the new board
+	 *            The height of the new board
 	 * @param width
-	 * 		The width of the new board
+	 *            The width of the new board
 	 */
 	public Board(int height, int width) {
 
@@ -37,7 +37,7 @@ public class Board {
 	 * Returns the tile at the given position
 	 * 
 	 * @param p
-	 * 		The position to look
+	 *            The position to look
 	 * @return Tile
 	 */
 	public Tile getTile(Position p) {
@@ -48,9 +48,9 @@ public class Board {
 	 * Replaces the tile at the given position by the tile given as parameter
 	 * 
 	 * @param p
-	 * 		The position to replace
+	 *            The position to replace
 	 * @param tile
-	 * 		The tile to put in position
+	 *            The tile to put in position
 	 */
 	public void setTile(Position p, Tile tile) {
 		content[p.row][p.column] = tile;
@@ -60,9 +60,9 @@ public class Board {
 	 * Moves a tile from a source position to a target position
 	 * 
 	 * @param source
-	 * 		The source position
+	 *            The source position
 	 * @param target
-	 * 		The target position
+	 *            The target position
 	 * @throws TileIsFixedException
 	 * @throws SourceTileEmptyException
 	 * @throws TargetTileNotEmptyException
@@ -84,6 +84,11 @@ public class Board {
 		Tile tile = getTile(source);
 		setTile(source, new EmptyTile());
 		setTile(target, tile);
+	}
+
+	public boolean validPosition(Position p) {
+		return p.row >= 0 && p.row < content.length && p.column >= 0
+				&& p.column < content[0].length;
 	}
 
 }

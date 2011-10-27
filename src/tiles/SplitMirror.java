@@ -1,6 +1,5 @@
 package tiles;
 
-import game.Ray;
 import game.TileDrawer;
 import misc.Direction;
 
@@ -11,12 +10,6 @@ public class SplitMirror extends Tile {
 	
 	public SplitMirror(Direction direction) {
 		setDirection(direction);
-	}
-	
-	public void react(Ray ray){
-		System.out.println("collaps with split");
-
-		ray.bifurcate();
 	}
 	
 	@Override

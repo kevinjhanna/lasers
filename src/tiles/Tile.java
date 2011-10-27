@@ -1,5 +1,7 @@
 package tiles;
 
+import java.awt.Color;
+
 import exceptions.RotationNotSupportedException;
 import game.Ray;
 import game.TileDrawer;
@@ -11,13 +13,30 @@ import misc.Direction;
 public abstract class Tile implements Drawable {
 
 	private RotationComponent rotation;
-	
+	private Color[] rays = new Color[4];
+
 	protected Tile() {
 		rotation = getRotationComponent();
 	}
+
+	public void hit(Ray ray) {
+		setRay(ray.getDirection(), ray.getColor());
+		setRay(ray.getDirection().getOpposite(), ray.getColor());
+		ray.move();
+	}
+
+	public void clearRays() {
+		for (int i = 0; i < 4; i++) {
+			rays[i] = null;
+		}
+	}
+
+	protected final void setRay(Direction d, Color c) {
+		rays[d.ordinal()] = c;
+	}
 	
-	public void react(Ray ray){
-		ray.moveStraight();
+	protected final Color getRay(Direction d) {
+		return rays[d.ordinal()];
 	}
 
 	public boolean isEmpty() {
@@ -43,7 +62,7 @@ public abstract class Tile implements Drawable {
 	public final Direction getDirection() {
 		return rotation.getDirection();
 	}
-	
+
 	protected final void setDirection(Direction direction) {
 		rotation.setDirection(direction);
 	}
@@ -53,7 +72,7 @@ public abstract class Tile implements Drawable {
 	 * 
 	 * @throws RotationNotSupportedException
 	 *             If the tile does not support rotation
-	 */	
+	 */
 	public final void rotate() {
 		rotation.rotate();
 	}
@@ -68,7 +87,7 @@ public abstract class Tile implements Drawable {
 	public <T> T draw(TileDrawer<T> tileDrawer) {
 		return tileDrawer.draw(this.getClass().getName());
 	}
-	
+
 	protected abstract RotationComponent getRotationComponent();
-	
+
 }
