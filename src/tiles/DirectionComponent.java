@@ -2,7 +2,7 @@ package tiles;
 
 import misc.Direction;
 
-interface RotationComponent {
+interface DirectionComponent {
 
 	public boolean canRotate();
 	

@@ -18,7 +18,7 @@ public class DoubleMirror extends Tile {
 	}
 
 	@Override
-	protected RotationComponent getRotationComponent() {
-		return new TwoWayRotation(true);
+	protected DirectionComponent getDirectionComponent() {
+		return new TwoWayDirection(true);
 	}
 }

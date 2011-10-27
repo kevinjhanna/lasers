@@ -13,8 +13,8 @@ public class EmptyTile extends Tile {
 	}
 
 	@Override
-	protected RotationComponent getRotationComponent() {
-		return new NoRotation();
+	protected DirectionComponent getDirectionComponent() {
+		return new NoDirection();
 	}
 	
 	@Override

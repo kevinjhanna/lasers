@@ -3,12 +3,12 @@ package tiles;
 import misc.Direction;
 import exceptions.RotationNotSupportedException;
 
-public class TwoWayRotation implements RotationComponent {
+public class FourWayDirection implements DirectionComponent {
 
-	private Direction direction;
-	private boolean mutable;
+	public Direction direction;
+	public boolean mutable;
 	
-	public TwoWayRotation(boolean mutable) {
+	public FourWayDirection(boolean mutable) {
 		this.mutable = mutable;
 	}
 	
@@ -19,23 +19,19 @@ public class TwoWayRotation implements RotationComponent {
 	public Direction getDirection() {
 		return direction;
 	}
-	
+
 	public void setDirection(Direction direction) {
 		if (direction == null) {
 			throw new IllegalArgumentException();
-		}
-		if (direction.ordinal() > 1) {
-			throw new RotationNotSupportedException();
 		}
 		this.direction = direction;
 	}
 	
 	public void rotate() {
-		if (direction == Direction.NORTH) {
-			direction = Direction.EAST;
-		} else {
-			direction = Direction.NORTH;
+		if (!mutable) {
+			throw new RotationNotSupportedException();
 		}
+		direction = direction.turn();
 	}
 
 }

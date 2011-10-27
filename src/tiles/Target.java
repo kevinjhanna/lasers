@@ -7,7 +7,7 @@ import java.awt.Color;
  */
 public class Target extends ColoredTile {
 	
-	protected RotationComponent rotation = new NoRotation();
+	protected DirectionComponent rotation = new NoDirection();
 	
 	public Target(Color color) {
 		super(color);
@@ -18,8 +18,8 @@ public class Target extends ColoredTile {
 	}
 
 	@Override
-	protected RotationComponent getRotationComponent() {
-		return new NoRotation();
+	protected DirectionComponent getDirectionComponent() {
+		return new NoDirection();
 	}
 	
 }

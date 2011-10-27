@@ -52,7 +52,7 @@ public class SimpleMirror extends Tile {
 	}
 
 	@Override
-	protected RotationComponent getRotationComponent() {
-		return new FourWayRotation(true);
+	protected DirectionComponent getDirectionComponent() {
+		return new FourWayDirection(true);
 	}
 }

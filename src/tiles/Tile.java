@@ -1,6 +1,5 @@
 package tiles;
 
-import exceptions.RotationNotSupportedException;
 import game.Ray;
 import game.TileDrawer;
 import misc.Direction;
@@ -10,10 +9,10 @@ import misc.Direction;
  */
 public abstract class Tile implements Drawable {
 
-	private RotationComponent rotation;
+	private DirectionComponent direction;
 
 	protected Tile() {
-		rotation = getRotationComponent();
+		direction = getDirectionComponent();
 	}
 
 	public void hit(Ray ray) {
@@ -48,7 +47,7 @@ public abstract class Tile implements Drawable {
 	 * @return boolean
 	 */
 	public final boolean canRotate() {
-		return rotation.canRotate();
+		return direction.canRotate();
 	}
 
 	/**
@@ -57,18 +56,18 @@ public abstract class Tile implements Drawable {
 	 * @return Direction
 	 */
 	public final Direction getDirection() {
-		return rotation.getDirection();
+		return direction.getDirection();
 	}
 
-	protected final void setDirection(Direction direction) {
-		rotation.setDirection(direction);
+	protected final void setDirection(Direction d) {
+		direction.setDirection(d);
 	}
 
 	/**
 	 * Rotates the tile
 	 */
 	public final void rotate() {
-		rotation.rotate();
+		direction.rotate();
 	}
 
 	/**
@@ -82,6 +81,6 @@ public abstract class Tile implements Drawable {
 		return drawer.draw(this.getClass().getName());
 	}
 
-	protected abstract RotationComponent getRotationComponent();
+	protected abstract DirectionComponent getDirectionComponent();
 
 }

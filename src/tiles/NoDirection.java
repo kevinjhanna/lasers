@@ -3,7 +3,7 @@ package tiles;
 import exceptions.RotationNotSupportedException;
 import misc.Direction;
 
-public class NoRotation implements RotationComponent {
+public class NoDirection implements DirectionComponent {
 	
 	public boolean canRotate() {
 		return false;
