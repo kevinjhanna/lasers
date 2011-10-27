@@ -39,6 +39,8 @@ public class Board {
 			throw new InvalidBoardSizeException();
 		}
 
+		this.width = width;
+		this.height = height;
 		content = new Tile[height][width];
 
 		for (int i = 0; i < height; i++) {
@@ -107,17 +109,17 @@ public class Board {
 		setTile(target, tile);
 	}
 
+	public boolean validPosition(Position p) {
+		return p.row >= 0 && p.row < height && p.column >= 0
+				&& p.column < width;
+	}
+
 	public int getWidth() {
 		return width;
 	}
 
 	public int getHeight() {
 		return height;
-	}
-
-	public boolean validPosition(Position p) {
-		return p.row >= 0 && p.row < height && p.column >= 0
-				&& p.column < width;
 	}
 
 }
