@@ -18,8 +18,12 @@ public class Ray {
 	}
 
 	private void move(Direction direction, Color color) {
-		this.direction = direction;
 		this.color = color;
+		move(direction);
+	}
+	
+	public void move(Direction direction) {
+		this.direction = direction;
 		move();
 	}
 	
@@ -34,6 +38,11 @@ public class Ray {
 	public void bifurcate(Direction d1, Color c1, Direction d2, Color c2) {
 		new Ray(board, position, d2, c2);
 		move(d1, c1);
+	}
+	
+	public void bifurcate(Direction d1, Direction d2) {
+		new Ray(board, position, d2, color);
+		move(d1);
 	}
 
 	private void hit() {

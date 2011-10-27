@@ -8,16 +8,23 @@ import misc.Direction;
 
 /**
  * Source. Does not support rotation or movement
- * @author federicobond
- *
  */
-public class Source extends ColoredTile {	
-	
+public class Source extends ColoredTile {
+
+	/**
+	 * Creates a new source tile
+	 * 
+	 * @param color
+	 * @param direction
+	 */
 	public Source(Color color, Direction direction) {
 		super(color);
 		setDirection(direction);
 	}
-	
+
+	/**
+	 * Returns true because this tile is fixed in its position
+	 */
 	public boolean isFixed() {
 		return true;
 	}

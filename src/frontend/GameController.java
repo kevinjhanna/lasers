@@ -184,10 +184,8 @@ public class GameController implements Controller, Observer {
 	 * @param column
 	 */
 	public void rotate(int row, int column) {
-		try {
+		if (game.canRotate(row, column)) {
 			game.rotate(row, column);
-		} catch (RotationNotSupportedException e) {
-			// Don't do anything
 		}
 	}
 

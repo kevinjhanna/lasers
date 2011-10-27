@@ -10,7 +10,7 @@ public class NoRotation implements RotationComponent {
 	}
 
 	public Direction getDirection() {
-		return Direction.NORTH;
+		return Direction.EAST;
 	}
 	
 	public void setDirection(Direction direction) {

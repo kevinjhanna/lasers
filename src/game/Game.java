@@ -40,7 +40,7 @@ public class Game implements Serializable {
 	 *            The .board file
 	 * @return Game The new game
 	 * @throws IOException
-	 *             in case there is a problem reading the file
+	 *             In case there is a problem reading the file
 	 * @throws InvalidBoardFileException
 	 */
 	public static Game fromBoardFile(File f) throws IOException,
@@ -104,6 +104,10 @@ public class Game implements Serializable {
 	public Integer getScore() {
 		return score;
 	}
+	
+	public boolean canRotate(int row, int column) {
+		return getTile(row, column).canRotate();
+	}
 
 	/**
 	 * Returns the tile located at the given row and column
@@ -112,7 +116,7 @@ public class Game implements Serializable {
 	 * @param column
 	 * @return tile
 	 */
-	private  Tile getTile(int row, int column) {
+	private Tile getTile(int row, int column) {
 		return board.getTile(new Position(row, column));
 	}
 
@@ -157,12 +161,11 @@ public class Game implements Serializable {
 	}
 
 	/**
-	 * Saves the game in the file given
+	 * Saves the game in the specified file
 	 * 
 	 * @param f
-	 *            The file to save the game into
-	 * @throws IOException 
-	 * @throws  
+	 * 		The file to save the game into
+	 * @throws IOException
 	 */
 	public void save(File f) throws IOException {
 		// tiene que tirar IOException en realidad

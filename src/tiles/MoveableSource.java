@@ -1,5 +1,4 @@
-	package tiles;
-
+package tiles;
 
 import java.awt.Color;
 

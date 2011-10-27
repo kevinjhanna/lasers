@@ -1,7 +1,5 @@
 package tiles;
 
-import java.awt.Color;
-
 import exceptions.RotationNotSupportedException;
 import game.Ray;
 import game.TileDrawer;
@@ -13,38 +11,30 @@ import misc.Direction;
 public abstract class Tile implements Drawable {
 
 	private RotationComponent rotation;
-	private Color[] rays = new Color[4];
 
 	protected Tile() {
 		rotation = getRotationComponent();
 	}
 
 	public void hit(Ray ray) {
-		setRay(ray.getDirection(), ray.getColor());
-		setRay(ray.getDirection().getOpposite(), ray.getColor());
-		ray.move();
 	}
 
 	public void clearRays() {
-		for (int i = 0; i < 4; i++) {
-			rays[i] = null;
-		}
 	}
 
-	protected final void setRay(Direction d, Color c) {
-		rays[d.ordinal()] = c;
-	}
-	
-	protected final Color getRay(Direction d) {
-		return rays[d.ordinal()];
-	}
-
+	/**
+	 * Returns true if the tile is empty. Empty tiles should override this
+	 * method
+	 * 
+	 * @return boolean
+	 */
 	public boolean isEmpty() {
 		return false;
 	}
 
 	/**
-	 * Returns whether the tile is fixed
+	 * Returns true if the tile is fixed in its position. Fixed tiles should
+	 * override this method
 	 * 
 	 * @return boolean
 	 */
@@ -53,10 +43,17 @@ public abstract class Tile implements Drawable {
 	}
 
 	/**
-	 * Returns the direction of the tile. For tiles that have no defined
-	 * direction, return a default of NORTH
+	 * Returns true if the tile supports rotation
 	 * 
-	 * @see Direction
+	 * @return boolean
+	 */
+	public final boolean canRotate() {
+		return rotation.canRotate();
+	}
+
+	/**
+	 * Returns the current direction of the tile
+	 * 
 	 * @return Direction
 	 */
 	public final Direction getDirection() {
@@ -69,23 +66,20 @@ public abstract class Tile implements Drawable {
 
 	/**
 	 * Rotates the tile
-	 * 
-	 * @throws RotationNotSupportedException
-	 *             If the tile does not support rotation
 	 */
 	public final void rotate() {
 		rotation.rotate();
 	}
 
 	/**
-	 * Returns a representation of the tile using the TileDrawer passed as
-	 * parameter
+	 * Returns a visual representation of the tile in its current state to use
+	 * in the view
 	 * 
-	 * @return T An object of the parametrization of the TileDrawer passed as
-	 *         parameter
+	 * @param drawer
+	 *            The TileDrawer that is going to render the tile representation
 	 */
-	public <T> T draw(TileDrawer<T> tileDrawer) {
-		return tileDrawer.draw(this.getClass().getName());
+	public <T> T draw(TileDrawer<T> drawer) {
+		return drawer.draw(this.getClass().getName());
 	}
 
 	protected abstract RotationComponent getRotationComponent();
