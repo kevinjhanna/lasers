@@ -29,8 +29,8 @@ public class Game implements Serializable {
 
 	private transient Observer observer;
 	private Integer score;
-	private transient Board board;
-	private transient List<Pair<Position, Tile>> initialTiles;
+	private Board board;
+	private List<Pair<Position, Tile>> initialTiles;
 	private transient Map<Source, Position> sources;
 
 	/**
@@ -74,7 +74,7 @@ public class Game implements Serializable {
 	/**
 	 * Restarts the game
 	 */
-	public Game restart() throws InvalidBoardSizeException{
+	public Game restart() throws InvalidBoardSizeException {
 		return new Game(getBoardHeight(), getBoardWidth(), initialTiles);
 	}
 
@@ -169,14 +169,18 @@ public class Game implements Serializable {
 	 */
 	public void save(File f) throws IOException {
 		// tiene que tirar IOException en realidad
-		ObjectOutputStream file = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(f)));
-		try{			
+		ObjectOutputStream file = new ObjectOutputStream(
+				new BufferedOutputStream(new FileOutputStream(f)));
+		try {
+			file.writeObject(board);
+			file.writeObject(score);
+			file.writeObject(initialTiles);
 		}
 
-		finally{
+		finally {
 			file.close();
 		}
-		
+
 		System.out.println("Archivo guardado en " + f.getName());
 	}
 
@@ -209,10 +213,11 @@ public class Game implements Serializable {
 	 * @param boardHeight
 	 * @param boardWidth
 	 * @param initialTiles
-	 * @throws InvalidBoardSizeException 
+	 * @throws InvalidBoardSizeException
 	 */
 	public Game(int boardHeight, int boardWidth,
-			List<Pair<Position, Tile>> initialTiles) throws InvalidBoardSizeException {
+			List<Pair<Position, Tile>> initialTiles)
+			throws InvalidBoardSizeException {
 
 		this.initialTiles = initialTiles;
 
@@ -249,6 +254,7 @@ public class Game implements Serializable {
 	}
 
 	// TODO WHEN MOVING A MOVABLE SOURCE WE NEED TO UPDATE THE SOURCES
+
 	private void calculateRays() {
 		clearBoardRays();
 		for (Map.Entry<Source, Position> e : sources.entrySet()) {
@@ -263,4 +269,5 @@ public class Game implements Serializable {
 			}
 		}
 	}
+
 }

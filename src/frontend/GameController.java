@@ -104,9 +104,8 @@ public class GameController implements Controller, Observer {
 					message += ": " + e.getMessage();
 				}
 				container.showError(message);
-			} catch (InvalidBoardSizeException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			} catch (InvalidBoardSizeException e){
+				container.showError("The board size is too big.");
 			}
 		}
 	}
