@@ -1,6 +1,7 @@
 package frontend;
 
 import exceptions.InvalidBoardFileException;
+import exceptions.InvalidBoardSizeException;
 import exceptions.RotationNotSupportedException;
 import exceptions.SourceTileEmptyException;
 import exceptions.TargetTileNotEmptyException;
@@ -103,6 +104,8 @@ public class GameController implements Controller, Observer {
 					message += ": " + e.getMessage();
 				}
 				container.showError(message);
+			} catch (InvalidBoardSizeException e){
+				container.showError("The board size is too big.");
 			}
 		}
 	}

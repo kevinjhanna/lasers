@@ -26,12 +26,12 @@ import gameparser.GameParser;
 /**
  * Class that models a Lasers and Mirrors game
  */
-public class Game implements Serializable{
+public class Game implements Serializable {
 
 	private transient Observer observer;
 	private Integer score;
-	private transient Board board;
-	private transient List<Pair<Position, Tile>> initialTiles;
+	private Board board;
+	private List<Pair<Position, Tile>> initialTiles;
 	private transient Map<Source, Position> sources;
 
 	/**
@@ -74,7 +74,7 @@ public class Game implements Serializable{
 	/**
 	 * Restarts the game
 	 */
-	public Game restart() throws InvalidBoardSizeException{
+	public Game restart() throws InvalidBoardSizeException {
 		return new Game(getBoardHeight(), getBoardWidth(), initialTiles);
 	}
 
@@ -160,19 +160,23 @@ public class Game implements Serializable{
 	 * 
 	 * @param f
 	 *            The file to save the game into
-	 * @throws IOException 
-	 * @throws  
+	 * @throws IOException
+	 * @throws
 	 */
 	public void save(File f) throws IOException {
 		// tiene que tirar IOException en realidad
-		ObjectOutputStream file = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(f)));
-		try{			
+		ObjectOutputStream file = new ObjectOutputStream(
+				new BufferedOutputStream(new FileOutputStream(f)));
+		try {
+			file.writeObject(board);
+			file.writeObject(score);
+			file.writeObject(initialTiles);
 		}
 
-		finally{
+		finally {
 			file.close();
 		}
-		
+
 		System.out.println("Archivo guardado en " + f.getName());
 	}
 
@@ -205,10 +209,11 @@ public class Game implements Serializable{
 	 * @param boardHeight
 	 * @param boardWidth
 	 * @param initialTiles
-	 * @throws InvalidBoardSizeException 
+	 * @throws InvalidBoardSizeException
 	 */
 	public Game(int boardHeight, int boardWidth,
-			List<Pair<Position, Tile>> initialTiles) throws InvalidBoardSizeException {
+			List<Pair<Position, Tile>> initialTiles)
+			throws InvalidBoardSizeException {
 
 		this.initialTiles = initialTiles;
 
@@ -249,8 +254,9 @@ public class Game implements Serializable{
 														// variable??
 
 		for (Map.Entry<Source, Position> entry : sources.entrySet()) {
-			// Creates the ray one tile ahead of the source			
-			Ray ray = new Ray(entry.getValue(), entry.getKey().getDirection(), entry.getKey().getColor());
+			// Creates the ray one tile ahead of the source
+			Ray ray = new Ray(entry.getValue(), entry.getKey().getDirection(),
+					entry.getKey().getColor());
 			ray.moveStraight();
 			initialRays.add(ray);
 			System.out.println("Source position = " + entry.getKey());
@@ -281,9 +287,5 @@ public class Game implements Serializable{
 
 	// TODO the board should be less "dumb" maybe move this along with MAX
 	// constants to the Board
-
-	
-	
-	
 
 }
