@@ -25,4 +25,9 @@ public enum Direction {
 	public Direction getOpposite() {
 		return turn(2);
 	}
+
+	public static Direction fromInteger(int n) {
+		Direction[] values = Direction.values();
+		return values[n];
+	}
 }
