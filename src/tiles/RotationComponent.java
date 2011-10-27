@@ -1,8 +1,10 @@
 package tiles;
 
+import java.io.Serializable;
+
 import misc.Direction;
 
-interface RotationComponent {
+interface RotationComponent extends Serializable{
 
 	public boolean canRotate();
 	

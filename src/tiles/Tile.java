@@ -1,5 +1,7 @@
 package tiles;
 
+import java.io.Serializable;
+
 import exceptions.RotationNotSupportedException;
 import game.Ray;
 import game.TileDrawer;
@@ -8,7 +10,7 @@ import misc.Direction;
 /**
  * Abstract class that models a game tile
  */
-public abstract class Tile implements Drawable {
+public abstract class Tile implements Drawable, Serializable {
 
 	private RotationComponent rotation;
 

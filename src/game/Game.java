@@ -1,10 +1,7 @@
 package game;
 
-import java.io.BufferedOutputStream;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
@@ -31,7 +28,7 @@ public class Game implements Serializable {
 	private Integer score;
 	private Board board;
 	private List<Pair<Position, Tile>> initialTiles;
-	private transient Map<Source, Position> sources;
+	private Map<Source, Position> sources;
 
 	/**
 	 * Instantiates a new game from a board file
@@ -50,27 +47,26 @@ public class Game implements Serializable {
 		return parser.parse();
 	}
 
-	/**
-	 * Creates a new game from a saved game file
-	 * 
-	 * @param f
-	 * @return Game
-	 * @throws IOException
-	 */
-	public static Game fromSaveFile(File f) throws IOException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
+
 
 	/**
 	 * Starts the game
 	 */
 	public void start(Observer observer) {
 		this.observer = observer;
-		populateBoard();
 		updateScore();
+		board.dump();
 	}
-
+	//TODO poner esto en el informe
+	/**
+	 * Starts the game if it is a new game
+	 */
+	
+	public void startNew(Observer observer){
+		start(observer);
+		populateBoard();
+	}
 	/**
 	 * Restarts the game
 	 */
@@ -160,29 +156,6 @@ public class Game implements Serializable {
 		calculateRays();
 	}
 
-	/**
-	 * Saves the game in the specified file
-	 * 
-	 * @param f
-	 * 		The file to save the game into
-	 * @throws IOException
-	 */
-	public void save(File f) throws IOException {
-		// tiene que tirar IOException en realidad
-		ObjectOutputStream file = new ObjectOutputStream(
-				new BufferedOutputStream(new FileOutputStream(f)));
-		try {
-			file.writeObject(board);
-			file.writeObject(score);
-			file.writeObject(initialTiles);
-		}
-
-		finally {
-			file.close();
-		}
-
-		System.out.println("Archivo guardado en " + f.getName());
-	}
 
 	/**
 	 * Updates the score and notifies the observer
@@ -248,7 +221,7 @@ public class Game implements Serializable {
 			board.setTile(p.getFirst(), p.getSecond());
 
 			observer.onTileSet(p.getFirst().row, p.getFirst().column,
-					p.getSecond());
+					p.getSecond());// poner esto en un metodo aparte y que lo llame aca
 		}
 		calculateRays();
 	}

@@ -1,7 +1,10 @@
 package game;
 
+import java.io.Serializable;
+
 import misc.Position;
 import tiles.EmptyTile;
+import tiles.SimpleMirror;
 import tiles.Tile;
 import exceptions.InvalidBoardSizeException;
 import exceptions.PositionOutOfBounds;
@@ -12,7 +15,7 @@ import exceptions.TileIsFixedException;
 /**
  * Class that models a board in the game
  */
-public class Board {
+public class Board implements Serializable{
 
 	private Tile[][] content;
 	public static final int MIN_HEIGHT = 5;
@@ -22,7 +25,7 @@ public class Board {
 
 	private int height;
 	private int width;
-
+	
 	/**
 	 * Creates a new board with the given dimensions
 	 * 
@@ -33,7 +36,6 @@ public class Board {
 	 * @throws InvalidBoardSizeException
 	 */
 	public Board(int height, int width) {
-
 		if (height < MIN_HEIGHT || height > MAX_HEIGHT || width < MIN_WIDTH
 				|| height > MAX_HEIGHT) {
 			throw new InvalidBoardSizeException();
@@ -120,6 +122,16 @@ public class Board {
 
 	public int getHeight() {
 		return height;
+	}
+	
+	public void dump() {
+		for (int i = 0; i < content.length; i++) {
+			for (int j = 0; j < content[0].length; j++) {
+				if (content[i][j] instanceof SimpleMirror) {
+					System.out.println("HAY UN SIMPLE MIRRRO");
+				}
+			}
+		}
 	}
 
 }
