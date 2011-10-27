@@ -1,10 +1,10 @@
 package tiles;
 
+import game.TileDrawer;
+
 import java.awt.Color;
 
 import misc.Direction;
-import game.Ray;
-import game.TileDrawer;
 
 /**
  * Source. Does not support rotation or movement
@@ -22,10 +22,6 @@ public class Source extends ColoredTile {
 		return true;
 	}
 
-	public void react(Ray ray){
-		ray.stopMovement();
-	}
-	
 	public <T> T draw(TileDrawer<T> drawer) {
 		return drawer.withDirection(super.draw(drawer), getDirection());
 	}
