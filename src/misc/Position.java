@@ -2,10 +2,13 @@ package misc;
 
 import java.io.Serializable;
 
+/**
+ * Class that represents a position in a board. Bounds should be checked outside
+ */
 public class Position implements Serializable {
 
 	private static final long serialVersionUID = 8918404612043676881L;
-	
+
 	public final int row;
 	public final int column;
 

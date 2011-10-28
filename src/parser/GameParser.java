@@ -143,10 +143,11 @@ public class GameParser {
 			}
 		}
 
-		// now we do create the Tile
-		Tile realTile = null;
-		// TODO pasar un int de rotation a un Direction
+		// Direction
 		Direction direction = Direction.fromInteger(rotation);
+		
+		// Create the tile
+		Tile realTile = null;
 
 		Color color = new Color(rgb[0], rgb[1], rgb[2]);
 
