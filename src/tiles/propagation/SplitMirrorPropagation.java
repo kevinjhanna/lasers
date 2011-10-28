@@ -20,14 +20,17 @@ public class SplitMirrorPropagation extends MirrorPropagation {
 		Direction m1 = mirrorDirection(dTile, dRay);
 		if (m1 != null) {
 			setRay(m1, ray);
-			ray.move(m1);
+			setRay(ray.getDirection(), ray);
+			ray.bifurcate(ray.getDirection(), m1);
 		} else {
 			Direction m2 = mirrorDirection(dTile.getOpposite(), dRay);
 			if (m2 != null) {
 				setRay(m2, ray);
-				ray.move(m2);
-			}			
+				setRay(ray.getDirection(), ray);
+				ray.bifurcate(ray.getDirection(), m2);
+			}
 		}
+
 	}
 
 }
