@@ -10,7 +10,7 @@ import tiles.propagation.PropagationComponent;
 import misc.Direction;
 
 /**
- * Source Does not support rotation or movement
+ * A <tt>Source</tt> tile that does not support rotation or movement.
  */
 public class Source extends ColoredTile {
 

@@ -5,7 +5,7 @@ import java.awt.Color;
 import misc.Direction;
 
 /**
- * Interface that represents a drawable layer that is part of a drawable object.
+ * Interface that represents a layer that is part of a drawable object.
  * 
  * @see Drawable
  */

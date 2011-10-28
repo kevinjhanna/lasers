@@ -4,8 +4,7 @@ import exceptions.RotationNotSupportedException;
 import misc.Direction;
 
 /**
- * Direction component for tiles that are not orientable
- * 
+ * Direction component for tiles that are not orientable.
  */
 public class NoDirection implements DirectionComponent {
 

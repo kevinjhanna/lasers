@@ -4,7 +4,7 @@ import tiles.Tile;
 import game.Ray;
 
 /**
- * Propagation component that lets ray pass without bothering them
+ * Propagation component that lets ray pass without bothering them.
  */
 public class IgnorePropagation extends PropagationComponent {
 

@@ -5,7 +5,7 @@ import game.Ray;
 import misc.Direction;
 
 /**
- * Propagation component that reflects rays in every direction
+ * Propagation component that reflects rays in every direction.
  */
 public class DoubleMirrorPropagation extends MirrorPropagation {
 

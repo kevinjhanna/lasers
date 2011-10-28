@@ -24,7 +24,7 @@ public class TwoWayDirection implements DirectionComponent {
 	public Direction getDirection() {
 		return direction;
 	}
-
+	
 	public void setDirection(Direction direction) {
 		if (direction == null) {
 			throw new IllegalArgumentException();

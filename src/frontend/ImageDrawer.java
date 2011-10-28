@@ -24,11 +24,11 @@ import tiles.Target;
 import tiles.Wall;
 
 /**
- * Class responsible for drawing the content of the board cells
+ * Class responsible for drawing the content of the board cells.
  * 
  * @see Drawable
  */
-public class ImageDrawer implements Drawer<Image> {
+public class ImageDrawer {
 
 	private static final Color maskColor = new Color(0, 0, 255);
 

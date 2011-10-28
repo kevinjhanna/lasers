@@ -112,7 +112,7 @@ public class Board implements Serializable {
 	 * Checks that the position given is falls inside the board boundaries
 	 * 
 	 * @param p
-	 * @return
+	 * @return boolean
 	 */
 	public boolean validPosition(Position p) {
 		return p.row >= 0 && p.row < height && p.column >= 0

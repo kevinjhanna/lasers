@@ -17,11 +17,13 @@ import javax.swing.Timer;
 import tiles.Drawable;
 
 /**
- * Implementation of the View in the MVC architecture
+ * Implementation of the <tt>View</tt> in the MVC architecture.
+ * 
+ * @see View
  */
 public class GamePanel extends JPanel implements View {
 
-	private static final long serialVersionUID = -7317507468993791993L;
+	private static final long serialVersionUID = 1L;
 
 	private static final int CELL_SIZE = 30;
 
@@ -36,12 +38,13 @@ public class GamePanel extends JPanel implements View {
 	private String scoreFormat = "<html><b>Score:</b> %s</html>";
 	private String timeFormat = "<html><b>Elapsed time:</b> %s</html>";
 	private String timeFormatSmall = "%s";
+	private Timer timer;
 	private boolean useSmallTimeFormat = false;
 
 	private int elapsedTime;
 
 	/**
-	 * Intantiates a new GamePanel
+	 * Instantiates a new GamePanel
 	 * 
 	 * @param controller
 	 *            The controller that will respond for this panel
@@ -64,6 +67,7 @@ public class GamePanel extends JPanel implements View {
 		setLayout(new BorderLayout());
 		initializeBoard();
 		initializeStatusPanel();
+		setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 		setSize(boardPanel.getWidth() + 20, boardPanel.getHeight() + 68);
 	}
 
@@ -121,7 +125,7 @@ public class GamePanel extends JPanel implements View {
 		elapsedTime = 0;
 		timeLabel = new JLabel(formatTime(elapsedTime));
 
-		Timer timer = new Timer(1000, new ActionListener() {
+		timer = new Timer(1000, new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				timeLabel.setText(formatTime(++elapsedTime));
 			}

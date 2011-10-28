@@ -5,7 +5,8 @@ import game.Ray;
 import misc.Direction;
 
 /**
- * Propagation component that changes the direction of the ray in a mirrored way
+ * Propagation component that changes the direction of the ray in a mirrored
+ * way.
  */
 public class MirrorPropagation extends PropagationComponent {
 

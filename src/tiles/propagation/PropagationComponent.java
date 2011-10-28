@@ -11,6 +11,12 @@ import misc.Direction;
 import tiles.DrawableLayer;
 import tiles.Tile;
 
+/**
+ * The base propagation component that defines public methods and encapsulates
+ * access to tile state in subclasses.
+ * 
+ * @see Ray
+ */
 public abstract class PropagationComponent {
 
 	private Tile tile;
@@ -21,7 +27,7 @@ public abstract class PropagationComponent {
 	}
 
 	/**
-	 * Processes the incoming ray
+	 * Processes the incoming ray.
 	 * 
 	 * @param ray
 	 */
@@ -29,23 +35,23 @@ public abstract class PropagationComponent {
 	}
 
 	/**
-	 * Returns the tile direction
+	 * Returns the tile direction.
 	 */
 	protected final Direction getDirection() {
 		return tile.getDirection();
 	}
 
 	/**
-	 * Returns the tile color
+	 * Returns the tile color.
 	 * 
-	 * @return
+	 * @return Color
 	 */
 	protected final Color getColor() {
 		return tile.getColor();
 	}
 
 	/**
-	 * Sets the ray origin
+	 * Sets the ray origin.
 	 * 
 	 * @param ray
 	 */
@@ -55,7 +61,7 @@ public abstract class PropagationComponent {
 	}
 
 	/**
-	 * Clears all rays from the tile
+	 * Clears all rays from the tile.
 	 */
 	public void clear() {
 		for (int i = 0; i < 4; i++) {
@@ -65,28 +71,29 @@ public abstract class PropagationComponent {
 
 	/**
 	 * Sets a ray in the tile, if a ray has been already set in that direction,
-	 * performs color mix and updates the incoming ray
+	 * performs color mix and updates the incoming ray.
 	 * 
-	 * @param d
-	 * @param r
+	 * @param direction
+	 * @param ray
 	 */
-	protected final void setRay(Direction d, Ray r) {
-		Ray ray = r.clone();
-		if (getRay(d) != null) {
-			ray.setColor(ImageUtils.mix(r.getColor(), getRay(d).getColor()));
+	protected final void setRay(Direction direction, Ray ray) {
+		Ray clone = ray.clone();
+		Ray existing = getRay(direction);
+		if (existing != null) {
+			clone.setColor(ImageUtils.mix(ray.getColor(), existing.getColor()));
 		}
-		ray.setDirection(d);
-		rays[d.ordinal()] = ray;
+		clone.setDirection(direction);
+		rays[direction.ordinal()] = clone;
 	}
 
 	/**
 	 * Returns the ray at the specified direction
 	 * 
-	 * @param d
+	 * @param direction
 	 * @return Ray
 	 */
-	protected final Ray getRay(Direction d) {
-		return rays[d.ordinal()];
+	protected final Ray getRay(Direction direction) {
+		return rays[direction.ordinal()];
 	}
 
 	/**

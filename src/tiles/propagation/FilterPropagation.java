@@ -8,7 +8,7 @@ import java.awt.Color;
 import tiles.Tile;
 
 /**
- * Propagation component that filters the incoming ray color
+ * Propagation component that filters the incoming ray color.
  */
 public class FilterPropagation extends PropagationComponent {
 

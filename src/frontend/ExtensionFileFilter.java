@@ -5,7 +5,7 @@ import javax.swing.filechooser.FileFilter;
 
 /**
  * Implementation of FileFilter to filter files in a JFileChooser based in
- * extension
+ * extension.
  */
 public class ExtensionFileFilter extends FileFilter {
 

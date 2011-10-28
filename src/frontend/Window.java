@@ -3,7 +3,6 @@ package frontend;
 import java.awt.BorderLayout;
 import java.io.File;
 
-import javax.swing.BorderFactory;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -12,7 +11,7 @@ import javax.swing.JPanel;
 import exceptions.NoGameException;
 
 /**
- * Implementation of the <tt>ViewContainer</tt> as a JFrame
+ * Implementation of the <tt>ViewContainer</tt> as a JFrame.
  * 
  * @see ViewContainer
  */
@@ -22,17 +21,17 @@ public class Window extends JFrame implements ViewContainer {
 
 	private Controller controller;
 	private Menu menu;
+	private JPanel contentPane;
 	private WelcomePanel welcomePanel;
 	private GamePanel gamePanel;
 
-	public void setController(Controller controller) {
+	public Window(Controller controller) {
 		this.controller = controller;
+		initialize();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see frontend.ViewContainer#initialize()
+	/**
+	 * Initializes the frame.
 	 */
 	public void initialize() {
 		setTitle("Lasers & Mirrors");
@@ -41,19 +40,22 @@ public class Window extends JFrame implements ViewContainer {
 		setResizable(false);
 		initializeContentPane();
 
-		System.setProperty("apple.laf.useScreenMenuBar", "true");
 		menu = new Menu(controller);
 		setJMenuBar(menu);
-	}
-
-	private void initializeContentPane() {
-		JPanel contentPane = new JPanel();
-		contentPane.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-		contentPane.setLayout(new BorderLayout(0, 0));
-		setContentPane(contentPane);
-
+		
 		welcomePanel = new WelcomePanel(controller);
 		contentPane.add(welcomePanel);
+		
+		setVisible(true);
+	}
+
+	/**
+	 * Initializes the window content pane.
+	 */
+	private void initializeContentPane() {
+		contentPane = new JPanel();
+		contentPane.setLayout(new BorderLayout(0, 0));
+		setContentPane(contentPane);
 	}
 
 	/*
@@ -120,9 +122,9 @@ public class Window extends JFrame implements ViewContainer {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see frontend.ViewContainer#showWinMessage()
+	 * @see frontend.ViewContainer#showWin()
 	 */
-	public void showWinMessage() {
+	public void showWin() {
 		JOptionPane.showMessageDialog(this, "You have won!", "Win",
 				JOptionPane.INFORMATION_MESSAGE);
 	}

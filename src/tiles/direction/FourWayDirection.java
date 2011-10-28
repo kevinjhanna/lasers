@@ -4,7 +4,7 @@ import misc.Direction;
 import exceptions.RotationNotSupportedException;
 
 /**
- * Four-way (every direction) direction component
+ * Four-way (every direction) direction component.
  */
 public class FourWayDirection implements DirectionComponent {
 

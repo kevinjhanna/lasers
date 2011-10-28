@@ -3,7 +3,7 @@ package frontend;
 import tiles.Drawable;
 
 /**
- * Interface that defines the actions that can be performed in a <tt>View</tt>
+ * Interface that defines the actions that can be performed in a <tt>View</tt>.
  */
 public interface View {
 

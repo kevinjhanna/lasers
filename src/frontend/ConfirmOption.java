@@ -1,7 +1,8 @@
 package frontend;
 
 /**
- * Enum to handle confirm dialogs independent of the view implementation
+ * Enumeration to handle confirmation dialogs independent of the view
+ * implementation.
  */
 public enum ConfirmOption {
 

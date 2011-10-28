@@ -3,12 +3,12 @@ package game;
 import tiles.Drawable;
 
 /**
- * Interface with callbacks from the game
+ * Interface with callbacks from the game.
  */
 public interface Observer {
 
 	/**
-	 * Callback that fires when a tile has been updated
+	 * Callback that fires when a tile has been updated.
 	 * 
 	 * @param row
 	 * @param column
@@ -17,14 +17,14 @@ public interface Observer {
 	void onTileUpdate(int row, int column, Drawable drawable);
 
 	/**
-	 * Callback that fires when the score has changed
+	 * Callback that fires when the score has changed.
 	 * 
 	 * @param newScore
 	 */
 	void onScoreChange(int newScore);
 
 	/**
-	 * Callback that fires when the game is won
+	 * Callback that fires when the game is won.
 	 */
 	void onWin();
 }

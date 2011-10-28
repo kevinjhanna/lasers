@@ -8,7 +8,7 @@
 
 	<!-- Crea la documentacion en formato Javadoc, en el directorio doc. -->
 	<target name="doc" depends="compile">
-		<javadoc sourcepath="src" destdir="doc" classpath="lib/junit-4.7.jar" stylesheetfile="resources/javadoc.css" doctitle="Lasers &amp; Mirrors" />
+		<javadoc sourcepath="src" destdir="doc" classpath="lib/junit-4.7.jar" doctitle="Lasers &amp; Mirrors" />
 	</target>
 
 	<!-- Ejecuta los tests. -->

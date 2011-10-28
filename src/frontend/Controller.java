@@ -2,7 +2,7 @@ package frontend;
 
 /**
  * Represents the controller in the MVC implementation. Interacts with the model
- * (game logic) and the view
+ * (game logic) and the view.
  */
 public interface Controller {
 

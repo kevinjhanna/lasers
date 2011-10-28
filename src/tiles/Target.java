@@ -8,7 +8,7 @@ import tiles.propagation.IgnorePropagation;
 import tiles.propagation.PropagationComponent;
 
 /**
- * A <tt>Target</tt> tile that does not support rotation or movement
+ * A <tt>Target</tt> tile that does not support rotation or movement.
  */
 public class Target extends ColoredTile {
 

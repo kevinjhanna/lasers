@@ -6,7 +6,7 @@ import game.Ray;
 
 /**
  * Propagation component that lets rays continue in the direction they came from
- * but also reflects them like a mirror
+ * but also reflects them like a mirror.
  */
 public class SplitMirrorPropagation extends MirrorPropagation {
 

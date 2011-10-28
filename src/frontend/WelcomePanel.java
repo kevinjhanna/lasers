@@ -10,6 +10,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
+/**
+ * Panel that presents a menu with program options if a game has not yet been
+ * loaded.
+ */
 public class WelcomePanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;

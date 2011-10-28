@@ -1,10 +1,12 @@
 package frontend;
 
+/**
+ * The Lasers And Mirrors application entry point.
+ */
 public class LasersAndMirrors {
 
 	/**
-	 * Application entry point. The loaded controller is in charge of
-	 * instantiating any other object involved
+	 * Loads the controller that will handle the program.
 	 * 
 	 * @param args
 	 */

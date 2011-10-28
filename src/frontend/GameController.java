@@ -16,21 +16,27 @@ import java.io.IOException;
 import tiles.Drawable;
 
 /**
- * Main game controller. Acts as connector between the view (which lives in a
- * container) and the game logic
+ * Implementation of the <tt>Controller</tt> in the MVC architecture.
+ * 
+ * @see Controller  
  */
 public class GameController implements Controller, Observer {
 
 	private Game game;
-	private ViewContainer container = new Window();
+	private ViewContainer container;
 
 	/**
 	 * GameController constructor
 	 */
 	public GameController() {
-		container.setController(this);
-		container.initialize();
-		container.setVisible(true);
+		initialize();
+	}
+	
+	/**
+	 * Initializes the view
+	 */
+	private void initialize() {
+		container = new Window(this);
 	}
 
 	/**
@@ -59,7 +65,7 @@ public class GameController implements Controller, Observer {
 		if (f != null) {
 			try {
 				game = IOSerializer.load(f);
-				startGameFromLoaded();
+				startGame();
 			} catch (GameIOException e) {
 				container.showError("Unable to load saved game.");
 			}
@@ -96,7 +102,7 @@ public class GameController implements Controller, Observer {
 		if (f != null) {
 			try {
 				game = Game.fromBoardFile(f);
-				startGameFromNew();
+				startGame();
 			} catch (IOException e) {
 				container.showError("Unable to load board file.");
 			} catch (InvalidBoardFileException e) {
@@ -181,35 +187,19 @@ public class GameController implements Controller, Observer {
 	}
 
 	/**
-	 * Starts a new game
+	 * Starts the game
 	 */
-	private void startGameFromNew() {
-		initialize();
-
-		game.startNew(this);
-	}
-
-	// explicar que era la unica forma de que quede no tan elegante pero no mal
-	/**
-	 * Starts a new game
-	 */
-	private void startGameFromLoaded() {
-		initialize();
-
-		game.start(this);
-
-	}
-
-	private void initialize() {
+	private void startGame() {
 		container.setGame(game.getBoardHeight(), game.getBoardWidth());
 		container.setGameVisible(true);
+		game.start(this);
 	}
 
 	/**
 	 * Shows win message
 	 */
 	public void onWin() {
-		container.showWinMessage();
+		container.showWin();
 		closeGame();
 	}
 }

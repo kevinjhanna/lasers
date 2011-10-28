@@ -55,16 +55,6 @@ public class Game implements Serializable {
 		this.observer = observer;
 		populateBoard();
 		calculateRays();
-		updateScore();
-	}
-
-	// TODO poner esto en el informe
-	/**
-	 * Starts the game if it is a new game
-	 */
-	public void startNew(Observer observer) {
-		start(observer);
-		populateBoard();
 	}
 
 	/**

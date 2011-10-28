@@ -1,5 +1,6 @@
 package frontend;
 
+
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,7 +12,7 @@ import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
 
 /**
- * The application menu which is a component of the ViewContainer
+ * The application menu which is a component of the <tt>ViewContainer</tt>.
  * 
  * @see ViewContainer
  */
