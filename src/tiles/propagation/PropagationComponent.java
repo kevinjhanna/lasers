@@ -43,11 +43,10 @@ public abstract class PropagationComponent {
 	}
 
 	protected final void setRay(Direction d, Ray r) {
-		if (getRay(d) != null) {
-			System.out.println(r);
-			r.setColor(ImageUtils.mix(r.getColor(), getRay(d).getColor()));
-		}
 		Ray ray = r.clone();
+		if (getRay(d) != null) {
+			ray.setColor(ImageUtils.mix(r.getColor(), getRay(d).getColor()));
+		}
 		ray.setDirection(d);
 		rays[d.ordinal()] = ray;
 	}
