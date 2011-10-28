@@ -19,7 +19,9 @@ import tiles.Drawable;
 public class GamePanel extends JPanel implements View {
 
 	private static final long serialVersionUID = -7317507468993791993L;
+	
 	private static final int CELL_SIZE = 30;
+	
 	private Controller controller;
 	private final int boardWidth;
 	private final int boardHeight;
@@ -82,6 +84,11 @@ public class GamePanel extends JPanel implements View {
 	}
 
 	private void initializeTimer() {
+		// If board is too small, use reduced label
+		if (boardWidth < 8) {
+			elapsedTimeFormat = "%s";
+		}
+		
 		elapsedTime = 0;
 		
 		elapsedTimeLabel = new JLabel(String.format(elapsedTimeFormat, formatTime(elapsedTime)));
