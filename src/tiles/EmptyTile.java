@@ -1,5 +1,10 @@
 package tiles;
 
+import tiles.direction.DirectionComponent;
+import tiles.direction.NoDirection;
+import tiles.propagation.IgnorePropagation;
+import tiles.propagation.PropagationComponent;
+
 /**
  * Empty tile
  */

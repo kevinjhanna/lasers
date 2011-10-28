@@ -1,10 +1,10 @@
-package tiles;
+package tiles.direction;
 
 import java.io.Serializable;
 
 import misc.Direction;
 
-interface DirectionComponent extends Serializable {
+public interface DirectionComponent extends Serializable {
 
 	public boolean canRotate();
 	

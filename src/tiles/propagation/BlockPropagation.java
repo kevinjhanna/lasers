@@ -1,5 +1,6 @@
-package tiles;
+package tiles.propagation;
 
+import tiles.Tile;
 import game.Ray;
 
 public class BlockPropagation extends PropagationComponent {

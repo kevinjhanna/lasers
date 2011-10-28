@@ -1,9 +1,11 @@
-package tiles;
+package tiles.propagation;
 
 import game.Ray;
 import gui.ImageUtils;
 
 import java.awt.Color;
+
+import tiles.Tile;
 
 public class FilterPropagation extends PropagationComponent {
 

@@ -1,5 +1,9 @@
 package tiles;
 
+import tiles.direction.DirectionComponent;
+import tiles.direction.TwoWayDirection;
+import tiles.propagation.PropagationComponent;
+import tiles.propagation.SplitMirrorPropagation;
 import misc.Direction;
 
 /**

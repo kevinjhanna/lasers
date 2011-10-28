@@ -5,6 +5,9 @@ import game.Ray;
 import java.awt.Color;
 import java.io.Serializable;
 
+import tiles.direction.DirectionComponent;
+import tiles.propagation.PropagationComponent;
+
 import misc.Direction;
 
 /**

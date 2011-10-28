@@ -1,15 +1,15 @@
-package tiles;
+package tiles.propagation;
 
-import misc.Direction;
+import tiles.Tile;
 import game.Ray;
+import misc.Direction;
 
-public class SplitMirrorPropagation extends MirrorPropagation {
+public class DoubleMirrorPropagation extends MirrorPropagation {
 
-	public SplitMirrorPropagation(Tile tile) {
+	public DoubleMirrorPropagation(Tile tile) {
 		super(tile);
 	}
 
-	@Override
 	public void process(Ray ray) {
 		setOrigin(ray);
 

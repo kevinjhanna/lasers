@@ -1,5 +1,10 @@
 package tiles;
 
+import tiles.direction.DirectionComponent;
+import tiles.direction.NoDirection;
+import tiles.propagation.BlockPropagation;
+import tiles.propagation.PropagationComponent;
+
 
 /**
  * Wall tile. Does not support rotation or movement

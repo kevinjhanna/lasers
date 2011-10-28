@@ -1,4 +1,4 @@
-package tiles;
+package tiles.propagation;
 
 import game.Ray;
 import gui.ImageUtils;
@@ -6,6 +6,9 @@ import gui.ImageUtils;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
+
+import tiles.DrawableLayer;
+import tiles.Tile;
 
 import misc.Direction;
 

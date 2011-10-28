@@ -1,10 +1,11 @@
-package tiles;
+package tiles.propagation;
 
+import tiles.Tile;
 import game.Ray;
 
 public class IgnorePropagation extends PropagationComponent {
 	
-	protected IgnorePropagation(Tile tile) {
+	public IgnorePropagation(Tile tile) {
 		super(tile);
 	}
 

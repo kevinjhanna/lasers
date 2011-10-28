@@ -2,6 +2,11 @@ package tiles;
 
 import java.awt.Color;
 
+import tiles.direction.DirectionComponent;
+import tiles.direction.FourWayDirection;
+import tiles.propagation.BlockPropagation;
+import tiles.propagation.PropagationComponent;
+
 import misc.Direction;
 
 /**

@@ -2,6 +2,11 @@ package tiles;
 
 import java.awt.Color;
 
+import tiles.direction.DirectionComponent;
+import tiles.direction.NoDirection;
+import tiles.propagation.IgnorePropagation;
+import tiles.propagation.PropagationComponent;
+
 /**
  * Target. Does not support rotation or movement
  */

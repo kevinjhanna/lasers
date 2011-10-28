@@ -1,4 +1,4 @@
-package tiles;
+package tiles.direction;
 
 import misc.Direction;
 import exceptions.RotationNotSupportedException;
