@@ -55,8 +55,20 @@ public abstract class PropagationComponent {
 	protected final Ray getRay(Direction d) {
 		return rays[d.ordinal()];
 	}
+	
+
+
+	public boolean hasRays() {
+		for (Ray ray : rays) {
+			if (ray != null) {
+				return true;
+			}
+		}
+		return false;
+	}
 
 	public Iterable<DrawableLayer> getRays() {
+		// TODO: Fix use of generics
 		List<DrawableLayer> rays = new ArrayList<DrawableLayer>();
 
 		for (Ray ray : this.rays) {

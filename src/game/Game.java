@@ -139,9 +139,6 @@ public class Game implements Serializable {
 
 		Tile tile = getTile(targetRow, targetColumn);
 		tiles.put(tile, target);
-		
-		observer.onTileMove(sourceRow, sourceColumn, targetRow, targetColumn,
-				getTile(targetRow, targetColumn));
 
 		calculateRays();
 	}
@@ -157,7 +154,6 @@ public class Game implements Serializable {
 			throws RotationNotSupportedException {
 
 		board.getTile(new Position(row, column)).rotate();
-		observer.onTileRotated(row, column, getTile(row, column));
 
 		calculateRays();
 	}
@@ -197,12 +193,21 @@ public class Game implements Serializable {
 	}
 
 	/**
-	 * Recalculate game score
+	 * Recalculates game score
 	 * 
 	 * @return int
 	 */
 	private int calculateScore() {
-		return 42;
+		int score = 0;
+		
+		for (int i = 0; i < getBoardHeight(); i++) {
+			for (int j = 0; j < getBoardWidth(); j++) {
+				if (getTile(i, j).hasRays()) {
+					score++;
+				}
+			}
+		}
+		return score;
 	}
 
 	/**
@@ -224,22 +229,24 @@ public class Game implements Serializable {
 	}
 
 	/**
-	 * Populates the board with the initial set of tiles and their corresponding
+	 * Populates the board with the current set of tiles and their corresponding
 	 * locations
 	 */
 	private void populateBoard() {
 		for (Map.Entry<Tile, Position> e : tiles.entrySet()) {
 			board.setTile(e.getValue(), e.getKey());
 
-			observer.onTileSet(e.getValue().row, e.getValue().column,
+			observer.onTileUpdate(e.getValue().row, e.getValue().column,
 					e.getKey());
 
 		}
 		calculateRays();
 	}
 
-	// TODO WHEN MOVING A MOVABLE SOURCE WE NEED TO UPDATE THE SOURCES
 
+	/**
+	 * Calculates rays
+	 */
 	private void calculateRays() {
 		clearBoardRays();
 
@@ -252,11 +259,16 @@ public class Game implements Serializable {
 
 		for (int i = 0; i < getBoardHeight(); i++) {
 			for (int j = 0; j < getBoardWidth(); j++) {
-				observer.onTileSet(i, j, getTile(i, j));
+				observer.onTileUpdate(i, j, getTile(i, j));
 			}
 		}
+		
+		updateScore();
 	}
 
+	/**
+	 * Clear board rays. This mothod should run before every ray calculation
+	 */
 	private void clearBoardRays() {
 		for (int i = 0; i < getBoardHeight(); i++) {
 			for (int j = 0; j < getBoardWidth(); j++) {

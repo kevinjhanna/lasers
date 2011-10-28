@@ -109,4 +109,8 @@ public abstract class Tile implements Drawable, Serializable {
 	public Iterable<DrawableLayer> getOverlay() {
 		return null;
 	}
+
+	public boolean hasRays() {
+		return propagation.hasRays();
+	}
 }

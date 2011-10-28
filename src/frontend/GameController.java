@@ -123,39 +123,11 @@ public class GameController implements Controller, Observer {
 	/**
 	 * Updates the cell in the view when a tile has been moved
 	 * 
-	 * @param sourceRow
-	 * @param sourceColumn
-	 * @param targetRow
-	 * @param targetColumn
-	 * @param drawable
-	 */
-	public void onTileMove(int sourceRow, int sourceColumn, int targetRow,
-			int targetColumn, Drawable drawable) {
-
-		container.getView().clearCell(sourceRow, sourceColumn);
-		container.getView().updateCell(targetRow, targetColumn, drawable);
-	}
-
-	/**
-	 * Updates the cell in the view when a tile has been rotated
-	 * 
 	 * @param row
 	 * @param column
 	 * @param drawable
 	 */
-
-	public void onTileRotated(int row, int column, Drawable drawable) {
-		container.getView().updateCell(row, column, drawable);
-	}
-
-	/**
-	 * Updates the cell in the view when a tile has been set
-	 * 
-	 * @param row
-	 * @param column
-	 * @param drawable
-	 */
-	public void onTileSet(int row, int column, Drawable drawable) {
+	public void onTileUpdate(int row, int column, Drawable drawable) {
 		container.getView().updateCell(row, column, drawable);
 	}
 

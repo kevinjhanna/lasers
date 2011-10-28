@@ -13,4 +13,8 @@ public class BlockPropagation extends PropagationComponent {
 		setOrigin(ray);
 	}
 	
+	public boolean hasRays() {
+		return false;
+	}
+	
 }
