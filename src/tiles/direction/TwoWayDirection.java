@@ -3,6 +3,9 @@ package tiles.direction;
 import misc.Direction;
 import exceptions.RotationNotSupportedException;
 
+/**
+ * Two-way (horizontal or vertical) direction component
+ */
 public class TwoWayDirection implements DirectionComponent {
 
 	private static final long serialVersionUID = -1995710689748925391L;

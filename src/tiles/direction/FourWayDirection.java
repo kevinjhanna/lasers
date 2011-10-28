@@ -3,21 +3,24 @@ package tiles.direction;
 import misc.Direction;
 import exceptions.RotationNotSupportedException;
 
+/**
+ * Four-way (every direction) direction component
+ */
 public class FourWayDirection implements DirectionComponent {
 
 	private static final long serialVersionUID = 827751127088031392L;
 
 	public Direction direction;
 	public boolean mutable;
-	
+
 	public FourWayDirection(boolean mutable) {
 		this.mutable = mutable;
 	}
-	
+
 	public boolean canRotate() {
 		return mutable;
 	}
-	
+
 	public Direction getDirection() {
 		return direction;
 	}
@@ -28,7 +31,7 @@ public class FourWayDirection implements DirectionComponent {
 		}
 		this.direction = direction;
 	}
-	
+
 	public void rotate() {
 		if (!mutable) {
 			throw new RotationNotSupportedException();

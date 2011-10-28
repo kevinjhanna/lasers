@@ -10,7 +10,7 @@ import tiles.propagation.PropagationComponent;
 import misc.Direction;
 
 /**
- * Filter. Supports rotation and movement
+ * A <tt>Filter</tt> tile that supports rotation and movement.
  */
 public class Filter extends ColoredTile {
 
@@ -20,15 +20,15 @@ public class Filter extends ColoredTile {
 		super(color);
 		setDirection(direction);
 	}
-	
+
 	@Override
 	protected DirectionComponent getDirectionComponent() {
 		return new TwoWayDirection(true);
 	}
-	
+
 	@Override
 	protected PropagationComponent getPropagationComponent(Tile tile) {
 		return new FilterPropagation(tile);
 	}
-	
+
 }

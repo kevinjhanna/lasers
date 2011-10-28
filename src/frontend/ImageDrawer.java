@@ -23,6 +23,11 @@ import tiles.SplitMirror;
 import tiles.Target;
 import tiles.Wall;
 
+/**
+ * Class responsible for drawing the content of the board cells
+ * 
+ * @see Drawable
+ */
 public class ImageDrawer implements Drawer<Image> {
 
 	private static final Color maskColor = new Color(0, 0, 255);
@@ -36,16 +41,19 @@ public class ImageDrawer implements Drawer<Image> {
 	private void loadResources() {
 		try {
 			images = new HashMap<String, Image>();
-			
-			Image source       = ImageUtils.loadImage("resources/source.png");
-			Image target       = ImageUtils.loadImage("resources/target.png");
-			Image wall         = ImageUtils.loadImage("resources/wall.png");
-			Image filter       = ImageUtils.loadImage("resources/filter.png");
-			Image simpleMirror = ImageUtils.loadImage("resources/simple-mirror.png");
-			Image doubleMirror = ImageUtils.loadImage("resources/double-mirror.png");
-			Image splitMirror  = ImageUtils.loadImage("resources/split-mirror.png");
-			Image ray  = ImageUtils.loadImage("resources/half-laser.png");
-			
+
+			Image source = ImageUtils.loadImage("resources/source.png");
+			Image target = ImageUtils.loadImage("resources/target.png");
+			Image wall = ImageUtils.loadImage("resources/wall.png");
+			Image filter = ImageUtils.loadImage("resources/filter.png");
+			Image simpleMirror = ImageUtils
+					.loadImage("resources/simple-mirror.png");
+			Image doubleMirror = ImageUtils
+					.loadImage("resources/double-mirror.png");
+			Image splitMirror = ImageUtils
+					.loadImage("resources/split-mirror.png");
+			Image ray = ImageUtils.loadImage("resources/half-laser.png");
+
 			images.put(Source.class.getName(), source);
 			images.put(MoveableSource.class.getName(), source);
 			images.put(Target.class.getName(), target);
@@ -55,7 +63,7 @@ public class ImageDrawer implements Drawer<Image> {
 			images.put(DoubleMirror.class.getName(), doubleMirror);
 			images.put(SplitMirror.class.getName(), splitMirror);
 			images.put(Ray.class.getName(), ray);
-			
+
 		} catch (IOException e) {
 			System.out.println("Error: Could not load images.");
 			System.exit(0);
@@ -66,9 +74,9 @@ public class ImageDrawer implements Drawer<Image> {
 		if (drawable == null) {
 			throw new IllegalArgumentException();
 		}
-		
+
 		List<Image> layers = new ArrayList<Image>();
-		
+
 		Iterable<DrawableLayer> underlay = drawable.getUnderlay();
 		if (underlay != null) {
 			for (DrawableLayer layer : underlay) {
@@ -77,9 +85,9 @@ public class ImageDrawer implements Drawer<Image> {
 				}
 			}
 		}
-		
+
 		layers.add(drawLayer(drawable));
-		
+
 		Iterable<DrawableLayer> overlay = drawable.getOverlay();
 		if (overlay != null) {
 			for (DrawableLayer layer : overlay) {
@@ -90,15 +98,15 @@ public class ImageDrawer implements Drawer<Image> {
 		}
 		return layers;
 	}
-	
-	private Image drawLayer(DrawableLayer drawable) {		
+
+	private Image drawLayer(DrawableLayer drawable) {
 		Image image = images.get(drawable.getClass().getName());
 
 		Color color = drawable.getColor();
 		if (color != null) {
 			image = ImageUtils.replaceColor(image, maskColor, color);
 		}
-		
+
 		Direction direction = drawable.getDirection();
 		if (direction != null) {
 			image = ImageUtils.rotateImage(image, direction.ordinal());

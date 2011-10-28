@@ -12,12 +12,12 @@ import exceptions.TargetTileNotEmptyException;
 import exceptions.TileIsFixedException;
 
 /**
- * Class that models a board in the game
+ * A game board
  */
-public class Board implements Serializable{
+public class Board implements Serializable {
 
 	private static final long serialVersionUID = -343121504836873833L;
-	
+
 	private Tile[][] content;
 	public static final int MIN_HEIGHT = 5;
 	public static final int MIN_WIDTH = 5;
@@ -26,7 +26,7 @@ public class Board implements Serializable{
 
 	private int height;
 	private int width;
-	
+
 	/**
 	 * Creates a new board with the given dimensions
 	 * 
@@ -57,7 +57,6 @@ public class Board implements Serializable{
 	 * Returns the tile at the given position
 	 * 
 	 * @param p
-	 *            The position to look
 	 * @return Tile
 	 */
 	public Tile getTile(Position p) {
@@ -71,9 +70,7 @@ public class Board implements Serializable{
 	 * Replaces the tile at the given position by the tile given as parameter
 	 * 
 	 * @param p
-	 *            The position to replace
 	 * @param tile
-	 *            The tile to put in position
 	 */
 	public void setTile(Position p, Tile tile) {
 		if (!validPosition(p)) {
@@ -89,7 +86,6 @@ public class Board implements Serializable{
 	 *            The source position
 	 * @param target
 	 *            The target position
-	 * @throws TileIsFixedException
 	 * @throws SourceTileEmptyException
 	 * @throws TargetTileNotEmptyException
 	 */
@@ -112,15 +108,31 @@ public class Board implements Serializable{
 		setTile(target, tile);
 	}
 
+	/**
+	 * Checks that the position given is falls inside the board boundaries
+	 * 
+	 * @param p
+	 * @return
+	 */
 	public boolean validPosition(Position p) {
 		return p.row >= 0 && p.row < height && p.column >= 0
 				&& p.column < width;
 	}
 
+	/**
+	 * Returns the width of the board
+	 * 
+	 * @return int
+	 */
 	public int getWidth() {
 		return width;
 	}
 
+	/**
+	 * Returns the height of the board
+	 * 
+	 * @return int
+	 */
 	public int getHeight() {
 		return height;
 	}

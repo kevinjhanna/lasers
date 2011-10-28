@@ -22,7 +22,7 @@ public interface Observer {
 	 * @param newScore
 	 */
 	void onScoreChange(int newScore);
-	
+
 	/**
 	 * Callback that fires when the game is won
 	 */

@@ -7,7 +7,7 @@ import tiles.propagation.SplitMirrorPropagation;
 import misc.Direction;
 
 /**
- * Split Mirror. Supports rotation and movement
+ * A <tt>SplitMirror</tt> tile that supports rotation and movement.
  */
 public class SplitMirror extends Tile {
 

@@ -9,9 +9,17 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import exceptions.NoGameException;
+
+/**
+ * Implementation of the <tt>ViewContainer</tt> as a JFrame
+ * 
+ * @see ViewContainer
+ */
 public class Window extends JFrame implements ViewContainer {
 
-	private static final long serialVersionUID = 3894510086087199629L;
+	private static final long serialVersionUID = 1L;
+
 	private Controller controller;
 	private Menu menu;
 	private WelcomePanel welcomePanel;
@@ -108,16 +116,17 @@ public class Window extends JFrame implements ViewContainer {
 		JOptionPane.showMessageDialog(this, message, "Error",
 				JOptionPane.ERROR_MESSAGE);
 	}
-	
+
 	/*
 	 * (non-Javadoc)
 	 * 
 	 * @see frontend.ViewContainer#showWinMessage()
 	 */
 	public void showWinMessage() {
-		JOptionPane.showMessageDialog(this, "You have won!", "Win", JOptionPane.INFORMATION_MESSAGE);
+		JOptionPane.showMessageDialog(this, "You have won!", "Win",
+				JOptionPane.INFORMATION_MESSAGE);
 	}
-	
+
 	/*
 	 * (non-Javadoc)
 	 * 

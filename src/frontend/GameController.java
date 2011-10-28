@@ -3,6 +3,7 @@ package frontend;
 import exceptions.GameIOException;
 import exceptions.InvalidBoardFileException;
 import exceptions.InvalidBoardSizeException;
+import exceptions.NoGameException;
 import exceptions.SourceTileEmptyException;
 import exceptions.TargetTileNotEmptyException;
 import game.Game;
@@ -78,7 +79,7 @@ public class GameController implements Controller, Observer {
 
 		if (!game.isFixed(sourceRow, sourceColumn)) {
 			try {
-				game.move(sourceRow, sourceColumn, targetRow, targetColumn);				
+				game.move(sourceRow, sourceColumn, targetRow, targetColumn);
 			} catch (SourceTileEmptyException e) {
 				// Empty catch on purpose. Do nothing
 			} catch (TargetTileNotEmptyException e) {
@@ -104,7 +105,7 @@ public class GameController implements Controller, Observer {
 					message += ": " + e.getMessage();
 				}
 				container.showError(message);
-			} catch (InvalidBoardSizeException e){
+			} catch (InvalidBoardSizeException e) {
 				container.showError("The board size is too big.");
 			}
 		}
@@ -171,10 +172,9 @@ public class GameController implements Controller, Observer {
 
 		File f = container.showSave();
 		if (f != null) {
-			try{
+			try {
 				IOSerializer.save(game, f);
-			}
-			catch(GameIOException e){
+			} catch (GameIOException e) {
 				container.showError("Unable to save game.");
 			}
 		}
@@ -188,6 +188,7 @@ public class GameController implements Controller, Observer {
 
 		game.startNew(this);
 	}
+
 	// explicar que era la unica forma de que quede no tan elegante pero no mal
 	/**
 	 * Starts a new game
@@ -198,12 +199,12 @@ public class GameController implements Controller, Observer {
 		game.start(this);
 
 	}
-	
-	private void initialize(){
+
+	private void initialize() {
 		container.setGame(game.getBoardHeight(), game.getBoardWidth());
 		container.setGameVisible(true);
 	}
-	
+
 	/**
 	 * Shows win message
 	 */

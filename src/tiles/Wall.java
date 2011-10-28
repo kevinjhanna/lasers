@@ -5,9 +5,8 @@ import tiles.direction.NoDirection;
 import tiles.propagation.BlockPropagation;
 import tiles.propagation.PropagationComponent;
 
-
 /**
- * Wall tile. Does not support rotation or movement
+ * A <tt>Wall</tt> tile that does not support rotation or movement.
  */
 public class Wall extends Tile {
 
@@ -26,5 +25,5 @@ public class Wall extends Tile {
 	protected PropagationComponent getPropagationComponent(Tile tile) {
 		return new BlockPropagation(tile);
 	}
-	
+
 }

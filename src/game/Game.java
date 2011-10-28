@@ -20,12 +20,12 @@ import exceptions.SourceTileEmptyException;
 import exceptions.TargetTileNotEmptyException;
 
 /**
- * Class that models a Lasers and Mirrors game
+ * The class that models a Lasers and Mirrors game
  */
 public class Game implements Serializable {
 
 	private static final long serialVersionUID = 3199525037781602721L;
-	
+
 	private transient Observer observer;
 	private Integer score;
 	private Board board;
@@ -57,15 +57,16 @@ public class Game implements Serializable {
 		calculateRays();
 		updateScore();
 	}
-	
-	//TODO poner esto en el informe
+
+	// TODO poner esto en el informe
 	/**
 	 * Starts the game if it is a new game
 	 */
-	public void startNew(Observer observer){
+	public void startNew(Observer observer) {
 		start(observer);
 		populateBoard();
 	}
+
 	/**
 	 * Restarts the game
 	 */
@@ -186,7 +187,7 @@ public class Game implements Serializable {
 		if (old != score) {
 			observer.onScoreChange(score);
 		}
-		
+
 		verifyWinCondition();
 	}
 
@@ -197,7 +198,7 @@ public class Game implements Serializable {
 	 */
 	private int calculateScore() {
 		int score = 0;
-		
+
 		for (int i = 0; i < getBoardHeight(); i++) {
 			for (int j = 0; j < getBoardWidth(); j++) {
 				if (getTile(i, j).hasRays()) {
@@ -241,7 +242,6 @@ public class Game implements Serializable {
 		calculateRays();
 	}
 
-
 	/**
 	 * Calculates rays
 	 */
@@ -260,10 +260,10 @@ public class Game implements Serializable {
 				observer.onTileUpdate(i, j, getTile(i, j));
 			}
 		}
-		
+
 		updateScore();
 	}
-	
+
 	public void verifyWinCondition() {
 		boolean win = true;
 		for (Map.Entry<Tile, Position> e : tiles.entrySet()) {
@@ -288,9 +288,6 @@ public class Game implements Serializable {
 			}
 		}
 	}
-
-
-
 
 	public boolean isFixed(int row, int column) {
 		return getTile(row, column).isFixed();

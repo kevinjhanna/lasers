@@ -1,4 +1,4 @@
-package frontend;
+package exceptions;
 
 public class NoGameException extends RuntimeException {
 

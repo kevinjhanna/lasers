@@ -6,6 +6,9 @@ import misc.Direction;
 import misc.Position;
 import tiles.DrawableLayer;
 
+/**
+ * Class that models a ray in the game
+ */
 public class Ray implements DrawableLayer, Cloneable {
 
 	private Board board;
@@ -61,7 +64,7 @@ public class Ray implements DrawableLayer, Cloneable {
 		new Ray(board, position, d2, color).move();
 		move(d1);
 	}
-	
+
 	/**
 	 * Hit the tile at the current position
 	 */
@@ -75,7 +78,7 @@ public class Ray implements DrawableLayer, Cloneable {
 	public Color getColor() {
 		return color;
 	}
-	
+
 	/**
 	 * Sets the ray color
 	 * 
@@ -100,14 +103,14 @@ public class Ray implements DrawableLayer, Cloneable {
 	public void setDirection(Direction direction) {
 		this.direction = direction;
 	}
-	
+
 	/**
 	 * Clones the ray
 	 */
 	public Ray clone() {
 		return new Ray(board, position, direction, color);
 	}
-	
+
 	/**
 	 * Returns the string representation of a ray
 	 */

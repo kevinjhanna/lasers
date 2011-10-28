@@ -7,7 +7,7 @@ import tiles.propagation.PropagationComponent;
 import misc.Direction;
 
 /**
- * Simple Mirror. Supports rotation and movement
+ * A <tt>SimpleMirror</tt> tile that supports rotation and movement.
  */
 public class SimpleMirror extends Tile {
 

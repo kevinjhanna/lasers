@@ -6,7 +6,7 @@ import tiles.propagation.IgnorePropagation;
 import tiles.propagation.PropagationComponent;
 
 /**
- * Empty tile
+ * An invisible <tt>EmptyTile</tt> that serves only to propagate rays.
  */
 public class EmptyTile extends Tile {
 
@@ -26,5 +26,5 @@ public class EmptyTile extends Tile {
 	protected PropagationComponent getPropagationComponent(Tile tile) {
 		return new IgnorePropagation(tile);
 	}
-	
+
 }

@@ -4,6 +4,9 @@ import tiles.Tile;
 import game.Ray;
 import misc.Direction;
 
+/**
+ * Propagation component that reflects rays in every direction
+ */
 public class DoubleMirrorPropagation extends MirrorPropagation {
 
 	public DoubleMirrorPropagation(Tile tile) {
@@ -25,7 +28,7 @@ public class DoubleMirrorPropagation extends MirrorPropagation {
 			if (m2 != null) {
 				setRay(m2, ray);
 				ray.move(m2);
-			}			
+			}
 		}
 	}
 

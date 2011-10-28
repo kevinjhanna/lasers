@@ -7,7 +7,7 @@ import tiles.propagation.PropagationComponent;
 import misc.Direction;
 
 /**
- * Double Mirror. Supports rotation and movement
+ * A <tt>DoubleMirror</tt> that supports rotation and movement.
  */
 public class DoubleMirror extends Tile {
 
@@ -22,10 +22,10 @@ public class DoubleMirror extends Tile {
 	protected DirectionComponent getDirectionComponent() {
 		return new TwoWayDirection(true);
 	}
-	
+
 	@Override
 	protected PropagationComponent getPropagationComponent(Tile tile) {
 		return new DoubleMirrorPropagation(tile);
 	}
-	
+
 }

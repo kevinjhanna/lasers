@@ -3,7 +3,7 @@ package misc;
 import java.io.Serializable;
 
 /**
- * Class that represents a position in a board. Bounds should be checked outside
+ * Class that represents a position in the board
  */
 public class Position implements Serializable {
 

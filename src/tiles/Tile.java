@@ -11,7 +11,7 @@ import tiles.propagation.PropagationComponent;
 import misc.Direction;
 
 /**
- * Abstract class that models a game tile
+ * An abstract class that models a game tile.
  */
 public abstract class Tile implements Drawable, Serializable {
 
@@ -65,7 +65,7 @@ public abstract class Tile implements Drawable, Serializable {
 	public final boolean canRotate() {
 		return direction.canRotate();
 	}
-	
+
 	/**
 	 * Returns the tile color or null if tile does has no specific color
 	 * 
@@ -99,13 +99,13 @@ public abstract class Tile implements Drawable, Serializable {
 	}
 
 	protected abstract DirectionComponent getDirectionComponent();
-	
+
 	protected abstract PropagationComponent getPropagationComponent(Tile tile);
-	
+
 	public Iterable<DrawableLayer> getUnderlay() {
 		return propagation.getRays();
 	}
-	
+
 	public Iterable<DrawableLayer> getOverlay() {
 		return null;
 	}

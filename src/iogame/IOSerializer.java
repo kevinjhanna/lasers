@@ -29,6 +29,7 @@ public class IOSerializer {
 			return (Game) file.readObject();
 
 		} catch (Exception e) {
+			// TODO: Catching Exception is not a very good practice
 			throw new GameIOException();
 		} finally {
 			try {
