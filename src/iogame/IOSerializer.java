@@ -34,7 +34,7 @@ public class IOSerializer {
 			try {
 				if (file != null) {
 					file.close();
-					System.out.println("Archivo guardado en " + f.getName());
+					System.out.println("Archivo cargado");
 
 				}
 			} catch (IOException e) {
@@ -58,13 +58,14 @@ public class IOSerializer {
 			file.writeObject(game);
 
 		} catch (Exception e) {
+			System.out.println(e.getClass());
+
 			throw new GameIOException();
 		} finally {
 			try {
 				if (file != null) {
 					file.close();
-					System.out.println("Archivo cargado");
-
+					System.out.println("Archivo guardado en " + f.getName());
 				}
 			} catch (IOException e) {
 				throw new GameIOException();
