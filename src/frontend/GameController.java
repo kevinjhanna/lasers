@@ -1,5 +1,6 @@
 package frontend;
 
+import exceptions.GameIOException;
 import exceptions.InvalidBoardFileException;
 import exceptions.InvalidBoardSizeException;
 import exceptions.SourceTileEmptyException;
@@ -7,6 +8,7 @@ import exceptions.TargetTileNotEmptyException;
 import exceptions.TileIsFixedException;
 import game.Game;
 import game.Observer;
+import iogame.IOSerializer;
 
 import java.io.File;
 import java.io.IOException;
@@ -56,9 +58,9 @@ public class GameController implements Controller, Observer {
 		File f = container.showLoad();
 		if (f != null) {
 			try {
-				game = Game.fromSaveFile(f);
-				startGame();
-			} catch (IOException e) {
+				game = IOSerializer.load(f);
+				startGameFromLoaded();
+			} catch (GameIOException e) {
 				container.showError("Unable to load saved game.");
 			}
 		}
@@ -94,7 +96,7 @@ public class GameController implements Controller, Observer {
 		if (f != null) {
 			try {
 				game = Game.fromBoardFile(f);
-				startGame();
+				startGameFromNew();
 			} catch (IOException e) {
 				container.showError("Unable to load board file.");
 			} catch (InvalidBoardFileException e) {
@@ -199,23 +201,38 @@ public class GameController implements Controller, Observer {
 		File f = container.showSave();
 		if (f != null) {
 			try{
-				game.save(f);
+				IOSerializer.save(game, f);
 			}
-			catch(IOException e){
+			catch(GameIOException e){
 				container.showError("Unable to save game.");
 			}
 		}
 	}
 
 	/**
-	 * Starts the loaded game
+	 * Starts a new game
 	 */
-	private void startGame() {
-		container.setGame(game.getBoardHeight(), game.getBoardWidth());
+	private void startGameFromNew() {
+		initialize();
+
+		game.startNew(this);
+	}
+	// explicar que era la unica forma de que quede no tan elegante pero no mal
+	/**
+	 * Starts a new game
+	 */
+	private void startGameFromLoaded() {
+		initialize();
+
 		game.start(this);
+
+	}
+	
+	private void initialize(){
+		container.setGame(game.getBoardHeight(), game.getBoardWidth());
 		container.setGameVisible(true);
 	}
-
+	
 	/**
 	 * Shows win message
 	 */

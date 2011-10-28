@@ -7,6 +7,8 @@ import misc.Direction;
  */
 public class DoubleMirror extends Tile {
 
+	private static final long serialVersionUID = 6426614138473635048L;
+
 	public DoubleMirror(Direction direction) {
 		super();
 		setDirection(direction);

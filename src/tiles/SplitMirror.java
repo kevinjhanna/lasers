@@ -6,7 +6,9 @@ import misc.Direction;
  * Split Mirror. Supports rotation and movement
  */
 public class SplitMirror extends Tile {
-	
+
+	private static final long serialVersionUID = -758475613262851807L;
+
 	public SplitMirror(Direction direction) {
 		super();
 		setDirection(direction);

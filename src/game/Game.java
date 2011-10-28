@@ -25,6 +25,7 @@ import gameparser.GameParser;
 public class Game implements Serializable {
 
 	private static final long serialVersionUID = 3199525037781602721L;
+	
 	private transient Observer observer;
 	private Integer score;
 	private Board board;
@@ -47,17 +48,8 @@ public class Game implements Serializable {
 		return parser.parse();
 	}
 
-	/**
-	 * Creates a new game from a saved game file
-	 * 
-	 * @param f
-	 * @return Game
-	 * @throws IOException
-	 */
-	public static Game fromSaveFile(File f) throws IOException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
+
 
 	/**
 	 * Starts the game
@@ -68,7 +60,15 @@ public class Game implements Serializable {
 		calculateRays();
 		updateScore();
 	}
-
+	
+	//TODO poner esto en el informe
+	/**
+	 * Starts the game if it is a new game
+	 */
+	public void startNew(Observer observer){
+		start(observer);
+		populateBoard();
+	}
 	/**
 	 * Restarts the game
 	 */
@@ -181,8 +181,6 @@ public class Game implements Serializable {
 		finally {
 			file.close();
 		}
-
-		System.out.println("Archivo guardado en " + f.getName());
 	}
 
 	/**
@@ -234,6 +232,7 @@ public class Game implements Serializable {
 
 			observer.onTileSet(e.getValue().row, e.getValue().column,
 					e.getKey());
+
 		}
 		calculateRays();
 	}

@@ -1,15 +1,19 @@
 package misc;
 
-public class Position {
+import java.io.Serializable;
 
+public class Position implements Serializable {
+
+	private static final long serialVersionUID = 8918404612043676881L;
+	
 	public final int row;
 	public final int column;
-	
+
 	public Position(int row, int column) {
 		this.row = row;
 		this.column = column;
 	}
-	
+
 	public Position move(Direction d) {
 		switch (d) {
 		case NORTH:
@@ -23,13 +27,11 @@ public class Position {
 		}
 		return null;
 	}
-	
-	@Override
+
 	public String toString() {
 		return "Position [row=" + row + ", column=" + column + "]";
 	}
 
-	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
@@ -37,8 +39,7 @@ public class Position {
 		result = prime * result + column;
 		return result;
 	}
-	
-	@Override
+
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;

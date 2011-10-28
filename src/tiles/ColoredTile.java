@@ -9,6 +9,10 @@ import java.awt.Color;
  */
 public abstract class ColoredTile extends Tile {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4832706954888536656L;
 	private Color color;
 	
 	protected ColoredTile(Color color) {
@@ -16,6 +20,7 @@ public abstract class ColoredTile extends Tile {
 		this.color = color;
 	}
 	
+	@Override
 	public Color getColor() {
 		return color;
 	}

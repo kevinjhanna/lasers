@@ -9,6 +9,8 @@ import misc.Direction;
  */
 public class Filter extends ColoredTile {
 
+	private static final long serialVersionUID = -8077293024920731925L;
+
 	public Filter(Color color, Direction direction) {
 		super(color);
 		setDirection(direction);

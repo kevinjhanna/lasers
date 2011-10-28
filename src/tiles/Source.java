@@ -9,6 +9,8 @@ import misc.Direction;
  */
 public class Source extends ColoredTile {
 
+	private static final long serialVersionUID = -7755886326140761567L;
+
 	/**
 	 * Creates a new source tile
 	 * 

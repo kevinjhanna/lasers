@@ -1,5 +1,7 @@
 package game;
 
+import java.io.Serializable;
+
 import misc.Position;
 import tiles.EmptyTile;
 import tiles.Tile;
@@ -12,8 +14,10 @@ import exceptions.TileIsFixedException;
 /**
  * Class that models a board in the game
  */
-public class Board {
+public class Board implements Serializable{
 
+	private static final long serialVersionUID = -343121504836873833L;
+	
 	private Tile[][] content;
 	public static final int MIN_HEIGHT = 5;
 	public static final int MIN_WIDTH = 5;
@@ -22,7 +26,7 @@ public class Board {
 
 	private int height;
 	private int width;
-
+	
 	/**
 	 * Creates a new board with the given dimensions
 	 * 
@@ -33,7 +37,6 @@ public class Board {
 	 * @throws InvalidBoardSizeException
 	 */
 	public Board(int height, int width) {
-
 		if (height < MIN_HEIGHT || height > MAX_HEIGHT || width < MIN_WIDTH
 				|| height > MAX_HEIGHT) {
 			throw new InvalidBoardSizeException();

@@ -3,13 +3,16 @@ package tiles;
 import game.Ray;
 
 import java.awt.Color;
+import java.io.Serializable;
 
 import misc.Direction;
 
 /**
  * Abstract class that models a game tile
  */
-public abstract class Tile implements Drawable {
+public abstract class Tile implements Drawable, Serializable {
+
+	private static final long serialVersionUID = -3314285484900811741L;
 
 	private DirectionComponent direction;
 	private PropagationComponent propagation;

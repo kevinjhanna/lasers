@@ -5,6 +5,9 @@ package tiles;
  */
 public class EmptyTile extends Tile {
 
+	private static final long serialVersionUID = -1389305795332202623L;
+
+	@Override
 	public boolean isEmpty() {
 		return true;
 	}
