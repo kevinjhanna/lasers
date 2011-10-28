@@ -2,7 +2,6 @@ package frontend;
 
 import exceptions.InvalidBoardFileException;
 import exceptions.InvalidBoardSizeException;
-import exceptions.RotationNotSupportedException;
 import exceptions.SourceTileEmptyException;
 import exceptions.TargetTileNotEmptyException;
 import exceptions.TileIsFixedException;
@@ -131,7 +130,7 @@ public class GameController implements Controller, Observer {
 	public void onTileMove(int sourceRow, int sourceColumn, int targetRow,
 			int targetColumn, Drawable drawable) {
 
-		container.getView().updateCell(sourceRow, sourceColumn, null);
+		container.getView().clearCell(sourceRow, sourceColumn);
 		container.getView().updateCell(targetRow, targetColumn, drawable);
 	}
 

@@ -19,6 +19,8 @@ public interface View {
 	 * 		The tile to draw in the cell
 	 */
 	public abstract void updateCell(int row, int column, Drawable drawable);
+	
+	public abstract void clearCell(int row, int column);
 
 	public abstract void updateScore(int score);
 

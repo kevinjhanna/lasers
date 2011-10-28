@@ -3,14 +3,9 @@ package tiles;
 import java.awt.Color;
 
 import misc.Direction;
-import game.Ray;
-import game.TileDrawer;
 
 /**
  * Filter. Supports rotation and movement
- * 
- * @author federicobond
- * 
  */
 public class Filter extends ColoredTile {
 
@@ -18,18 +13,15 @@ public class Filter extends ColoredTile {
 		super(color);
 		setDirection(direction);
 	}
-
-	public void react(Ray ray) {
-
-	}
-
-	@Override
-	public <T> T draw(TileDrawer<T> drawer) {
-		return drawer.withDirection(super.draw(drawer), getDirection());
-	}
-
+	
 	@Override
 	protected DirectionComponent getDirectionComponent() {
 		return new TwoWayDirection(true);
 	}
+	
+	@Override
+	protected PropagationComponent getPropagationComponent(Tile tile) {
+		return new FilterPropagation(tile);
+	}
+	
 }

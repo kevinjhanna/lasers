@@ -1,9 +1,13 @@
 package game;
 
 import java.awt.Color;
-import misc.*;
 
-public class Ray {
+import misc.Direction;
+import misc.Position;
+import tiles.DrawableLayer;
+
+public class Ray implements DrawableLayer, Cloneable {
+
 	private Board board;
 	private Position position;
 	private Direction direction;
@@ -14,24 +18,22 @@ public class Ray {
 		this.position = position;
 		this.direction = direction;
 		this.color = color;
-		move(direction, color);
 	}
 
 	private void move(Direction direction, Color color) {
 		this.color = color;
 		move(direction);
 	}
-	
+
 	public void move(Direction direction) {
 		this.direction = direction;
 		move();
 	}
-	
+
 	public void move() {
 		position = position.move(direction);
 		if (board.validPosition(position)) {
-			System.out.println(position + " -> " + direction.name());
-			hit();			
+			hit();
 		}
 	}
 
@@ -39,21 +41,37 @@ public class Ray {
 		new Ray(board, position, d2, c2);
 		move(d1, c1);
 	}
-	
+
 	public void bifurcate(Direction d1, Direction d2) {
-		new Ray(board, position, d2, color);
+		if (d1 == null || d2 == null) {
+			throw new IllegalArgumentException();
+		}
+		new Ray(board, position, d2, color).move();
 		move(d1);
 	}
 
 	private void hit() {
 		board.getTile(position).hit(this);
 	}
-	
+
 	public Color getColor() {
 		return color;
 	}
 	
+	public void setColor(Color color) {
+		this.color = color;
+	}
+
 	public Direction getDirection() {
 		return direction;
 	}
+
+	public void setDirection(Direction direction) {
+		this.direction = direction;
+	}
+	
+	public Ray clone() {
+		return new Ray(board, position, direction, color);
+	}
+
 }

@@ -1,7 +1,5 @@
 package tiles;
 
-import game.TileDrawer;
-
 import java.awt.Color;
 
 import misc.Direction;
@@ -29,12 +27,13 @@ public class Source extends ColoredTile {
 		return true;
 	}
 
-	public <T> T draw(TileDrawer<T> drawer) {
-		return drawer.withDirection(super.draw(drawer), getDirection());
-	}
-
 	@Override
 	protected DirectionComponent getDirectionComponent() {
 		return new FourWayDirection(false);
+	}
+
+	@Override
+	protected PropagationComponent getPropagationComponent(Tile tile) {
+		return new BlockPropagation(tile);
 	}
 }

@@ -1,6 +1,5 @@
 package tiles;
 
-import game.TileDrawer;
 import misc.Direction;
 
 /**
@@ -9,16 +8,17 @@ import misc.Direction;
 public class SplitMirror extends Tile {
 	
 	public SplitMirror(Direction direction) {
+		super();
 		setDirection(direction);
-	}
-	
-	@Override
-	public <T> T draw(TileDrawer<T> drawer) {
-		return drawer.withDirection(super.draw(drawer), getDirection());
 	}
 
 	@Override
 	protected DirectionComponent getDirectionComponent() {
 		return new TwoWayDirection(true);
+	}
+
+	@Override
+	protected PropagationComponent getPropagationComponent(Tile tile) {
+		return new SplitMirrorPropagation(tile);
 	}
 }

@@ -4,12 +4,11 @@ import java.awt.Color;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 import misc.Direction;
-import misc.Pair;
 import misc.Position;
 import tiles.DoubleMirror;
 import tiles.Filter;
@@ -22,7 +21,6 @@ import tiles.Tile;
 import tiles.Wall;
 import exceptions.InvalidBoardFileException;
 import exceptions.InvalidBoardSizeException;
-
 import game.Game;
 
 /**
@@ -60,7 +58,7 @@ public class GameParser {
 	 */
 	public Game parse() throws IOException, InvalidBoardFileException, InvalidBoardSizeException {
 		
-		List<Pair<Position, Tile>> tiles = new ArrayList<Pair<Position, Tile>>();
+		Map<Tile, Position> tiles = new HashMap<Tile, Position>();
 
 		try {
 			stream = new Scanner(file);
@@ -114,7 +112,7 @@ public class GameParser {
 	 * @param tiles
 	 * @throws InvalidBoardFileException
 	 */
-	private void processTile(String aLine, List<Pair<Position, Tile>> tiles)
+	private void processTile(String aLine, Map<Tile, Position> tiles)
 			throws InvalidBoardFileException {
 		if (!aLine.matches("(\\d*,){6}\\d*")) {
 			throw new InvalidBoardFileException();
@@ -179,7 +177,7 @@ public class GameParser {
 			break;
 		}
 
-		tiles.add(new Pair<Position, Tile>(position, realTile));
+		tiles.put(realTile, position);
 	}
 
 }

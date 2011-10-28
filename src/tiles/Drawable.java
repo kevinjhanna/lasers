@@ -1,12 +1,20 @@
 package tiles;
 
-import game.TileDrawer;
+import java.awt.Color;
+
+import misc.Direction;
 
 /**
- * Interface that represents a drawable tile
+ * Interface that represents a drawable object
  */
-public interface Drawable {
+public interface Drawable extends DrawableLayer {
 
-	public <T> T draw(TileDrawer<T> drawer);
+	public Color getColor();
+	
+	public Direction getDirection();
+	
+	public Iterable<DrawableLayer> getUnderlay();
+	
+	public Iterable<DrawableLayer> getOverlay();
 	
 }

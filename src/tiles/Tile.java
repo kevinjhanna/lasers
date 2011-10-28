@@ -1,7 +1,9 @@
 package tiles;
 
 import game.Ray;
-import game.TileDrawer;
+
+import java.awt.Color;
+
 import misc.Direction;
 
 /**
@@ -10,15 +12,23 @@ import misc.Direction;
 public abstract class Tile implements Drawable {
 
 	private DirectionComponent direction;
+	private PropagationComponent propagation;
 
 	protected Tile() {
+		initializeComponents();
+	}
+
+	private void initializeComponents() {
 		direction = getDirectionComponent();
+		propagation = getPropagationComponent(this);
 	}
 
 	public void hit(Ray ray) {
+		propagation.process(ray);
 	}
 
 	public void clearRays() {
+		propagation.clear();
 	}
 
 	/**
@@ -49,6 +59,15 @@ public abstract class Tile implements Drawable {
 	public final boolean canRotate() {
 		return direction.canRotate();
 	}
+	
+	/**
+	 * Returns the tile color or null if tile does has no specific color
+	 * 
+	 * @return Color
+	 */
+	public Color getColor() {
+		return null;
+	}
 
 	/**
 	 * Returns the current direction of the tile
@@ -60,6 +79,9 @@ public abstract class Tile implements Drawable {
 	}
 
 	protected final void setDirection(Direction d) {
+		if (direction == null) {
+			throw new IllegalArgumentException();
+		}
 		direction.setDirection(d);
 	}
 
@@ -70,17 +92,15 @@ public abstract class Tile implements Drawable {
 		direction.rotate();
 	}
 
-	/**
-	 * Returns a visual representation of the tile in its current state to use
-	 * in the view
-	 * 
-	 * @param drawer
-	 *            The TileDrawer that is going to render the tile representation
-	 */
-	public <T> T draw(TileDrawer<T> drawer) {
-		return drawer.draw(this.getClass().getName());
-	}
-
 	protected abstract DirectionComponent getDirectionComponent();
-
+	
+	protected abstract PropagationComponent getPropagationComponent(Tile tile);
+	
+	public Iterable<DrawableLayer> getUnderlay() {
+		return propagation.getRays();
+	}
+	
+	public Iterable<DrawableLayer> getOverlay() {
+		return null;
+	}
 }

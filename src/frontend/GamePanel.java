@@ -5,6 +5,7 @@ import gui.BoardPanelListener;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -22,7 +23,7 @@ public class GamePanel extends JPanel implements View {
 	private Controller controller;
 	private final int boardWidth;
 	private final int boardHeight;
-	private ImageTileDrawer tileDrawer = new ImageTileDrawer();
+	private ImageDrawer drawer = new ImageDrawer();
 	private BoardPanel boardPanel;
 	private JPanel statusPanel;
 	private JLabel scoreLabel;
@@ -102,12 +103,16 @@ public class GamePanel extends JPanel implements View {
 	}
 
 	public void updateCell(int row, int column, Drawable drawable) {
-		if (drawable == null) {
-			boardPanel.clearImage(row, column);
-		} else {
-			boardPanel.setImage(row, column, drawable.draw(tileDrawer));
-			boardPanel.repaint();
+		boardPanel.clearImage(row, column);
+		for (Image layer : drawer.draw(drawable)) {
+			boardPanel.appendImage(row, column, layer);
 		}
+		boardPanel.repaint();
+	}
+	
+	public void clearCell(int row, int column) {
+		boardPanel.clearImage(row, column);
+		boardPanel.repaint();
 	}
 
 	public void updateScore(int score) {

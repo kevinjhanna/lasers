@@ -21,5 +21,10 @@ public class Target extends ColoredTile {
 	protected DirectionComponent getDirectionComponent() {
 		return new NoDirection();
 	}
+
+	@Override
+	protected PropagationComponent getPropagationComponent(Tile tile) {
+		return new IgnorePropagation(tile);
+	}
 	
 }

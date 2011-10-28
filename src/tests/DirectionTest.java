@@ -1,6 +1,7 @@
 package tests;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import misc.Direction;
 
 import org.junit.Test;
@@ -18,6 +19,12 @@ public class DirectionTest {
 	public void testOpposite() {
 		assertEquals(Direction.NORTH, Direction.SOUTH.getOpposite());
 		assertEquals(Direction.EAST, Direction.WEST.getOpposite());
+	}
+	
+	@Test
+	public void testEqualsIgnoreSense() {
+		assertTrue(Direction.EAST.equalsIgnoreSense(Direction.WEST));
+		assertTrue(Direction.NORTH.equalsIgnoreSense(Direction.SOUTH));
 	}
 
 }

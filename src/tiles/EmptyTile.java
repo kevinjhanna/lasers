@@ -1,8 +1,5 @@
 package tiles;
 
-import game.Ray;
-
-
 /**
  * Empty tile
  */
@@ -16,10 +13,10 @@ public class EmptyTile extends Tile {
 	protected DirectionComponent getDirectionComponent() {
 		return new NoDirection();
 	}
-	
+
 	@Override
-	public void hit(Ray ray) {
-		ray.move();
+	protected PropagationComponent getPropagationComponent(Tile tile) {
+		return new IgnorePropagation(tile);
 	}
 	
 }

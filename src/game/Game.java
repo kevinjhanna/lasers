@@ -6,11 +6,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-import misc.Pair;
 import misc.Position;
 import tiles.Source;
 import tiles.Tile;
@@ -27,11 +24,11 @@ import gameparser.GameParser;
  */
 public class Game implements Serializable {
 
+	private static final long serialVersionUID = 3199525037781602721L;
 	private transient Observer observer;
 	private Integer score;
 	private Board board;
-	private List<Pair<Position, Tile>> initialTiles;
-	private transient Map<Source, Position> sources;
+	private Map<Tile, Position> tiles;
 
 	/**
 	 * Instantiates a new game from a board file
@@ -45,7 +42,7 @@ public class Game implements Serializable {
 	 */
 	public static Game fromBoardFile(File f) throws IOException,
 			InvalidBoardFileException {
-		
+
 		GameParser parser = new GameParser(f);
 		return parser.parse();
 	}
@@ -68,6 +65,7 @@ public class Game implements Serializable {
 	public void start(Observer observer) {
 		this.observer = observer;
 		populateBoard();
+		calculateRays();
 		updateScore();
 	}
 
@@ -75,7 +73,7 @@ public class Game implements Serializable {
 	 * Restarts the game
 	 */
 	public Game restart() throws InvalidBoardSizeException {
-		return new Game(getBoardHeight(), getBoardWidth(), initialTiles);
+		return new Game(getBoardHeight(), getBoardWidth(), tiles);
 	}
 
 	/**
@@ -104,7 +102,7 @@ public class Game implements Serializable {
 	public Integer getScore() {
 		return score;
 	}
-	
+
 	public boolean canRotate(int row, int column) {
 		return getTile(row, column).canRotate();
 	}
@@ -138,6 +136,9 @@ public class Game implements Serializable {
 		Position target = new Position(targetRow, targetColumn);
 		board.moveTile(source, target);
 
+		Tile tile = getTile(targetRow, targetColumn);
+		tiles.put(tile, target);
+		
 		observer.onTileMove(sourceRow, sourceColumn, targetRow, targetColumn,
 				getTile(targetRow, targetColumn));
 
@@ -156,7 +157,7 @@ public class Game implements Serializable {
 
 		board.getTile(new Position(row, column)).rotate();
 		observer.onTileRotated(row, column, getTile(row, column));
-		
+
 		calculateRays();
 	}
 
@@ -164,7 +165,7 @@ public class Game implements Serializable {
 	 * Saves the game in the specified file
 	 * 
 	 * @param f
-	 * 		The file to save the game into
+	 *            The file to save the game into
 	 * @throws IOException
 	 */
 	public void save(File f) throws IOException {
@@ -174,7 +175,7 @@ public class Game implements Serializable {
 		try {
 			file.writeObject(board);
 			file.writeObject(score);
-			file.writeObject(initialTiles);
+			file.writeObject(tiles);
 		}
 
 		finally {
@@ -212,31 +213,15 @@ public class Game implements Serializable {
 	 * 
 	 * @param boardHeight
 	 * @param boardWidth
-	 * @param initialTiles
+	 * @param tiles
 	 * @throws InvalidBoardSizeException
 	 */
-	public Game(int boardHeight, int boardWidth,
-			List<Pair<Position, Tile>> initialTiles)
+	public Game(int boardHeight, int boardWidth, Map<Tile, Position> tiles)
 			throws InvalidBoardSizeException {
 
-		this.initialTiles = initialTiles;
+		this.tiles = tiles;
 
 		board = new Board(boardHeight, boardWidth);
-		sources = getSources(initialTiles);
-
-	}
-
-	private Map<Source, Position> getSources(List<Pair<Position, Tile>> tiles) {
-
-		Map<Source, Position> sources = new HashMap<Source, Position>();
-
-		for (Pair<Position, Tile> entry : tiles) {
-			if (entry.getSecond() instanceof Source) {
-				sources.put((Source) entry.getSecond(), entry.getFirst());
-			}
-		}
-
-		return sources;
 	}
 
 	/**
@@ -244,11 +229,11 @@ public class Game implements Serializable {
 	 * locations
 	 */
 	private void populateBoard() {
-		for (Pair<Position, Tile> p : initialTiles) {
-			board.setTile(p.getFirst(), p.getSecond());
+		for (Map.Entry<Tile, Position> e : tiles.entrySet()) {
+			board.setTile(e.getValue(), e.getKey());
 
-			observer.onTileSet(p.getFirst().row, p.getFirst().column,
-					p.getSecond());
+			observer.onTileSet(e.getValue().row, e.getValue().column,
+					e.getKey());
 		}
 		calculateRays();
 	}
@@ -257,8 +242,18 @@ public class Game implements Serializable {
 
 	private void calculateRays() {
 		clearBoardRays();
-		for (Map.Entry<Source, Position> e : sources.entrySet()) {
-			new Ray(board, e.getValue(), e.getKey().getDirection(), e.getKey().getColor());
+
+		for (Map.Entry<Tile, Position> e : tiles.entrySet()) {
+			if (e.getKey() instanceof Source) {
+				new Ray(board, e.getValue(), e.getKey().getDirection(), e
+						.getKey().getColor()).move();
+			}
+		}
+
+		for (int i = 0; i < getBoardHeight(); i++) {
+			for (int j = 0; j < getBoardWidth(); j++) {
+				observer.onTileSet(i, j, getTile(i, j));
+			}
 		}
 	}
 

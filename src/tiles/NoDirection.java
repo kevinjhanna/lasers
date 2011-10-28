@@ -10,7 +10,7 @@ public class NoDirection implements DirectionComponent {
 	}
 
 	public Direction getDirection() {
-		return Direction.EAST;
+		return null;
 	}
 	
 	public void setDirection(Direction direction) {

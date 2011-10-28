@@ -3,6 +3,11 @@ public enum Direction {
 
 	EAST, SOUTH, WEST, NORTH;
 	
+	public static Direction fromInteger(int n) {
+		Direction[] values = Direction.values();
+		return values[n];
+	}
+
 	public Direction turn(int times) {
 		Direction[] values = Direction.values();
 		return values[(this.ordinal() + times) % values.length];
@@ -15,9 +20,9 @@ public enum Direction {
 	public Direction getOpposite() {
 		return turn(2);
 	}
-
-	public static Direction fromInteger(int n) {
-		Direction[] values = Direction.values();
-		return values[n];
+	
+	public boolean equalsIgnoreSense(Direction other) {
+		return (this.ordinal() + other.ordinal()) % 2 == 0;
 	}
+
 }
