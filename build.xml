@@ -1,28 +1,28 @@
 <project name="Lasers" default="dist" basedir=".">
 
-	<!-- Compila el proyecto, deja los archivos class en el directorio bin --> 
+	<!-- Compila el proyecto, deja los archivos class en el directorio bin -->
 	<target name="compile">
-		<mkdir dir="bin"/>
-		<javac srcdir="src" destdir="bin" classpath="lib/junit-4.7.jar" includeantruntime="false"/>
+		<mkdir dir="bin" />
+		<javac srcdir="src" destdir="bin" classpath="lib/junit-4.7.jar" includeantruntime="false" />
 	</target>
-	
+
 	<!-- Crea la documentacion en formato Javadoc, en el directorio doc. -->
 	<target name="doc" depends="compile">
-		<javadoc sourcepath="src" destdir="doc" classpath="lib/junit-4.7.jar"/>	
+		<javadoc sourcepath="src" destdir="doc" classpath="lib/junit-4.7.jar" stylesheetfile="resources/javadoc.css" doctitle="Lasers &amp; Mirrors" />
 	</target>
 
 	<!-- Ejecuta los tests. -->
 	<target name="tests" depends="compile">
 		<junit>
-			<formatter type="brief" usefile="false"/>
+			<formatter type="brief" usefile="false" />
 			<classpath path="lib/junit-4.7.jar;bin" />
-			
+
 			<test name="tests.BoardTest" />
 			<test name="tests.DirectionTest" />
 			<test name="tests.GameParserTest" />
 		</junit>
 	</target>
-			
+
 	<!-- Crea el jar ejecutable con todo el proyecto compilado. -->
 	<target name="dist" depends="compile, doc, tests">
 		<copy todir="bin/resources">
@@ -30,16 +30,16 @@
 		</copy>
 		<jar destfile="lasers.jar" basedir="bin">
 			<manifest>
-				<attribute name="Main-Class" value="frontend.LasersAndMirrors"/>			
+				<attribute name="Main-Class" value="frontend.LasersAndMirrors" />
 			</manifest>
 		</jar>
 	</target>
-	
+
 	<!-- Borra todos los archivos generados luego de compilar. -->
 	<target name="clean">
-		<delete dir="bin"/>
+		<delete dir="bin" />
 		<delete dir="doc" />
 		<delete file="lasers.jar" />
 	</target>
-	
+
 </project>
