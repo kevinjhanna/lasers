@@ -13,6 +13,14 @@ public class Ray implements DrawableLayer, Cloneable {
 	private Direction direction;
 	private Color color;
 
+	/**
+	 * Creates a new ray
+	 * 
+	 * @param board
+	 * @param position
+	 * @param direction
+	 * @param color
+	 */
 	public Ray(Board board, Position position, Direction direction, Color color) {
 		this.board = board;
 		this.position = position;
@@ -20,16 +28,19 @@ public class Ray implements DrawableLayer, Cloneable {
 		this.color = color;
 	}
 
-	private void move(Direction direction, Color color) {
-		this.color = color;
-		move(direction);
-	}
-
+	/**
+	 * Moves the ray in a new direction
+	 * 
+	 * @param direction
+	 */
 	public void move(Direction direction) {
 		this.direction = direction;
 		move();
 	}
 
+	/**
+	 * Moves the ray in its direction
+	 */
 	public void move() {
 		position = position.move(direction);
 		if (board.validPosition(position)) {
@@ -37,11 +48,12 @@ public class Ray implements DrawableLayer, Cloneable {
 		}
 	}
 
-	public void bifurcate(Direction d1, Color c1, Direction d2, Color c2) {
-		new Ray(board, position, d2, c2);
-		move(d1, c1);
-	}
-
+	/**
+	 * Bifurcates the ray in two directions
+	 * 
+	 * @param d1
+	 * @param d2
+	 */
 	public void bifurcate(Direction d1, Direction d2) {
 		if (d1 == null || d2 == null) {
 			throw new IllegalArgumentException();
@@ -49,29 +61,60 @@ public class Ray implements DrawableLayer, Cloneable {
 		new Ray(board, position, d2, color).move();
 		move(d1);
 	}
-
+	
+	/**
+	 * Hit the tile at the current position
+	 */
 	private void hit() {
 		board.getTile(position).hit(this);
 	}
 
+	/**
+	 * Returns the ray color
+	 */
 	public Color getColor() {
 		return color;
 	}
 	
+	/**
+	 * Sets the ray color
+	 * 
+	 * @param color
+	 */
 	public void setColor(Color color) {
 		this.color = color;
 	}
 
+	/**
+	 * Returns the ray direction
+	 */
 	public Direction getDirection() {
 		return direction;
 	}
 
+	/**
+	 * Sets the ray direction
+	 * 
+	 * @param direction
+	 */
 	public void setDirection(Direction direction) {
 		this.direction = direction;
 	}
 	
+	/**
+	 * Clones the ray
+	 */
 	public Ray clone() {
 		return new Ray(board, position, direction, color);
+	}
+	
+	/**
+	 * Returns the string representation of a ray
+	 */
+	@Override
+	public String toString() {
+		return "Ray [position=" + position + ", direction=" + direction
+				+ ", color=" + color + "]";
 	}
 
 }

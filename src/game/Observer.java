@@ -24,7 +24,7 @@ public interface Observer {
 	void onScoreChange(int newScore);
 	
 	/**
-	 * Callaback that fires when the game is won
+	 * Callback that fires when the game is won
 	 */
 	void onWin();
 }

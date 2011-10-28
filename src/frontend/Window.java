@@ -116,7 +116,6 @@ public class Window extends JFrame implements ViewContainer {
 	 */
 	public void showWinMessage() {
 		JOptionPane.showMessageDialog(this, "You have won!", "Win", JOptionPane.INFORMATION_MESSAGE);
-		JOptionPane.showConfirmDialog(this, "Restart game?", "Restart", JOptionPane.YES_NO_OPTION);
 	}
 	
 	/*

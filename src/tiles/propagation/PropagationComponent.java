@@ -7,10 +7,9 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
+import misc.Direction;
 import tiles.DrawableLayer;
 import tiles.Tile;
-
-import misc.Direction;
 
 public abstract class PropagationComponent {
 
@@ -45,6 +44,7 @@ public abstract class PropagationComponent {
 
 	protected final void setRay(Direction d, Ray r) {
 		if (getRay(d) != null) {
+			System.out.println(r);
 			r.setColor(ImageUtils.mix(r.getColor(), getRay(d).getColor()));
 		}
 		Ray ray = r.clone();
@@ -61,6 +61,15 @@ public abstract class PropagationComponent {
 	public boolean hasRays() {
 		for (Ray ray : rays) {
 			if (ray != null) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public boolean hasRay(Color color) {
+		for (Ray ray : rays) {
+			if (ray != null && ray.getColor().equals(color)) {
 				return true;
 			}
 		}

@@ -113,4 +113,8 @@ public abstract class Tile implements Drawable, Serializable {
 	public boolean hasRays() {
 		return propagation.hasRays();
 	}
+
+	public boolean hasRay(Color color) {
+		return propagation.hasRay(color);
+	}
 }

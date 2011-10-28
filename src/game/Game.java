@@ -8,17 +8,16 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.Map;
 
-import parser.GameParser;
-
 import misc.Position;
+import parser.GameParser;
 import tiles.Source;
+import tiles.Target;
 import tiles.Tile;
 import exceptions.InvalidBoardFileException;
 import exceptions.InvalidBoardSizeException;
 import exceptions.RotationNotSupportedException;
 import exceptions.SourceTileEmptyException;
 import exceptions.TargetTileNotEmptyException;
-import exceptions.TileIsFixedException;
 
 /**
  * Class that models a Lasers and Mirrors game
@@ -48,9 +47,6 @@ public class Game implements Serializable {
 		GameParser parser = new GameParser(f);
 		return parser.parse();
 	}
-
-
-
 
 	/**
 	 * Starts the game
@@ -131,7 +127,7 @@ public class Game implements Serializable {
 	 */
 	public void move(int sourceRow, int sourceColumn, int targetRow,
 			int targetColumn) throws SourceTileEmptyException,
-			TargetTileNotEmptyException, TileIsFixedException {
+			TargetTileNotEmptyException {
 
 		Position source = new Position(sourceRow, sourceColumn);
 		Position target = new Position(targetRow, targetColumn);
@@ -190,6 +186,8 @@ public class Game implements Serializable {
 		if (old != score) {
 			observer.onScoreChange(score);
 		}
+		
+		verifyWinCondition();
 	}
 
 	/**
@@ -265,6 +263,20 @@ public class Game implements Serializable {
 		
 		updateScore();
 	}
+	
+	public void verifyWinCondition() {
+		boolean win = true;
+		for (Map.Entry<Tile, Position> e : tiles.entrySet()) {
+			if (e.getKey() instanceof Target) {
+				if (!e.getKey().hasRay(e.getKey().getColor())) {
+					win = false;
+				}
+			}
+		}
+		if (win) {
+			observer.onWin();
+		}
+	}
 
 	/**
 	 * Clear board rays. This mothod should run before every ray calculation
@@ -275,6 +287,13 @@ public class Game implements Serializable {
 				getTile(i, j).clearRays();
 			}
 		}
+	}
+
+
+
+
+	public boolean isFixed(int row, int column) {
+		return getTile(row, column).isFixed();
 	}
 
 }

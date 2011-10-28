@@ -5,7 +5,6 @@ import exceptions.InvalidBoardFileException;
 import exceptions.InvalidBoardSizeException;
 import exceptions.SourceTileEmptyException;
 import exceptions.TargetTileNotEmptyException;
-import exceptions.TileIsFixedException;
 import game.Game;
 import game.Observer;
 import iogame.IOSerializer;
@@ -16,7 +15,7 @@ import java.io.IOException;
 import tiles.Drawable;
 
 /**
- * Main game controller. Acts as connector between de the view (which lives in a
+ * Main game controller. Acts as connector between the view (which lives in a
  * container) and the game logic
  */
 public class GameController implements Controller, Observer {
@@ -47,8 +46,8 @@ public class GameController implements Controller, Observer {
 				return;
 			}
 			game = null;
-			container.setGameVisible(false);
 		}
+		container.setGameVisible(false);
 	}
 
 	/**
@@ -77,14 +76,14 @@ public class GameController implements Controller, Observer {
 	public void move(int sourceRow, int sourceColumn, int targetRow,
 			int targetColumn) {
 
-		try {
-			game.move(sourceRow, sourceColumn, targetRow, targetColumn);
-		} catch (SourceTileEmptyException e) {
-			// Empty catch on purpose. Do nothing
-		} catch (TargetTileNotEmptyException e) {
-			// Empty catch on purpose. Do nothing
-		} catch (TileIsFixedException e) {
-			// Empty catch on purpose. Do nothing
+		if (!game.isFixed(sourceRow, sourceColumn)) {
+			try {
+				game.move(sourceRow, sourceColumn, targetRow, targetColumn);				
+			} catch (SourceTileEmptyException e) {
+				// Empty catch on purpose. Do nothing
+			} catch (TargetTileNotEmptyException e) {
+				// Empty catch on purpose. Do nothing
+			}
 		}
 	}
 
@@ -210,5 +209,6 @@ public class GameController implements Controller, Observer {
 	 */
 	public void onWin() {
 		container.showWinMessage();
+		closeGame();
 	}
 }
