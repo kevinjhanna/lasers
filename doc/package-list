@@ -1,8 +1,11 @@
 exceptions
 frontend
 game
-gameparser
 gui
+iogame
 misc
+parser
 tests
 tiles
+tiles.direction
+tiles.propagation
