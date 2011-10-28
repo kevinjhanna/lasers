@@ -1,4 +1,4 @@
-package gameparser;
+package parser;
 
 import java.awt.Color;
 import java.io.File;
@@ -127,7 +127,7 @@ public class GameParser {
 		Position position = new Position(row, column);
 
 		int type = Integer.parseInt(lineScanner.next());
-		TileValues mockTile = TileValues.fromInt(type);
+		TileValue mockTile = TileValue.fromInt(type);
 
 		int rotation = Integer.parseInt(lineScanner.next());
 		if (!mockTile.possibleRotation(rotation)) {

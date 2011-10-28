@@ -6,9 +6,10 @@ import java.io.IOException;
 
 import org.junit.Test;
 
+import parser.GameParser;
+
 import exceptions.InvalidBoardFileException;
 import exceptions.InvalidBoardSizeException;
-import gameparser.GameParser;
 
 public class GameParserTest {
 

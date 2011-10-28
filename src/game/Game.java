@@ -8,6 +8,8 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.Map;
 
+import parser.GameParser;
+
 import misc.Position;
 import tiles.Source;
 import tiles.Tile;
@@ -17,7 +19,6 @@ import exceptions.RotationNotSupportedException;
 import exceptions.SourceTileEmptyException;
 import exceptions.TargetTileNotEmptyException;
 import exceptions.TileIsFixedException;
-import gameparser.GameParser;
 
 /**
  * Class that models a Lasers and Mirrors game
