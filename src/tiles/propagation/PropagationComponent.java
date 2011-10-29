@@ -4,6 +4,8 @@ import game.Ray;
 import gui.ImageUtils;
 
 import java.awt.Color;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,20 +20,30 @@ import tiles.Tile;
  * 
  * @see Ray
  */
-public abstract class PropagationComponent implements Serializable{
+public abstract class PropagationComponent implements Serializable {
 
 	private Tile tile;
-	private transient Ray[] rays = new Ray[4];
+	private transient Ray[] rays;
 
 	protected PropagationComponent(Tile tile) {
 		this.tile = tile;
+		initialize();
 	}
-
+	
+	
+	/**
+	 * Initializes the component
+	 * 
+	 * @param ray
+	 */
+	private void initialize(){
+		rays = new Ray[4];
+	}
+	
 	/**
 	 * Processes the incoming ray.
 	 * 
 	 * @param ray
-	 * @return Ray
 	 */
 	public abstract Ray process(Ray ray);
 
@@ -78,8 +90,8 @@ public abstract class PropagationComponent implements Serializable{
 	 * @param ray
 	 */
 	protected final void setRay(Direction direction, Ray ray) {
-		Ray existing = getRay(direction);
 		Ray clone = ray.clone();
+		Ray existing = getRay(direction);
 		if (existing != null) {
 			clone.setColor(ImageUtils.mix(ray.getColor(), existing.getColor()));
 		}
@@ -88,7 +100,7 @@ public abstract class PropagationComponent implements Serializable{
 			ray.stop();
 		} else {
 			clone.setDirection(direction);
-			rays[direction.ordinal()] = clone;			
+			rays[direction.ordinal()] = clone;
 		}
 	}
 
@@ -144,5 +156,11 @@ public abstract class PropagationComponent implements Serializable{
 
 		return rays;
 	}
+	
+	private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException{
+		in.defaultReadObject();
+		this.initialize();
+	}
+	
 
 }
