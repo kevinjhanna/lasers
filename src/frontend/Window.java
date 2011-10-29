@@ -154,7 +154,6 @@ public class Window extends JFrame implements ViewContainer {
 	 */
 	public File showSave() {
 		JFileChooser fc = new JFileChooser();
-		fc.setFileFilter(new ExtensionFileFilter("board"));
 
 		int ret = fc.showSaveDialog(this);
 		if (ret == JFileChooser.APPROVE_OPTION) {
@@ -170,7 +169,6 @@ public class Window extends JFrame implements ViewContainer {
 	 */
 	public File showLoad() {
 		JFileChooser fc = new JFileChooser();
-		fc.setFileFilter(new ExtensionFileFilter("save"));
 
 		int ret = fc.showOpenDialog(this);
 		if (ret == JFileChooser.APPROVE_OPTION) {
