@@ -39,8 +39,8 @@ public class TwoWayDirection implements DirectionComponent {
 		if (!mutable) {
 			throw new RotationNotSupportedException();
 		}
-		direction = (direction == Direction.NORTH) ? Direction.EAST
-				: Direction.NORTH;
+		direction = (direction == Direction.SOUTH) ? Direction.EAST
+				: Direction.SOUTH;
 	}
 
 }

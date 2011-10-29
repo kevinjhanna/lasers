@@ -46,11 +46,7 @@ public class Board implements Serializable {
 		this.height = height;
 		content = new Tile[height][width];
 
-		for (int i = 0; i < height; i++) {
-			for (int j = 0; j < width; j++) {
-				content[i][j] = new EmptyTile();
-			}
-		}
+		fillEmpty();
 	}
 
 	/**
@@ -135,6 +131,24 @@ public class Board implements Serializable {
 	 */
 	public int getHeight() {
 		return height;
+	}
+	
+	/**
+	 * Resets the board to blank state
+	 */
+	public void reset() {
+		fillEmpty();
+	}
+
+	/**
+	 * Fills the board with empty cells
+	 */
+	private void fillEmpty() {
+		for (int i = 0; i < height; i++) {
+			for (int j = 0; j < width; j++) {
+				content[i][j] = new EmptyTile();
+			}
+		}
 	}
 
 }

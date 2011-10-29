@@ -32,7 +32,7 @@ public abstract class PropagationComponent {
 	 * @param ray
 	 * @return Ray
 	 */
-	}
+	public abstract Ray process(Ray ray);
 
 	/**
 	 * Returns the tile direction.
