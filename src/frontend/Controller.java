@@ -7,32 +7,32 @@ package frontend;
 public interface Controller {
 
 	/**
-	 * Creates a new game
+	 * Creates a new game.
 	 */
 	void newGame();
 
 	/**
-	 * Loads a game
+	 * Loads a game.
 	 */
 	void loadGame();
 
 	/**
-	 * Saves the current game
+	 * Saves the current game.
 	 */
 	void saveGame();
 
 	/**
-	 * Closes the current game
+	 * Closes the current game.
 	 */
 	void closeGame();
 
 	/**
-	 * Quits the program
+	 * Quits the program.
 	 */
 	void quit();
 
 	/**
-	 * Rotates the tile at the location specified
+	 * Rotates the tile at the location specified.
 	 * 
 	 * @param row
 	 * @param column
@@ -40,7 +40,7 @@ public interface Controller {
 	void rotate(int row, int column);
 
 	/**
-	 * Moves the tile to the location specified
+	 * Moves the tile to the location specified.
 	 * 
 	 * @param sourceRow
 	 * @param sourceColumn

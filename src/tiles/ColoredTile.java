@@ -23,7 +23,7 @@ public abstract class ColoredTile extends Tile {
 	}
 
 	/**
-	 * Returns the tile color
+	 * Returns the tile color.
 	 * 
 	 * @return Color
 	 */
