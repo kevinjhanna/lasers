@@ -157,9 +157,9 @@ public abstract class PropagationComponent implements Serializable {
 		return rays;
 	}
 	
-	private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException{
-		in.defaultReadObject();
+	public Object readResolve() throws IOException{
 		this.initialize();
+		return this;
 	}
 	
 
