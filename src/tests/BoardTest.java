@@ -15,9 +15,6 @@ import tiles.EmptyTile;
 import tiles.SimpleMirror;
 import tiles.Wall;
 
-/**
- * Board tests
- */
 public class BoardTest {
 
 	private Board board;

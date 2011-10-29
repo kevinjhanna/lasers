@@ -7,7 +7,7 @@ import misc.Position;
 import tiles.DrawableLayer;
 
 /**
- * Class that models a ray in the game
+ * Class that models a ray in the game.
  */
 public class Ray implements DrawableLayer, Cloneable {
 
@@ -16,7 +16,7 @@ public class Ray implements DrawableLayer, Cloneable {
 	private boolean stopped = true;
 
 	/**
-	 * Creates a new ray
+	 * Creates a new ray.
 	 * 
 	 * @param direction
 	 * @param color
@@ -26,6 +26,13 @@ public class Ray implements DrawableLayer, Cloneable {
 		this.direction = direction;
 	}
 
+	/**
+	 * Starts ray propagation across the board using the specified position as
+	 * origin.
+	 * 
+	 * @param board
+	 * @param position
+	 */
 	public void propagate(Board board, Position position) {
 		stopped = false;
 		position = displace(board, position);
@@ -46,7 +53,7 @@ public class Ray implements DrawableLayer, Cloneable {
 	}
 
 	/**
-	 * Moves the ray in its direction
+	 * Moves the ray in its direction.
 	 */
 	public Position displace(Board board, Position position) {
 		position = position.displace(direction);
@@ -57,7 +64,7 @@ public class Ray implements DrawableLayer, Cloneable {
 	}
 
 	/**
-	 * Bifurcates the ray in two directions
+	 * Bifurcates the ray in a new direction.
 	 * 
 	 * @param direction
 	 */

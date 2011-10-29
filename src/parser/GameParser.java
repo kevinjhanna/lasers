@@ -18,7 +18,7 @@ import exceptions.InvalidBoardSizeException;
 import game.Game;
 
 /**
- * Board file parser
+ * A board file parser.
  */
 public class GameParser {
 

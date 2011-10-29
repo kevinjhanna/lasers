@@ -12,9 +12,9 @@ import javax.swing.JSeparator;
 import javax.swing.KeyStroke;
 
 /**
- * The application menu which is a component of the <tt>ViewContainer</tt>.
+ * The application menu which is a component of <tt>Window</tt>.
  * 
- * @see ViewContainer
+ * @see Window
  */
 public class Menu extends JMenuBar {
 

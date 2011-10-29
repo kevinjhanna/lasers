@@ -28,17 +28,16 @@ public abstract class PropagationComponent implements Serializable {
 		this.tile = tile;
 		initialize();
 	}
-	
-	
+
 	/**
 	 * Initializes the component
 	 * 
 	 * @param ray
 	 */
-	private void initialize(){
+	private void initialize() {
 		rays = new Ray[4];
 	}
-	
+
 	/**
 	 * Processes the incoming ray.
 	 * 
@@ -155,11 +154,10 @@ public abstract class PropagationComponent implements Serializable {
 
 		return rays;
 	}
-	
-	public Object readResolve() throws IOException{
+
+	public Object readResolve() throws IOException {
 		this.initialize();
 		return this;
 	}
-	
 
 }

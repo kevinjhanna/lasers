@@ -1,5 +1,10 @@
 package game;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.Map;
 
@@ -13,7 +18,8 @@ import exceptions.SourceTileEmptyException;
 import exceptions.TargetTileNotEmptyException;
 
 /**
- * The class that models a Lasers and Mirrors game
+ * The class that models a Lasers and Mirrors game. Implementation of the model
+ * in the MVC architecture.
  */
 public class Game implements Serializable {
 
@@ -27,7 +33,7 @@ public class Game implements Serializable {
 	public static final int MIN_WIDTH = 5;
 	public static final int MAX_HEIGHT = 20;
 	public static final int MAX_WIDTH = 20;
-	
+
 	/**
 	 * Creates a new game with a board of the dimensions given and a set of
 	 * initial tiles. Does not populate the board with the tiles to enable the
@@ -40,15 +46,15 @@ public class Game implements Serializable {
 	 */
 	public Game(int boardHeight, int boardWidth, Map<Tile, Position> tiles)
 			throws InvalidBoardSizeException {
+
 		if (!validSize(boardHeight, boardWidth)) {
 			throw new InvalidBoardSizeException();
 		}
-
 		this.tiles = tiles;
 
 		board = new Board(boardHeight, boardWidth);
 	}
-	
+
 	/**
 	 * Starts the game.
 	 */
@@ -159,7 +165,29 @@ public class Game implements Serializable {
 	}
 
 	/**
-	 * Updates the score and notifies the observer
+	 * Saves the game in the specified file.
+	 * 
+	 * @param f
+	 *            The file to save the game into
+	 * @throws IOException
+	 */
+	public void save(File f) throws IOException {
+		// tiene que tirar IOException en realidad
+		ObjectOutputStream file = new ObjectOutputStream(
+				new BufferedOutputStream(new FileOutputStream(f)));
+		try {
+			file.writeObject(board);
+			file.writeObject(score);
+			file.writeObject(tiles);
+		}
+
+		finally {
+			file.close();
+		}
+	}
+
+	/**
+	 * Updates the score and notifies the observer.
 	 */
 	private void updateScore() {
 		Integer old = score;
@@ -173,7 +201,7 @@ public class Game implements Serializable {
 	}
 
 	/**
-	 * Recalculates game score
+	 * Recalculates game score.
 	 * 
 	 * @return int
 	 */

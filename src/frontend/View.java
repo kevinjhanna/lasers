@@ -8,20 +8,28 @@ import tiles.Drawable;
 public interface View {
 
 	/**
-	 * Updated the cell located at the given row and column with the drawing of
-	 * the parameter
+	 * Updates the cell located at the specified row and column with the drawing
+	 * of the parameter.
 	 * 
 	 * @param row
-	 *            The row of the cell
 	 * @param column
-	 *            The column of the cell
 	 * @param drawable
-	 *            The tile to draw in the cell
 	 */
 	public abstract void updateCell(int row, int column, Drawable drawable);
 
+	/**
+	 * Clears the cell located at the specified row and column.
+	 * 
+	 * @param row
+	 * @param column
+	 */
 	public abstract void clearCell(int row, int column);
 
+	/**
+	 * Updates the game score.
+	 * 
+	 * @param score
+	 */
 	public abstract void updateScore(int score);
 
 }

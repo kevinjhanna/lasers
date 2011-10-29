@@ -6,9 +6,6 @@ import misc.Direction;
 
 import org.junit.Test;
 
-/**
- * Direction tests
- */
 public class DirectionTest {
 
 	@Test

@@ -3,6 +3,10 @@ package tests;
 import tiles.Drawable;
 import game.Observer;
 
+/**
+ * Implementation of the observer interface that does not act on any callback.
+ * Useful for testing.
+ */
 public class NullObserver implements Observer {
 
 	@Override

@@ -1,7 +1,7 @@
 package misc;
 
 /**
- * Enumeration of cartesian directions with methods to operate on them
+ * Enumeration of cartesian directions with methods to operate on them.
  */
 public enum Direction {
 

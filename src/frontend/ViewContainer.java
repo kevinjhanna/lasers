@@ -5,14 +5,14 @@ import java.io.File;
 /**
  * A container for the main game view. The class that implements this interface
  * is supposed to handle things that fall outside of the responsibility of the
- * <tt>View</>
+ * <tt>View</>.
  * 
  * @see View
  */
 public interface ViewContainer {
 
 	/**
-	 * Configures the view to work with a board of the given dimensions.
+	 * Configures the view to work with a board of the specified dimensions.
 	 * 
 	 * @param boardHeight
 	 * @param boardWidth
