@@ -109,7 +109,7 @@ public class GameController implements Controller, Observer {
 			} catch (IOException e) {
 				container.showError("Unable to load board file.");
 			} catch (InvalidBoardFileException e) {
-				String message = "Error while trying to load board file. The board file has been corrupted.";
+				String message = "Error while trying to load board file. The board file is not valid.";
 				if (e.getMessage() != null) {
 					message += ": " + e.getMessage();
 				}

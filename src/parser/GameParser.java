@@ -12,15 +12,7 @@ import java.util.Scanner;
 
 import misc.Direction;
 import misc.Position;
-import tiles.DoubleMirror;
-import tiles.Filter;
-import tiles.MoveableSource;
-import tiles.SimpleMirror;
-import tiles.Source;
-import tiles.SplitMirror;
-import tiles.Target;
 import tiles.Tile;
-import tiles.Wall;
 import exceptions.InvalidBoardFileException;
 import exceptions.InvalidBoardSizeException;
 import game.Board;
@@ -129,16 +121,19 @@ public class GameParser {
 		if (!aLine.matches("(\\d*,){6}\\d*")) {
 			throw new InvalidBoardFileException();
 		}
-
+		
 		Scanner lineScanner = new Scanner(aLine);
 		lineScanner.useDelimiter(",");
+		// We know each value will be a non-negative integer
 
 		// Board Size
 		Integer row = Integer.parseInt(lineScanner.next());
 		Integer column = Integer.parseInt(lineScanner.next());
-		
+		if (row >= height || column >= width){
+			throw new InvalidBoardFileException();
+		}
 		Position position = new Position(row, column);
-
+		
 		int type = Integer.parseInt(lineScanner.next());
 		TileValue mockTile = TileValue.fromInt(type);
 		if (mockTile == null) {
@@ -149,7 +144,8 @@ public class GameParser {
 		if (!mockTile.validDirection(rotation)) {
 			throw new InvalidBoardFileException();
 		}
-
+		Direction direction = Direction.fromInteger(rotation);
+		
 		// Colors
 		int rgb[] = new int[3];
 		for (int i = 0; i < 3; i++) {
@@ -158,42 +154,11 @@ public class GameParser {
 				throw new InvalidBoardFileException();
 			}
 		}
-
-		// Direction
-		Direction direction = Direction.fromInteger(rotation);
-
-		// Create the tile
-		Tile realTile = null;
-
 		Color color = new Color(rgb[0], rgb[1], rgb[2]);
 
-		switch (mockTile) {
-		case SOURCE:
-			realTile = new Source(color, direction);
-			break;
-		case MOVEABLESOURCE:
-			realTile = new MoveableSource(color, direction);
-			break;
-		case TARGET:
-			realTile = new Target(color);
-			break;
-		case SIMPLEMIRROR:
-			realTile = new SimpleMirror(direction);
-			break;
-		case DOUBLEMIRROR:
-			realTile = new DoubleMirror(direction);
-			break;
-		case SPLITMIRROR:
-			realTile = new SplitMirror(direction);
-			break;
-		case WALL:
-			realTile = new Wall();
-			break;
-		case FILTER:
-			realTile = new Filter(color, direction);
-			break;
-		}
-
+		
+		// Create the tile
+		Tile realTile = TileValue.generateTileObject(mockTile, color, direction);
 		tiles.put(realTile, position);
 	}
 
