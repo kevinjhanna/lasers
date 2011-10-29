@@ -1,6 +1,7 @@
 package game;
 
 import java.awt.Color;
+import java.io.Serializable;
 
 import misc.Direction;
 import misc.Position;
@@ -9,7 +10,7 @@ import tiles.DrawableLayer;
 /**
  * Class that models a ray in the game
  */
-public class Ray implements DrawableLayer, Cloneable {
+public class Ray implements DrawableLayer, Cloneable, Serializable{
 
 	private Board board;
 	private Position position;
