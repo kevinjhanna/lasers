@@ -30,10 +30,8 @@ public abstract class PropagationComponent {
 	 * Processes the incoming ray.
 	 * 
 	 * @param ray
-	 * @return 
+	 * @return Ray
 	 */
-	public Ray process(Ray ray) {
-		return null;
 	}
 
 	/**

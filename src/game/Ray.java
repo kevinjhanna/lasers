@@ -18,8 +18,6 @@ public class Ray implements DrawableLayer, Cloneable {
 	/**
 	 * Creates a new ray
 	 * 
-	 * @param board
-	 * @param position
 	 * @param direction
 	 * @param color
 	 */
@@ -61,13 +59,13 @@ public class Ray implements DrawableLayer, Cloneable {
 	/**
 	 * Bifurcates the ray in two directions
 	 * 
-	 * @param d1
+	 * @param direction
 	 */
 	public Ray bifurcate(Direction direction) {
 		if (direction == null) {
 			throw new IllegalArgumentException();
 		}
-		// Prevent bifurcation of stopped rays 
+		// Prevent bifurcation of stopped rays
 		if (stopped) {
 			return null;
 		}

@@ -20,19 +20,35 @@ public abstract class Tile implements Drawable, Serializable {
 	private DirectionComponent direction;
 	private PropagationComponent propagation;
 
+	/**
+	 * Abstract tile constructor. Subclasses should call this constructor in
+	 * order to load their components.
+	 */
 	protected Tile() {
 		initializeComponents();
 	}
 
+	/**
+	 * Initializes the tile components
+	 */
 	private void initializeComponents() {
 		direction = getDirectionComponent();
 		propagation = getPropagationComponent(this);
 	}
 
+	/**
+	 * Processes an incoming ray with the defined propagation component.
+	 * 
+	 * @param ray
+	 * @return Ray
+	 */
 	public Ray hit(Ray ray) {
 		return propagation.process(ray);
 	}
 
+	/**
+	 * Clears the tile rays.
+	 */
 	public void clearRays() {
 		propagation.clear();
 	}
@@ -98,10 +114,6 @@ public abstract class Tile implements Drawable, Serializable {
 		direction.rotate();
 	}
 
-	protected abstract DirectionComponent getDirectionComponent();
-
-	protected abstract PropagationComponent getPropagationComponent(Tile tile);
-
 	public Iterable<DrawableLayer> getUnderlay() {
 		return propagation.getRays();
 	}
@@ -110,11 +122,39 @@ public abstract class Tile implements Drawable, Serializable {
 		return null;
 	}
 
+	/**
+	 * Returns true if there is a ray currently passing through the tile.
+	 * 
+	 * @return boolean
+	 */
 	public boolean hasRays() {
 		return propagation.hasRays();
 	}
 
+	/**
+	 * Returns true if a ray of the specified color is currently passing through
+	 * the tile.
+	 * 
+	 * @param color
+	 * @return boolean
+	 */
 	public boolean hasRay(Color color) {
 		return propagation.hasRay(color);
 	}
+
+	/**
+	 * Gets the direction component that the tile will use.
+	 * 
+	 * @return DirectionComponent
+	 */
+	protected abstract DirectionComponent getDirectionComponent();
+
+	/**
+	 * Gets the propagation component that the tile will use.
+	 * 
+	 * @param tile
+	 * @return PropagationComponent
+	 */
+	protected abstract PropagationComponent getPropagationComponent(Tile tile);
+
 }

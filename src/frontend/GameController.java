@@ -58,7 +58,7 @@ public class GameController implements Controller, Observer {
 	}
 
 	/**
-	 * Loads a game from a previously saved game
+	 * Loads a game from a previously saved game.
 	 */
 	public void loadGame() {
 		File f = container.showLoad();
@@ -73,7 +73,7 @@ public class GameController implements Controller, Observer {
 	}
 
 	/**
-	 * Moves a tile in the game
+	 * Moves a tile in the game.
 	 * 
 	 * @param sourceRow
 	 * @param sourceColumn
@@ -95,7 +95,7 @@ public class GameController implements Controller, Observer {
 	}
 
 	/**
-	 * Crea un juego nuevo a partir de un archivo de tablero
+	 * Creates a new game from a board file.
 	 */
 	public void newGame() {
 		File f = container.showNew();

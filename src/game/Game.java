@@ -49,23 +49,23 @@ public class Game implements Serializable {
 	}
 
 	/**
-	 * Starts the game
+	 * Starts the game.
 	 */
 	public void start(Observer observer) {
 		this.observer = observer;
 		populateBoard();
-		calculateRays();
 	}
 
 	/**
-	 * Restarts the game
+	 * Restarts the game.
 	 */
-	public Game restart() throws InvalidBoardSizeException {
-		return new Game(getBoardHeight(), getBoardWidth(), tiles);
+	public void restart() {
+		board.reset();
+		populateBoard();
 	}
 
 	/**
-	 * Returns the width of the game board
+	 * Returns the width of the game board.
 	 * 
 	 * @return Integer
 	 */
@@ -74,7 +74,7 @@ public class Game implements Serializable {
 	}
 
 	/**
-	 * Returns the height of the game board
+	 * Returns the height of the game board.
 	 * 
 	 * @return Integer
 	 */
@@ -83,7 +83,7 @@ public class Game implements Serializable {
 	}
 
 	/**
-	 * Returns the current game score
+	 * Returns the current game score.
 	 * 
 	 * @return Integer
 	 */
@@ -219,16 +219,17 @@ public class Game implements Serializable {
 
 	/**
 	 * Populates the board with the current set of tiles and their corresponding
-	 * locations
+	 * locations.
 	 */
 	private void populateBoard() {
 		for (Map.Entry<Tile, Position> e : tiles.entrySet()) {
 			board.setTile(e.getValue(), e.getKey());
 		}
+		calculateRays();
 	}
 
 	/**
-	 * Calculates rays
+	 * Propagates rays across the board and updates the score.
 	 */
 	private void calculateRays() {
 		clearBoardRays();
@@ -249,7 +250,10 @@ public class Game implements Serializable {
 		updateScore();
 	}
 
-	public void verifyWinCondition() {
+	/**
+	 * Checks if the game has been won.
+	 */
+	private void verifyWinCondition() {
 		boolean win = true;
 		for (Map.Entry<Tile, Position> e : tiles.entrySet()) {
 			if (e.getKey() instanceof Target) {
@@ -264,7 +268,7 @@ public class Game implements Serializable {
 	}
 
 	/**
-	 * Clear board rays. This mothod should run before every ray calculation
+	 * Clear board rays. This method should run before every ray calculation.
 	 */
 	private void clearBoardRays() {
 		for (int i = 0; i < getBoardHeight(); i++) {
@@ -274,6 +278,13 @@ public class Game implements Serializable {
 		}
 	}
 
+	/**
+	 * Returns whether the tile at the specified position is fixed.
+	 * 
+	 * @param row
+	 * @param column
+	 * @return boolean
+	 */
 	public boolean isFixed(int row, int column) {
 		return getTile(row, column).isFixed();
 	}
