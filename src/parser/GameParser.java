@@ -120,7 +120,7 @@ public class GameParser {
 		if (!aLine.matches("(\\d*,){6}\\d*")) {
 			throw new InvalidBoardFileException();
 		}
-		
+
 		Scanner lineScanner = new Scanner(aLine);
 		lineScanner.useDelimiter(",");
 		// We know each value will be a non-negative integer
@@ -128,11 +128,11 @@ public class GameParser {
 		// Board Size
 		Integer row = Integer.parseInt(lineScanner.next());
 		Integer column = Integer.parseInt(lineScanner.next());
-		if (row >= height || column >= width){
+		if (row >= height || column >= width) {
 			throw new InvalidBoardFileException();
 		}
 		Position position = new Position(row, column);
-		
+
 		int type = Integer.parseInt(lineScanner.next());
 		TileValue mockTile = TileValue.fromInt(type);
 		if (mockTile == null) {
@@ -144,7 +144,7 @@ public class GameParser {
 			throw new InvalidBoardFileException();
 		}
 		Direction direction = Direction.fromInteger(rotation);
-		
+
 		// Colors
 		int rgb[] = new int[3];
 		for (int i = 0; i < 3; i++) {
@@ -155,9 +155,13 @@ public class GameParser {
 		}
 		Color color = new Color(rgb[0], rgb[1], rgb[2]);
 
-		
 		// Create the tile
-		Tile realTile = TileValue.generateTileObject(mockTile, color, direction);
+		Tile realTile = TileValue
+				.generateTileObject(mockTile, color, direction);
+
+		if (tiles.containsValue(position)) {
+			throw new InvalidBoardFileException();
+		}
 		tiles.put(realTile, position);
 	}
 
