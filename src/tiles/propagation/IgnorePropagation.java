@@ -8,6 +8,8 @@ import game.Ray;
  */
 public class IgnorePropagation extends PropagationComponent {
 
+	private static final long serialVersionUID = -4550326291550889273L;
+
 	public IgnorePropagation(Tile tile) {
 		super(tile);
 	}

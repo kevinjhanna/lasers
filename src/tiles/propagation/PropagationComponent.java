@@ -21,6 +21,8 @@ import tiles.Tile;
  */
 public abstract class PropagationComponent implements Serializable {
 
+	private static final long serialVersionUID = -6724503922941506704L;
+
 	private Tile tile;
 	private transient Ray[] rays;
 

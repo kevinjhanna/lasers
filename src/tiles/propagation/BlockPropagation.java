@@ -13,6 +13,8 @@ import tiles.Tile;
  */
 public class BlockPropagation extends PropagationComponent {
 
+	private static final long serialVersionUID = -4923341233311691910L;
+
 	public BlockPropagation(Tile tile) {
 		super(tile);
 	}

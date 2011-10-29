@@ -10,6 +10,8 @@ import misc.Direction;
  */
 public class MirrorPropagation extends PropagationComponent {
 
+	private static final long serialVersionUID = -3757269441943082244L;
+
 	public MirrorPropagation(Tile tile) {
 		super(tile);
 	}

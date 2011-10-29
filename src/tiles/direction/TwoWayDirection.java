@@ -8,6 +8,7 @@ import exceptions.RotationNotSupportedException;
  */
 public class TwoWayDirection implements DirectionComponent {
 
+	private static final long serialVersionUID = 7558841317350855418L;
 
 	private Direction direction;
 	private boolean mutable;

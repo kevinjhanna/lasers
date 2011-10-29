@@ -12,6 +12,8 @@ import tiles.Tile;
  */
 public class FilterPropagation extends PropagationComponent {
 
+	private static final long serialVersionUID = 4109111052205979814L;
+
 	public FilterPropagation(Tile tile) {
 		super(tile);
 	}
