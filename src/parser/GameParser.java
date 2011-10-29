@@ -23,6 +23,7 @@ import tiles.Tile;
 import tiles.Wall;
 import exceptions.InvalidBoardFileException;
 import exceptions.InvalidBoardSizeException;
+import game.Board;
 import game.Game;
 
 /**
@@ -98,7 +99,8 @@ public class GameParser {
 	 * @param aLine
 	 * @throws InvalidBoardFileException
 	 */
-	private void processSize(String aLine) throws InvalidBoardFileException {
+	private void processSize(String aLine) throws InvalidBoardFileException,
+			InvalidBoardSizeException {
 		if (!aLine.matches("\\d*,\\d*")) {
 			throw new InvalidBoardFileException();
 		}
@@ -108,6 +110,10 @@ public class GameParser {
 
 		width = Integer.parseInt(lineScanner.next());
 		height = Integer.parseInt(lineScanner.next());
+
+		if (!Board.validSize(height, width)) {
+			throw new InvalidBoardSizeException();
+		}
 
 	}
 
@@ -130,6 +136,7 @@ public class GameParser {
 		// Board Size
 		Integer row = Integer.parseInt(lineScanner.next());
 		Integer column = Integer.parseInt(lineScanner.next());
+		
 		Position position = new Position(row, column);
 
 		int type = Integer.parseInt(lineScanner.next());
