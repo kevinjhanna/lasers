@@ -17,9 +17,15 @@
 			<formatter type="brief" usefile="false" />
 			<classpath path="lib/junit-4.7.jar;bin" />
 
+			<test name="tests.BlockPropagationTest" />
 			<test name="tests.BoardTest" />
 			<test name="tests.DirectionTest" />
+			<test name="tests.FourWayDirectionTest" />
 			<test name="tests.GameParserTest" />
+			<test name="tests.GameTest" />
+			<test name="tests.NoDirectionTest" />
+			<test name="tests.PositionTest" />
+			<test name="tests.TwoWayDirectionTest" />
 		</junit>
 	</target>
 
