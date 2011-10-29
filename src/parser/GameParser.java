@@ -1,7 +1,9 @@
 package parser;
 
 import java.awt.Color;
+import java.io.BufferedInputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.HashMap;
@@ -27,7 +29,7 @@ import game.Game;
  * Board file parser
  */
 public class GameParser {
-	
+
 	private File file;
 	private Scanner stream;
 	private int width;
@@ -37,11 +39,11 @@ public class GameParser {
 	 * Creates a new parser for the given file
 	 * 
 	 * @param file
-	 * 		The file to parse
+	 *            The file to parse
 	 * @throws IOException
-	 * 		In case the file exists
+	 *             In case the file exists
 	 */
-	public GameParser(File file) throws IOException {
+	public GameParser(File file) throws FileNotFoundException {
 		if (file.exists() && file.isFile()) {
 			this.file = file;
 		} else {
@@ -54,20 +56,24 @@ public class GameParser {
 	 * 
 	 * @return Game
 	 * @throws IOException
+	 *             In case there is a problem reading the file
 	 * @throws InvalidBoardFileException
+	 * @throws InvalidBoardSizeException
 	 */
-	public Game parse() throws IOException, InvalidBoardFileException, InvalidBoardSizeException {
-		
+	public Game parse() throws IOException, InvalidBoardFileException,
+			InvalidBoardSizeException {
+
 		Map<Tile, Position> tiles = new HashMap<Tile, Position>();
 
 		try {
-			stream = new Scanner(file);
+			stream = new Scanner(new BufferedInputStream(new FileInputStream(
+					file)));
 
 			boolean hasSize = false;
 			while (stream.hasNextLine()) {
 				/* leave out comments (starting with #) and whitespaces */
-				String aLine = stream.nextLine().replaceAll("(#.*|\\s)", ""); 
-				if (!aLine.matches("^\\s*$")) {
+				String aLine = stream.nextLine().replaceAll("(#.*|\\s)", "");
+				if (aLine.length() > 0) {
 					/* do not process empty lines */
 					if (!hasSize) {
 						processSize(aLine);
@@ -145,7 +151,7 @@ public class GameParser {
 
 		// Direction
 		Direction direction = Direction.fromInteger(rotation);
-		
+
 		// Create the tile
 		Tile realTile = null;
 
