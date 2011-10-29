@@ -30,8 +30,10 @@ public abstract class PropagationComponent {
 	 * Processes the incoming ray.
 	 * 
 	 * @param ray
+	 * @return 
 	 */
-	public void process(Ray ray) {
+	public Ray process(Ray ray) {
+		return null;
 	}
 
 	/**
@@ -77,13 +79,18 @@ public abstract class PropagationComponent {
 	 * @param ray
 	 */
 	protected final void setRay(Direction direction, Ray ray) {
-		Ray clone = ray.clone();
 		Ray existing = getRay(direction);
+		Ray clone = ray.clone();
 		if (existing != null) {
 			clone.setColor(ImageUtils.mix(ray.getColor(), existing.getColor()));
 		}
-		clone.setDirection(direction);
-		rays[direction.ordinal()] = clone;
+		// Prevent infinite cycles
+		if (existing != null && clone.getColor().equals(existing.getColor())) {
+			ray.stop();
+		} else {
+			clone.setDirection(direction);
+			rays[direction.ordinal()] = clone;			
+		}
 	}
 
 	/**

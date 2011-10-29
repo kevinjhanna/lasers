@@ -14,7 +14,7 @@ public class MirrorPropagation extends PropagationComponent {
 		super(tile);
 	}
 
-	public void process(Ray ray) {
+	public Ray process(Ray ray) {
 		setOrigin(ray);
 
 		Direction dTile = getDirection();
@@ -23,8 +23,11 @@ public class MirrorPropagation extends PropagationComponent {
 		Direction mirror = mirrorDirection(dTile, dRay);
 		if (mirror != null) {
 			setRay(mirror, ray);
-			ray.move(mirror);
+			ray.setDirection(mirror);
+		} else {
+			ray.stop();
 		}
+		return null;
 	}
 
 	protected final Direction mirrorDirection(Direction tile, Direction ray) {

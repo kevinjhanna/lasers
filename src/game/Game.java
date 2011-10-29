@@ -224,12 +224,7 @@ public class Game implements Serializable {
 	private void populateBoard() {
 		for (Map.Entry<Tile, Position> e : tiles.entrySet()) {
 			board.setTile(e.getValue(), e.getKey());
-
-			observer.onTileUpdate(e.getValue().row, e.getValue().column,
-					e.getKey());
-
 		}
-		calculateRays();
 	}
 
 	/**
@@ -240,8 +235,8 @@ public class Game implements Serializable {
 
 		for (Map.Entry<Tile, Position> e : tiles.entrySet()) {
 			if (e.getKey() instanceof Source) {
-				new Ray(board, e.getValue(), e.getKey().getDirection(), e
-						.getKey().getColor()).move();
+				new Ray(e.getKey().getColor(), e.getKey().getDirection())
+						.propagate(board, e.getValue());
 			}
 		}
 

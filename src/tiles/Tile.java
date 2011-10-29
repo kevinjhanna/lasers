@@ -29,8 +29,8 @@ public abstract class Tile implements Drawable, Serializable {
 		propagation = getPropagationComponent(this);
 	}
 
-	public void hit(Ray ray) {
-		propagation.process(ray);
+	public Ray hit(Ray ray) {
+		return propagation.process(ray);
 	}
 
 	public void clearRays() {

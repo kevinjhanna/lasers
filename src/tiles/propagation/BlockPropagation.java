@@ -14,8 +14,10 @@ public class BlockPropagation extends PropagationComponent {
 		super(tile);
 	}
 
-	public void process(Ray ray) {
+	public Ray process(Ray ray) {
 		setOrigin(ray);
+		ray.stop();
+		return null;
 	}
 
 	public boolean hasRays() {
