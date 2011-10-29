@@ -11,6 +11,7 @@ import game.Observer;
 import iogame.IOSerializer;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import parser.GameParser;
@@ -20,7 +21,7 @@ import tiles.Drawable;
 /**
  * Implementation of the <tt>Controller</tt> in the MVC architecture.
  * 
- * @see Controller  
+ * @see Controller
  */
 public class GameController implements Controller, Observer {
 
@@ -33,7 +34,7 @@ public class GameController implements Controller, Observer {
 	public GameController() {
 		initialize();
 	}
-	
+
 	/**
 	 * Initializes the view
 	 */
@@ -68,8 +69,11 @@ public class GameController implements Controller, Observer {
 			try {
 				game = IOSerializer.load(f);
 				startGame();
-			} catch (GameIOException e) {
+			} catch (IOException e) {
 				container.showError("Unable to load saved game.");
+			} catch (GameIOException e) {
+				container.showError("Unable to load saved game. " + f.getName()
+						+ " has been corrupted.");
 			}
 		}
 	}
@@ -183,7 +187,9 @@ public class GameController implements Controller, Observer {
 		if (f != null) {
 			try {
 				IOSerializer.save(game, f);
-			} catch (GameIOException e) {
+			} catch (FileNotFoundException e) {
+				container.showError("Unable to save game in " + f.getName());
+			} catch (IOException e) {
 				container.showError("Unable to save game.");
 			}
 		}

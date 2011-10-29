@@ -4,6 +4,7 @@ import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -19,27 +20,24 @@ public class IOSerializer {
 	 * 
 	 * @param f
 	 * @return Game
+	 * @throws IOException
+	 * @throws FileNotFoundException
 	 * @throws InvalidLoadedFileException
 	 */
-	public static Game load(File f) throws GameIOException {
+	public static Game load(File f) throws GameIOException,
+			FileNotFoundException, IOException {
 		ObjectInputStream file = null;
 		try {
 			file = new ObjectInputStream(new BufferedInputStream(
 					new FileInputStream(f)));
 			return (Game) file.readObject();
 
-		} catch (Exception e) {
-			// TODO: Catching Exception is not a very good practice
+		} catch (ClassNotFoundException e) {
 			throw new GameIOException();
 		} finally {
-			try {
-				if (file != null) {
-					file.close();
-					System.out.println("Archivo cargado");
-
-				}
-			} catch (IOException e) {
-				throw new GameIOException();
+			if (file != null) {
+				file.close();
+				System.out.println("Archivo cargado");
 			}
 		}
 	}
@@ -49,27 +47,20 @@ public class IOSerializer {
 	 * 
 	 * @param f
 	 *            The file to save the game into
+	 * @throws FileNotFoundException 
 	 * @throws IOException
 	 */
-	public static void save(Game game, File f) throws GameIOException {
+	public static void save(Game game, File f) throws FileNotFoundException, IOException {
 		ObjectOutputStream file = null;
 		try {
 			file = new ObjectOutputStream(new BufferedOutputStream(
 					new FileOutputStream(f)));
 			file.writeObject(game);
 
-		} catch (Exception e) {
-			System.out.println(e.getClass());
-
-			throw new GameIOException();
 		} finally {
-			try {
-				if (file != null) {
-					file.close();
-					System.out.println("Archivo guardado en " + f.getName());
-				}
-			} catch (IOException e) {
-				throw new GameIOException();
+			if (file != null) {
+				file.close();
+				System.out.println("Archivo guardado en " + f.getName());
 			}
 		}
 
