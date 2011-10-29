@@ -22,6 +22,8 @@ public class FilterPropagation extends PropagationComponent {
 			Color filter = ImageUtils.filter(ray.getColor(), getColor());
 			ray.setColor(filter);
 			setRay(ray.getDirection(), ray);
+		}else{
+			ray.stop();
 		}
 		return null;
 	}
