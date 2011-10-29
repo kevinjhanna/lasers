@@ -31,9 +31,9 @@ public abstract class PropagationComponent implements Serializable{
 	 * Processes the incoming ray.
 	 * 
 	 * @param ray
+	 * @return Ray
 	 */
-	public void process(Ray ray) {
-	}
+	public abstract Ray process(Ray ray);
 
 	/**
 	 * Returns the tile direction.
@@ -78,13 +78,18 @@ public abstract class PropagationComponent implements Serializable{
 	 * @param ray
 	 */
 	protected final void setRay(Direction direction, Ray ray) {
-		Ray clone = ray.clone();
 		Ray existing = getRay(direction);
+		Ray clone = ray.clone();
 		if (existing != null) {
 			clone.setColor(ImageUtils.mix(ray.getColor(), existing.getColor()));
 		}
-		clone.setDirection(direction);
-		rays[direction.ordinal()] = clone;
+		// Prevent infinite cycles
+		if (existing != null && clone.getColor().equals(existing.getColor())) {
+			ray.stop();
+		} else {
+			clone.setDirection(direction);
+			rays[direction.ordinal()] = clone;			
+		}
 	}
 
 	/**

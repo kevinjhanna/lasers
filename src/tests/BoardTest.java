@@ -64,13 +64,6 @@ public class BoardTest {
 		board.moveTile(source, target);
 	}
 
-	@Test(expected = SourceTileEmptyException.class)
-	public void testMoveSourceEmpty() throws TileIsFixedException,
-			SourceTileEmptyException, TargetTileNotEmptyException {
-
-		board.moveTile(new Position(0, 0), new Position(1, 1));
-	}
-
 	@Test(expected = TileIsFixedException.class)
 	public void testMoveFixedTile() throws TileIsFixedException,
 			SourceTileEmptyException, TargetTileNotEmptyException {

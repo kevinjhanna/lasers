@@ -11,76 +11,76 @@ import tiles.DrawableLayer;
  */
 public class Ray implements DrawableLayer, Cloneable {
 
-	private Board board;
-	private Position position;
-	private Direction direction;
 	private Color color;
+	private Direction direction;
+	private boolean stopped = true;
 
 	/**
 	 * Creates a new ray
 	 * 
-	 * @param board
-	 * @param position
 	 * @param direction
 	 * @param color
 	 */
-	public Ray(Board board, Position position, Direction direction, Color color) {
-		this.board = board;
-		this.position = position;
-		this.direction = direction;
+	public Ray(Color color, Direction direction) {
 		this.color = color;
+		this.direction = direction;
+	}
+
+	public void propagate(Board board, Position position) {
+		stopped = false;
+		position = displace(board, position);
+		while (!stopped) {
+			hit(board, position);
+			position = displace(board, position);
+		}
 	}
 
 	/**
-	 * Moves the ray in a new direction
-	 * 
-	 * @param direction
+	 * Hits the tile at the current position.
 	 */
-	public void move(Direction direction) {
-		this.direction = direction;
-		move();
+	private void hit(Board board, Position position) {
+		Ray bifurcate = board.getTile(position).hit(this);
+		if (bifurcate != null) {
+			bifurcate.propagate(board, position);
+		}
 	}
 
 	/**
 	 * Moves the ray in its direction
 	 */
-	public void move() {
-		position = position.move(direction);
-		if (board.validPosition(position)) {
-			hit();
+	public Position displace(Board board, Position position) {
+		position = position.displace(direction);
+		if (!board.validPosition(position)) {
+			stopped = true;
 		}
+		return position;
 	}
 
 	/**
 	 * Bifurcates the ray in two directions
 	 * 
-	 * @param d1
-	 * @param d2
+	 * @param direction
 	 */
-	public void bifurcate(Direction d1, Direction d2) {
-		if (d1 == null || d2 == null) {
+	public Ray bifurcate(Direction direction) {
+		if (direction == null) {
 			throw new IllegalArgumentException();
 		}
-		new Ray(board, position, d2, color).move();
-		move(d1);
+		// Prevent bifurcation of stopped rays
+		if (stopped) {
+			return null;
+		}
+		return new Ray(color, direction);
 	}
 
 	/**
-	 * Hit the tile at the current position
-	 */
-	private void hit() {
-		board.getTile(position).hit(this);
-	}
-
-	/**
-	 * Returns the ray color
+	 * Returns the ray color.
 	 */
 	public Color getColor() {
 		return color;
 	}
 
 	/**
-	 * Sets the ray color
+	 * Sets the ray color.
 	 * 
 	 * @param color
 	 */
@@ -89,14 +89,14 @@ public class Ray implements DrawableLayer, Cloneable {
 	}
 
 	/**
-	 * Returns the ray direction
+	 * Returns the ray direction.
 	 */
 	public Direction getDirection() {
 		return direction;
 	}
 
 	/**
-	 * Sets the ray direction
+	 * Sets the ray direction.
 	 * 
 	 * @param direction
 	 */
@@ -105,19 +105,25 @@ public class Ray implements DrawableLayer, Cloneable {
 	}
 
 	/**
-	 * Clones the ray
+	 * Stops the ray propagation.
 	 */
-	public Ray clone() {
-		return new Ray(board, position, direction, color);
+	public void stop() {
+		stopped = true;
 	}
 
 	/**
-	 * Returns the string representation of a ray
+	 * Clones the ray.
+	 */
+	public Ray clone() {
+		return new Ray(color, direction);
+	}
+
+	/**
+	 * Returns the string representation of a ray.
 	 */
 	@Override
 	public String toString() {
-		return "Ray [position=" + position + ", direction=" + direction
-				+ ", color=" + color + "]";
+		return "Ray [direction=" + direction + ", color=" + color + "]";
 	}
 
 }

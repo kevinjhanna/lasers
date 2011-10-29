@@ -1,7 +1,10 @@
 package tiles.propagation;
 
-import tiles.Tile;
 import game.Ray;
+
+import java.awt.Color;
+
+import tiles.Tile;
 
 /**
  * Propagation component that blocks all rays. Remember that even though the ray
@@ -14,11 +17,17 @@ public class BlockPropagation extends PropagationComponent {
 		super(tile);
 	}
 
-	public void process(Ray ray) {
+	public Ray process(Ray ray) {
 		setOrigin(ray);
+		ray.stop();
+		return null;
 	}
 
 	public boolean hasRays() {
+		return false;
+	}
+	
+	public boolean hasRay(Color color) {
 		return false;
 	}
 

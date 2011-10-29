@@ -16,6 +16,11 @@ public class EmptyTile extends Tile {
 	public boolean isEmpty() {
 		return true;
 	}
+	
+	@Override
+	public boolean isFixed() {
+		return true;
+	}
 
 	@Override
 	protected DirectionComponent getDirectionComponent() {

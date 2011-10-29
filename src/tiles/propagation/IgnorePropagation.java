@@ -12,10 +12,10 @@ public class IgnorePropagation extends PropagationComponent {
 		super(tile);
 	}
 
-	public void process(Ray ray) {
+	public Ray process(Ray ray) {
 		setOrigin(ray);
 		setRay(ray.getDirection(), ray);
-		ray.move();
+		return null;
 	}
 
 }

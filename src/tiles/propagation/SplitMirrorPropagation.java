@@ -15,7 +15,7 @@ public class SplitMirrorPropagation extends MirrorPropagation {
 	}
 
 	@Override
-	public void process(Ray ray) {
+	public Ray process(Ray ray) {
 		setOrigin(ray);
 
 		Direction dTile = getDirection();
@@ -25,16 +25,16 @@ public class SplitMirrorPropagation extends MirrorPropagation {
 		if (m1 != null) {
 			setRay(m1, ray);
 			setRay(ray.getDirection(), ray);
-			ray.bifurcate(ray.getDirection(), m1);
+			return ray.bifurcate(m1);
 		} else {
 			Direction m2 = mirrorDirection(dTile.getOpposite(), dRay);
 			if (m2 != null) {
 				setRay(m2, ray);
 				setRay(ray.getDirection(), ray);
-				ray.bifurcate(ray.getDirection(), m2);
+				return ray.bifurcate(m2);
 			}
 		}
-
+		return null;
 	}
 
 }

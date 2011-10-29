@@ -1,28 +1,39 @@
 package parser;
 
+/**
+ * Enumerative that maps numeric values from board files to tiles and performs
+ * basic validations.
+ */
 public enum TileValue {
-	SOURCE(1, 3, true), MOVEABLESOURCE(2,3, true), TARGET(3,0, true), SIMPLEMIRROR(4,3, false), DOUBLEMIRROR(5,1, false), SPLITMIRROR(6,1, false), WALL(7,0, false), FILTER(8,1, true);
-	
-	final int type;
-	final int possibleRotation;
-	public final boolean canColor;
+	SOURCE(1, 3, true), MOVEABLESOURCE(2, 3, true), TARGET(3, 0, true), SIMPLEMIRROR(
+			4, 3, false), DOUBLEMIRROR(5, 1, false), SPLITMIRROR(6, 1, false), WALL(
+			7, 0, false), FILTER(8, 1, true);
 
-	TileValue(int t, int r, boolean c){
-		type = t;
-		possibleRotation = r;
-		canColor = c;
+	private final int n;
+	private final int directions;
+	private final boolean hasColor;
+
+	TileValue(int n, int directions, boolean hasColor) {
+		this.n = n;
+		this.directions = directions;
+		this.hasColor = hasColor;
 	}
-	
+
 	public static TileValue fromInt(int n) {
 		TileValue[] values = TileValue.values();
-		return values[n - 1];
+		for (TileValue value : values) {
+			if (value.n == n) {
+				return value;
+			}
+		}
+		return null;
 	}
-	
-	public boolean possibleRotation(int r){
-		return (r >= 0 && r <= possibleRotation);
+
+	public boolean validDirection(int r) {
+		return (r >= 0 && r <= directions);
 	}
-	
-	public boolean validColor(int c){
-		return (!canColor && c == 0) || (canColor && c >= 0 && c <= 250);
+
+	public boolean validColor(int c) {
+		return (!hasColor && c == 0) || (hasColor && c >= 0 && c <= 255);
 	}
 }

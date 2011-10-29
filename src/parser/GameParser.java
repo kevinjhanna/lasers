@@ -141,9 +141,12 @@ public class GameParser {
 
 		int type = Integer.parseInt(lineScanner.next());
 		TileValue mockTile = TileValue.fromInt(type);
+		if (mockTile == null) {
+			throw new InvalidBoardFileException();
+		}
 
 		int rotation = Integer.parseInt(lineScanner.next());
-		if (!mockTile.possibleRotation(rotation)) {
+		if (!mockTile.validDirection(rotation)) {
 			throw new InvalidBoardFileException();
 		}
 
