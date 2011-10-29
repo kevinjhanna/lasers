@@ -30,7 +30,7 @@ import tiles.Wall;
  */
 public class ImageDrawer {
 
-	private static final Color maskColor = new Color(0, 0, 255);
+	private static final Color MASK_COLOR = new Color(0, 0, 255);
 
 	private Map<String, Image> images;
 
@@ -104,7 +104,7 @@ public class ImageDrawer {
 
 		Color color = drawable.getColor();
 		if (color != null) {
-			image = ImageUtils.replaceColor(image, maskColor, color);
+			image = ImageUtils.replaceColor(image, MASK_COLOR, color);
 		}
 
 		Direction direction = drawable.getDirection();
@@ -115,7 +115,7 @@ public class ImageDrawer {
 	}
 
 	public Image withColor(Image img, Color color) {
-		return ImageUtils.replaceColor(img, maskColor, color);
+		return ImageUtils.replaceColor(img, MASK_COLOR, color);
 	}
 
 	public Image withDirection(Image img, Direction direction) {
