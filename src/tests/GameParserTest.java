@@ -11,9 +11,6 @@ import parser.GameParser;
 import exceptions.InvalidBoardFileException;
 import exceptions.InvalidBoardSizeException;
 
-/**
- * Parser tests
- */
 public class GameParserTest {
 
 	@SuppressWarnings("unused")

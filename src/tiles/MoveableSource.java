@@ -5,7 +5,7 @@ import java.awt.Color;
 import misc.Direction;
 
 /**
- * A <tt>MoveableSource</tt> tile that supports movement but not rotation
+ * A <tt>MoveableSource</tt> tile that supports movement but not rotation.
  */
 public class MoveableSource extends Source {
 

@@ -3,7 +3,7 @@ package misc;
 import java.io.Serializable;
 
 /**
- * Class that represents a position in the board
+ * A position in a board.
  */
 public class Position implements Serializable {
 
@@ -13,7 +13,7 @@ public class Position implements Serializable {
 	public final int column;
 
 	/**
-	 * Creates a new position
+	 * Creates a new position.
 	 * 
 	 * @param row
 	 * @param column

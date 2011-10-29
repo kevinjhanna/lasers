@@ -18,7 +18,8 @@ import exceptions.SourceTileEmptyException;
 import exceptions.TargetTileNotEmptyException;
 
 /**
- * The class that models a Lasers and Mirrors game
+ * The class that models a Lasers and Mirrors game. Implementation of the model
+ * in the MVC architecture.
  */
 public class Game implements Serializable {
 
@@ -28,7 +29,6 @@ public class Game implements Serializable {
 	private Integer score;
 	private Board board;
 	private Map<Tile, Position> tiles;
-
 
 	/**
 	 * Starts the game.
@@ -128,7 +128,7 @@ public class Game implements Serializable {
 	}
 
 	/**
-	 * Saves the game in the specified file
+	 * Saves the game in the specified file.
 	 * 
 	 * @param f
 	 *            The file to save the game into
@@ -150,7 +150,7 @@ public class Game implements Serializable {
 	}
 
 	/**
-	 * Updates the score and notifies the observer
+	 * Updates the score and notifies the observer.
 	 */
 	private void updateScore() {
 		Integer old = score;
@@ -164,7 +164,7 @@ public class Game implements Serializable {
 	}
 
 	/**
-	 * Recalculates game score
+	 * Recalculates game score.
 	 * 
 	 * @return int
 	 */
