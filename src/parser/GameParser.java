@@ -15,7 +15,6 @@ import misc.Position;
 import tiles.Tile;
 import exceptions.InvalidBoardFileException;
 import exceptions.InvalidBoardSizeException;
-import game.Board;
 import game.Game;
 
 /**
@@ -103,7 +102,7 @@ public class GameParser {
 		width = Integer.parseInt(lineScanner.next());
 		height = Integer.parseInt(lineScanner.next());
 
-		if (!Board.validSize(height, width)) {
+		if (!Game.validSize(height, width)) {
 			throw new InvalidBoardSizeException();
 		}
 

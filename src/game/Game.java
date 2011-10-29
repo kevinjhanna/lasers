@@ -23,8 +23,32 @@ public class Game implements Serializable {
 	private Integer score;
 	private Board board;
 	private Map<Tile, Position> tiles;
+	public static final int MIN_HEIGHT = 5;
+	public static final int MIN_WIDTH = 5;
+	public static final int MAX_HEIGHT = 20;
+	public static final int MAX_WIDTH = 20;
+	
+	/**
+	 * Creates a new game with a board of the dimensions given and a set of
+	 * initial tiles. Does not populate the board with the tiles to enable the
+	 * setup of an observer to track board changes
+	 * 
+	 * @param boardHeight
+	 * @param boardWidth
+	 * @param tiles
+	 * @throws InvalidBoardSizeException
+	 */
+	public Game(int boardHeight, int boardWidth, Map<Tile, Position> tiles)
+			throws InvalidBoardSizeException {
+		if (!validSize(boardHeight, boardWidth)) {
+			throw new InvalidBoardSizeException();
+		}
 
+		this.tiles = tiles;
 
+		board = new Board(boardHeight, boardWidth);
+	}
+	
 	/**
 	 * Starts the game.
 	 */
@@ -39,6 +63,18 @@ public class Game implements Serializable {
 	public void restart() {
 		board.reset();
 		populateBoard();
+	}
+
+	/**
+	 * Check if the given size properties are valid for this game
+	 * 
+	 * @param height
+	 * @param width
+	 * @return boolean
+	 */
+	public static boolean validSize(int height, int width) {
+		return (height >= MIN_HEIGHT && height <= MAX_HEIGHT
+				&& width >= MIN_WIDTH && height <= MAX_HEIGHT);
 	}
 
 	/**
@@ -152,24 +188,6 @@ public class Game implements Serializable {
 			}
 		}
 		return score;
-	}
-
-	/**
-	 * Creates a new game with a board of the dimensions given and a set of
-	 * initial tiles. Does not populate the board with the tiles to enable the
-	 * setup of an observer to track board changes
-	 * 
-	 * @param boardHeight
-	 * @param boardWidth
-	 * @param tiles
-	 * @throws InvalidBoardSizeException
-	 */
-	public Game(int boardHeight, int boardWidth, Map<Tile, Position> tiles)
-			throws InvalidBoardSizeException {
-
-		this.tiles = tiles;
-
-		board = new Board(boardHeight, boardWidth);
 	}
 
 	/**
