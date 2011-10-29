@@ -19,11 +19,6 @@ public class Board implements Serializable {
 	private static final long serialVersionUID = -343121504836873833L;
 
 	private Tile[][] content;
-	public static final int MIN_HEIGHT = 5;
-	public static final int MIN_WIDTH = 5;
-	public static final int MAX_HEIGHT = 20;
-	public static final int MAX_WIDTH = 20;
-
 	private int height;
 	private int width;
 
@@ -37,9 +32,6 @@ public class Board implements Serializable {
 	 * @throws InvalidBoardSizeException
 	 */
 	public Board(int height, int width) {
-		if (!validSize(height, width)) {
-			throw new InvalidBoardSizeException();
-		}
 
 		this.width = width;
 		this.height = height;
@@ -48,17 +40,7 @@ public class Board implements Serializable {
 		fillEmpty();
 	}
 
-	/**
-	 * Check if the given size properties are valid
-	 * 
-	 * @param height
-	 * @param width
-	 * @return boolean
-	 */
-	public static boolean validSize(int height, int width) {
-		return (height >= MIN_HEIGHT && height <= MAX_HEIGHT
-				&& width >= MIN_WIDTH && height <= MAX_HEIGHT);
-	}
+
 
 	/**
 	 * Returns the tile at the given position
