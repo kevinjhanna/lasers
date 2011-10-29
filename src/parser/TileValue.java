@@ -1,5 +1,19 @@
 package parser;
 
+import java.awt.Color;
+
+import misc.Direction;
+
+import tiles.DoubleMirror;
+import tiles.Filter;
+import tiles.MoveableSource;
+import tiles.SimpleMirror;
+import tiles.Source;
+import tiles.SplitMirror;
+import tiles.Target;
+import tiles.Tile;
+import tiles.Wall;
+
 /**
  * Enumerative that maps numeric values from board files to tiles and performs
  * basic validations.
@@ -36,4 +50,36 @@ public enum TileValue {
 	public boolean validColor(int c) {
 		return (!hasColor && c == 0) || (hasColor && c >= 0 && c <= 255);
 	}
+	
+	public static Tile generateTileObject(TileValue mockTile, Color color, Direction direction){
+		Tile realTile = null;
+		switch (mockTile) {
+		case SOURCE:
+			realTile = new Source(color, direction);
+			break;
+		case MOVEABLESOURCE:
+			realTile = new MoveableSource(color, direction);
+			break;
+		case TARGET:
+			realTile = new Target(color);
+			break;
+		case SIMPLEMIRROR:
+			realTile = new SimpleMirror(direction);
+			break;
+		case DOUBLEMIRROR:
+			realTile = new DoubleMirror(direction);
+			break;
+		case SPLITMIRROR:
+			realTile = new SplitMirror(direction);
+			break;
+		case WALL:
+			realTile = new Wall();
+			break;
+		case FILTER:
+			realTile = new Filter(color, direction);
+			break;
+		}
+		return realTile;
+	}
+	
 }
