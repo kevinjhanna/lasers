@@ -26,6 +26,12 @@ public abstract class PropagationComponent implements Serializable {
 	private Tile tile;
 	private transient Ray[] rays;
 
+	/**
+	 * Abstract constructor. Subclasses must call this in order to access tile
+	 * properties.
+	 * 
+	 * @param tile
+	 */
 	protected PropagationComponent(Tile tile) {
 		this.tile = tile;
 		initialize();

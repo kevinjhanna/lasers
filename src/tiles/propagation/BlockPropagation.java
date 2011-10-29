@@ -9,7 +9,6 @@ import tiles.Tile;
 /**
  * Propagation component that blocks all rays. Remember that even though the ray
  * is stopped, it still leaves its mark in the direction it came from.
- * 
  */
 public class BlockPropagation extends PropagationComponent {
 
