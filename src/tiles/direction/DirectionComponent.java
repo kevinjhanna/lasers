@@ -1,5 +1,6 @@
 package tiles.direction;
 
+
 import java.io.Serializable;
 
 import misc.Direction;
@@ -7,7 +8,7 @@ import misc.Direction;
 /**
  * Component that handles tile direction.
  */
-public interface DirectionComponent extends Serializable {
+public interface DirectionComponent extends Serializable{
 
 	/**
 	 * Returns true if user can rotate the tile during the game.

@@ -21,7 +21,7 @@ import tiles.Tile;
 public abstract class PropagationComponent implements Serializable{
 
 	private Tile tile;
-	private Ray[] rays = new Ray[4];
+	private transient Ray[] rays = new Ray[4];
 
 	protected PropagationComponent(Tile tile) {
 		this.tile = tile;
