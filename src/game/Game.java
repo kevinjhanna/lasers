@@ -9,11 +9,9 @@ import java.io.Serializable;
 import java.util.Map;
 
 import misc.Position;
-import parser.GameParser;
 import tiles.Source;
 import tiles.Target;
 import tiles.Tile;
-import exceptions.InvalidBoardFileException;
 import exceptions.InvalidBoardSizeException;
 import exceptions.RotationNotSupportedException;
 import exceptions.SourceTileEmptyException;
@@ -31,22 +29,6 @@ public class Game implements Serializable {
 	private Board board;
 	private Map<Tile, Position> tiles;
 
-	/**
-	 * Instantiates a new game from a board file
-	 * 
-	 * @param f
-	 *            The .board file
-	 * @return Game The new game
-	 * @throws IOException
-	 *             In case there is a problem reading the file
-	 * @throws InvalidBoardFileException
-	 */
-	public static Game fromBoardFile(File f) throws IOException,
-			InvalidBoardFileException {
-
-		GameParser parser = new GameParser(f);
-		return parser.parse();
-	}
 
 	/**
 	 * Starts the game.

@@ -4,6 +4,7 @@ import game.Ray;
 import gui.ImageUtils;
 
 import java.awt.Color;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +18,7 @@ import tiles.Tile;
  * 
  * @see Ray
  */
-public abstract class PropagationComponent {
+public abstract class PropagationComponent implements Serializable{
 
 	private Tile tile;
 	private Ray[] rays = new Ray[4];

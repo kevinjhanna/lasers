@@ -37,8 +37,7 @@ public class Board implements Serializable {
 	 * @throws InvalidBoardSizeException
 	 */
 	public Board(int height, int width) {
-		if (height < MIN_HEIGHT || height > MAX_HEIGHT || width < MIN_WIDTH
-				|| height > MAX_HEIGHT) {
+		if (!validSize(height, width)) {
 			throw new InvalidBoardSizeException();
 		}
 
@@ -47,6 +46,18 @@ public class Board implements Serializable {
 		content = new Tile[height][width];
 
 		fillEmpty();
+	}
+
+	/**
+	 * Check if the given size properties are valid
+	 * 
+	 * @param height
+	 * @param width
+	 * @return boolean
+	 */
+	public static boolean validSize(int height, int width) {
+		return (height >= MIN_HEIGHT && height <= MAX_HEIGHT
+				&& width >= MIN_WIDTH && height <= MAX_HEIGHT);
 	}
 
 	/**
@@ -105,14 +116,14 @@ public class Board implements Serializable {
 	}
 
 	/**
-	 * Checks that the position given is falls inside the board boundaries
+	 * Checks that the position given falls inside the board boundaries
 	 * 
 	 * @param p
+	 *            the position to be checked
 	 * @return boolean
 	 */
 	public boolean validPosition(Position p) {
-		return p.row >= 0 && p.row < height && p.column >= 0
-				&& p.column < width;
+		return (p.row >= 0 && p.row < height && p.column >= 0 && p.column < width);
 	}
 
 	/**

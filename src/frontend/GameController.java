@@ -13,6 +13,8 @@ import iogame.IOSerializer;
 import java.io.File;
 import java.io.IOException;
 
+import parser.GameParser;
+
 import tiles.Drawable;
 
 /**
@@ -101,12 +103,13 @@ public class GameController implements Controller, Observer {
 		File f = container.showNew();
 		if (f != null) {
 			try {
-				game = Game.fromBoardFile(f);
+				GameParser parser = new GameParser(f);
+				game = parser.parse();
 				startGame();
 			} catch (IOException e) {
 				container.showError("Unable to load board file.");
 			} catch (InvalidBoardFileException e) {
-				String message = "Error while trying to load board file";
+				String message = "Error while trying to load board file. The board file has been corrupted.";
 				if (e.getMessage() != null) {
 					message += ": " + e.getMessage();
 				}
