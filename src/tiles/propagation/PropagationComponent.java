@@ -5,7 +5,6 @@ import gui.ImageUtils;
 
 import java.awt.Color;
 import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;

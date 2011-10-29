@@ -128,28 +128,6 @@ public class Game implements Serializable {
 	}
 
 	/**
-	 * Saves the game in the specified file
-	 * 
-	 * @param f
-	 *            The file to save the game into
-	 * @throws IOException
-	 */
-	public void save(File f) throws IOException {
-		// tiene que tirar IOException en realidad
-		ObjectOutputStream file = new ObjectOutputStream(
-				new BufferedOutputStream(new FileOutputStream(f)));
-		try {
-			file.writeObject(board);
-			file.writeObject(score);
-			file.writeObject(tiles);
-		}
-
-		finally {
-			file.close();
-		}
-	}
-
-	/**
 	 * Updates the score and notifies the observer
 	 */
 	private void updateScore() {
