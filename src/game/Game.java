@@ -80,7 +80,7 @@ public class Game implements Serializable {
 	 */
 	public static boolean validSize(int height, int width) {
 		return (height >= MIN_HEIGHT && height <= MAX_HEIGHT
-				&& width >= MIN_WIDTH && height <= MAX_HEIGHT);
+				&& width >= MIN_WIDTH && width <= MAX_WIDTH);
 	}
 
 	/**
