@@ -13,12 +13,16 @@ import java.io.ObjectOutputStream;
 import exceptions.GameIOException;
 import game.Game;
 
+/**
+ * This class handles game saving and loading through serialization.
+ */
 public class IOSerializer {
 
 	/**
-	 * Creates a new game from a saved game file
+	 * Creates a new game from a saved game file.
 	 * 
 	 * @param f
+	 * 		The file to lead the game from
 	 * @return Game
 	 * @throws IOException
 	 * @throws FileNotFoundException
@@ -43,7 +47,7 @@ public class IOSerializer {
 	}
 
 	/**
-	 * Saves the game in the specified file
+	 * Saves the game in the specified file.
 	 * 
 	 * @param f
 	 *            The file to save the game into
