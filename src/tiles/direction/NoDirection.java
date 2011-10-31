@@ -8,6 +8,7 @@ import misc.Direction;
  */
 public class NoDirection implements DirectionComponent {
 
+	private static final long serialVersionUID = 3336193554760215420L;
 
 	public boolean canRotate() {
 		return false;

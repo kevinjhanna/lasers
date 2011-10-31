@@ -20,7 +20,7 @@ public interface ViewContainer {
 	public abstract void setGame(int boardHeight, int boardWidth);
 
 	/**
-	 * Returns a reference to the game view
+	 * Returns a reference to the game view.
 	 * 
 	 * @return View
 	 */
@@ -35,21 +35,21 @@ public interface ViewContainer {
 	public abstract void setGameVisible(boolean b);
 
 	/**
-	 * Shows a warning message
+	 * Shows a warning message.
 	 * 
 	 * @param message
 	 */
 	public abstract void showWarning(String message);
 
 	/**
-	 * Shows an error message
+	 * Shows an error message.
 	 * 
 	 * @param message
 	 */
 	public abstract void showError(String message);
 
 	/**
-	 * Asks the user to confirm a message and returns the result
+	 * Asks the user to confirm a message and returns the result.
 	 * 
 	 * @param message
 	 * @return ConfirmOption

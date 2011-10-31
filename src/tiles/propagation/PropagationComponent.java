@@ -21,16 +21,24 @@ import tiles.Tile;
  */
 public abstract class PropagationComponent implements Serializable {
 
+	private static final long serialVersionUID = -6724503922941506704L;
+
 	private Tile tile;
 	private transient Ray[] rays;
 
+	/**
+	 * Abstract constructor. Subclasses must call this in order to access tile
+	 * properties.
+	 * 
+	 * @param tile
+	 */
 	protected PropagationComponent(Tile tile) {
 		this.tile = tile;
 		initialize();
 	}
 
 	/**
-	 * Initializes the component
+	 * Initializes the component.
 	 * 
 	 * @param ray
 	 */
@@ -127,7 +135,7 @@ public abstract class PropagationComponent implements Serializable {
 	}
 
 	/**
-	 * Returns if the tile has a ray of the color specified
+	 * Returns if the tile has a ray of the color specified.
 	 * 
 	 * @param color
 	 * @return boolean
@@ -142,7 +150,7 @@ public abstract class PropagationComponent implements Serializable {
 	}
 
 	/**
-	 * Returns the array of ray layers
+	 * Returns the array of ray layers.
 	 */
 	public Iterable<DrawableLayer> getRays() {
 		// TODO: Fix use of generics
@@ -155,8 +163,14 @@ public abstract class PropagationComponent implements Serializable {
 		return rays;
 	}
 
+	/**
+	 * Initializes the component after a serialized read.
+	 * 
+	 * @return
+	 * @throws IOException
+	 */
 	public Object readResolve() throws IOException {
-		this.initialize();
+		initialize();
 		return this;
 	}
 

@@ -19,27 +19,27 @@ public class WelcomePanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Panel controller
+	 * Panel controller.
 	 */
 	private Controller controller;
 
 	/**
-	 * New Game button
+	 * New Game button.
 	 */
 	private JButton newGame;
 
 	/**
-	 * Load Game button
+	 * Load Game button.
 	 */
 	private JButton loadGame;
 
 	/**
-	 * Quit button
+	 * Quit button.
 	 */
 	private JButton quit;
 
 	/**
-	 * Creates a new Welcome panel that responds to the controller parameter
+	 * Creates a new Welcome panel that responds to the controller parameter.
 	 * 
 	 * @param controller
 	 *            The controller that will respond to this panel

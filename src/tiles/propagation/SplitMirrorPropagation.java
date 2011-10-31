@@ -10,6 +10,8 @@ import game.Ray;
  */
 public class SplitMirrorPropagation extends MirrorPropagation {
 
+	private static final long serialVersionUID = -3524244017666461820L;
+
 	public SplitMirrorPropagation(Tile tile) {
 		super(tile);
 	}

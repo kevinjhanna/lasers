@@ -70,7 +70,7 @@ public class Game implements Serializable {
 	}
 
 	/**
-	 * Check if the given size properties are valid for this game
+	 * Check if the given size properties are valid for this game.
 	 * 
 	 * @param height
 	 * @param width
@@ -78,7 +78,7 @@ public class Game implements Serializable {
 	 */
 	public static boolean validSize(int height, int width) {
 		return (height >= MIN_HEIGHT && height <= MAX_HEIGHT
-				&& width >= MIN_WIDTH && height <= MAX_HEIGHT);
+				&& width >= MIN_WIDTH && width <= MAX_WIDTH);
 	}
 
 	/**
@@ -108,6 +108,13 @@ public class Game implements Serializable {
 		return score;
 	}
 
+	/**
+	 * Returns true if the tile at the specified position supports rotation.
+	 * 
+	 * @param row
+	 * @param column
+	 * @return boolean
+	 */
 	public boolean canRotate(int row, int column) {
 		return getTile(row, column).canRotate();
 	}

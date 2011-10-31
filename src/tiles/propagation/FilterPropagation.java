@@ -12,6 +12,8 @@ import tiles.Tile;
  */
 public class FilterPropagation extends PropagationComponent {
 
+	private static final long serialVersionUID = 4109111052205979814L;
+
 	public FilterPropagation(Tile tile) {
 		super(tile);
 	}
@@ -22,7 +24,7 @@ public class FilterPropagation extends PropagationComponent {
 			Color filter = ImageUtils.filter(ray.getColor(), getColor());
 			ray.setColor(filter);
 			setRay(ray.getDirection(), ray);
-		}else{
+		} else {
 			ray.stop();
 		}
 		return null;

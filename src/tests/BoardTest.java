@@ -1,6 +1,7 @@
 package tests;
 
 import static org.junit.Assert.assertEquals;
+import exceptions.PositionOutOfBoundsException;
 import exceptions.SourceTileEmptyException;
 import exceptions.TargetTileNotEmptyException;
 import exceptions.TileIsFixedException;
@@ -69,5 +70,21 @@ public class BoardTest {
 
 		board.setTile(source, new Wall());
 		board.moveTile(source, new Position(1, 1));
+	}
+
+	@Test(expected = PositionOutOfBoundsException.class)
+	public void testSetInvalidPosition() throws SourceTileEmptyException,
+			TargetTileNotEmptyException {
+
+		Position p = new Position(10, 10);
+		board.setTile(p, new Wall());
+	}
+
+	@Test(expected = PositionOutOfBoundsException.class)
+	public void testGetInvalidPosition() throws SourceTileEmptyException,
+			TargetTileNotEmptyException {
+
+		Position p = new Position(10, 10);
+		board.getTile(p);
 	}
 }

@@ -8,6 +8,7 @@ import exceptions.RotationNotSupportedException;
  */
 public class FourWayDirection implements DirectionComponent {
 
+	private static final long serialVersionUID = -3350778156676049695L;
 
 	public Direction direction;
 	public boolean mutable;

@@ -6,7 +6,7 @@ import misc.Position;
 import tiles.EmptyTile;
 import tiles.Tile;
 import exceptions.InvalidBoardSizeException;
-import exceptions.PositionOutOfBounds;
+import exceptions.PositionOutOfBoundsException;
 import exceptions.SourceTileEmptyException;
 import exceptions.TargetTileNotEmptyException;
 import exceptions.TileIsFixedException;
@@ -50,7 +50,7 @@ public class Board implements Serializable {
 	 */
 	public Tile getTile(Position p) {
 		if (!validPosition(p)) {
-			throw new PositionOutOfBounds();
+			throw new PositionOutOfBoundsException();
 		}
 		return content[p.row][p.column];
 	}
@@ -63,7 +63,7 @@ public class Board implements Serializable {
 	 */
 	public void setTile(Position p, Tile tile) {
 		if (!validPosition(p)) {
-			throw new PositionOutOfBounds();
+			throw new PositionOutOfBoundsException();
 		}
 		content[p.row][p.column] = tile;
 	}
