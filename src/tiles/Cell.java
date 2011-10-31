@@ -11,6 +11,12 @@ import misc.Direction;
  */
 public interface Cell extends Drawable {
 
+	/**
+	 * Returns the beam at the specified direction if exists or else null.
+	 * 
+	 * @param direction
+	 * @return Beam
+	 */
 	public Beam getBeam(Direction direction);
 
 }
