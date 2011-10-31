@@ -1,10 +1,5 @@
 package game;
 
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.Map;
 
@@ -20,6 +15,9 @@ import exceptions.TargetTileNotEmptyException;
 /**
  * The class that models a Lasers and Mirrors game. Implementation of the model
  * in the MVC architecture.
+ * 
+ * This class handles the business logic.
+ * 
  */
 public class Game implements Serializable {
 
@@ -162,28 +160,6 @@ public class Game implements Serializable {
 		board.getTile(new Position(row, column)).rotate();
 
 		calculateRays();
-	}
-
-	/**
-	 * Saves the game in the specified file.
-	 * 
-	 * @param f
-	 *            The file to save the game into
-	 * @throws IOException
-	 */
-	public void save(File f) throws IOException {
-		// tiene que tirar IOException en realidad
-		ObjectOutputStream file = new ObjectOutputStream(
-				new BufferedOutputStream(new FileOutputStream(f)));
-		try {
-			file.writeObject(board);
-			file.writeObject(score);
-			file.writeObject(tiles);
-		}
-
-		finally {
-			file.close();
-		}
 	}
 
 	/**

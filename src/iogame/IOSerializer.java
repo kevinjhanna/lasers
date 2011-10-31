@@ -13,6 +13,11 @@ import java.io.ObjectOutputStream;
 import exceptions.GameIOException;
 import game.Game;
 
+/**
+ * A class that allows you to handle the loading and saving of a game.
+ * It uses serialization to do so.
+ *
+ */
 public class IOSerializer {
 
 	/**

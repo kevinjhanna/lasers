@@ -12,7 +12,7 @@ import exceptions.TargetTileNotEmptyException;
 import exceptions.TileIsFixedException;
 
 /**
- * A game board
+ * A 'generic' game board
  */
 public class Board implements Serializable {
 
