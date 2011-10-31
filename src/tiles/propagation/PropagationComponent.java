@@ -1,30 +1,29 @@
-package tiles.propagation;
+	package tiles.propagation;
 
+import game.Beam;
 import game.Ray;
 import gui.ImageUtils;
 
 import java.awt.Color;
 import java.io.IOException;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Stack;
 
 import misc.Direction;
-import tiles.DrawableLayer;
 import tiles.Tile;
 
 /**
  * The base propagation component that defines public methods and encapsulates
  * access to tile state in subclasses.
  * 
- * @see Ray
+ * @see Beam
  */
 public abstract class PropagationComponent implements Serializable {
 
 	private static final long serialVersionUID = -6724503922941506704L;
 
 	private Tile tile;
-	private transient Ray[] rays;
+	private transient Beam[] beams;
 
 	/**
 	 * Abstract constructor. Subclasses must call this in order to access tile
@@ -43,15 +42,16 @@ public abstract class PropagationComponent implements Serializable {
 	 * @param ray
 	 */
 	private void initialize() {
-		rays = new Ray[4];
+		beams = new Beam[4];
 	}
 
 	/**
 	 * Processes the incoming ray.
 	 * 
 	 * @param ray
+	 * @param bifurcations 
 	 */
-	public abstract Ray process(Ray ray);
+	public abstract void process(Ray ray, Stack<Ray> bifurcations);
 
 	/**
 	 * Returns the tile direction.
@@ -76,7 +76,7 @@ public abstract class PropagationComponent implements Serializable {
 	 */
 	protected void setOrigin(Ray ray) {
 		Direction origin = ray.getDirection().getOpposite();
-		setRay(origin, ray);
+		setBeam(origin, ray);
 	}
 
 	/**
@@ -84,7 +84,7 @@ public abstract class PropagationComponent implements Serializable {
 	 */
 	public void clear() {
 		for (int i = 0; i < 4; i++) {
-			rays[i] = null;
+			beams[i] = null;
 		}
 	}
 
@@ -95,9 +95,9 @@ public abstract class PropagationComponent implements Serializable {
 	 * @param direction
 	 * @param ray
 	 */
-	protected final void setRay(Direction direction, Ray ray) {
+	protected final void setBeam(Direction direction, Ray ray) {
 		Ray clone = ray.clone();
-		Ray existing = getRay(direction);
+		Beam existing = getBeam(direction);
 		if (existing != null) {
 			clone.setColor(ImageUtils.mix(ray.getColor(), existing.getColor()));
 		}
@@ -106,7 +106,7 @@ public abstract class PropagationComponent implements Serializable {
 			ray.stop();
 		} else {
 			clone.setDirection(direction);
-			rays[direction.ordinal()] = clone;
+			beams[direction.ordinal()] = clone;
 		}
 	}
 
@@ -114,10 +114,10 @@ public abstract class PropagationComponent implements Serializable {
 	 * Returns the ray at the specified direction
 	 * 
 	 * @param direction
-	 * @return Ray
+	 * @return Beam
 	 */
-	protected final Ray getRay(Direction direction) {
-		return rays[direction.ordinal()];
+	public Beam getBeam(Direction direction) {
+		return beams[direction.ordinal()];
 	}
 
 	/**
@@ -125,9 +125,9 @@ public abstract class PropagationComponent implements Serializable {
 	 * 
 	 * @return boolean
 	 */
-	public boolean hasRays() {
-		for (Ray ray : rays) {
-			if (ray != null) {
+	public boolean hasBeams() {
+		for (Beam beam : beams) {
+			if (beam != null) {
 				return true;
 			}
 		}
@@ -140,9 +140,9 @@ public abstract class PropagationComponent implements Serializable {
 	 * @param color
 	 * @return boolean
 	 */
-	public boolean hasRay(Color color) {
-		for (Ray ray : rays) {
-			if (ray != null && ray.getColor().equals(color)) {
+	public boolean hasBeam(Color color) {
+		for (Beam beam : beams) {
+			if (beam != null && beam.getColor().equals(color)) {
 				return true;
 			}
 		}
@@ -150,23 +150,9 @@ public abstract class PropagationComponent implements Serializable {
 	}
 
 	/**
-	 * Returns the array of ray layers.
-	 */
-	public Iterable<DrawableLayer> getRays() {
-		// TODO: Fix use of generics
-		List<DrawableLayer> rays = new ArrayList<DrawableLayer>();
-
-		for (Ray ray : this.rays) {
-			rays.add(ray);
-		}
-
-		return rays;
-	}
-
-	/**
 	 * Initializes the component after a serialized read.
 	 * 
-	 * @return
+	 * @return Object
 	 * @throws IOException
 	 */
 	public Object readResolve() throws IOException {

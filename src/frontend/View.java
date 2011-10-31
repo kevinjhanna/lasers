@@ -1,6 +1,6 @@
 package frontend;
 
-import tiles.Drawable;
+import tiles.Cell;
 
 /**
  * Interface that defines the actions that can be performed in a <tt>View</tt>.
@@ -13,9 +13,9 @@ public interface View {
 	 * 
 	 * @param row
 	 * @param column
-	 * @param drawable
+	 * @param cell
 	 */
-	public abstract void updateCell(int row, int column, Drawable drawable);
+	public abstract void updateCell(int row, int column, Cell cell);
 
 	/**
 	 * Clears the cell located at the specified row and column.

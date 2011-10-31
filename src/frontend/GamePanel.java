@@ -14,7 +14,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-import tiles.Drawable;
+import tiles.Cell;
 
 /**
  * Implementation of the <tt>View</tt> in the MVC architecture.
@@ -144,9 +144,9 @@ public class GamePanel extends JPanel implements View {
 				time);
 	}
 
-	public void updateCell(int row, int column, Drawable drawable) {
+	public void updateCell(int row, int column, Cell cell) {
 		boardPanel.clearImage(row, column);
-		for (Image layer : drawer.draw(drawable)) {
+		for (Image layer : drawer.draw(cell)) {
 			boardPanel.appendImage(row, column, layer);
 		}
 		boardPanel.repaint();

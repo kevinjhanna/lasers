@@ -1,6 +1,6 @@
 package game;
 
-import tiles.Drawable;
+import tiles.Cell;
 
 /**
  * Interface with callbacks from the game.
@@ -8,13 +8,13 @@ import tiles.Drawable;
 public interface Observer {
 
 	/**
-	 * Callback that fires when a tile has been updated.
+	 * Callback that fires when a cell has been updated.
 	 * 
 	 * @param row
 	 * @param column
-	 * @param drawable
+	 * @param cell
 	 */
-	void onTileUpdate(int row, int column, Drawable drawable);
+	void onCellUpdate(int row, int column, Cell cell);
 
 	/**
 	 * Callback that fires when the score has changed.

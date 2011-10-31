@@ -217,7 +217,7 @@ public class Game implements Serializable {
 
 		for (int i = 0; i < getBoardHeight(); i++) {
 			for (int j = 0; j < getBoardWidth(); j++) {
-				if (getTile(i, j).hasRays()) {
+				if (getTile(i, j).hasBeams()) {
 					score++;
 				}
 			}
@@ -251,7 +251,7 @@ public class Game implements Serializable {
 
 		for (int i = 0; i < getBoardHeight(); i++) {
 			for (int j = 0; j < getBoardWidth(); j++) {
-				observer.onTileUpdate(i, j, getTile(i, j));
+				observer.onCellUpdate(i, j, getTile(i, j));
 			}
 		}
 
@@ -265,7 +265,7 @@ public class Game implements Serializable {
 		boolean win = true;
 		for (Map.Entry<Tile, Position> e : tiles.entrySet()) {
 			if (e.getKey() instanceof Target) {
-				if (!e.getKey().hasRay(e.getKey().getColor())) {
+				if (!e.getKey().hasBeam(e.getKey().getColor())) {
 					win = false;
 				}
 			}

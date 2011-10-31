@@ -1,5 +1,7 @@
 package frontend;
 
+import game.Beam;
+import game.Drawable;
 import game.Ray;
 import gui.ImageUtils;
 
@@ -12,13 +14,12 @@ import java.util.List;
 import java.util.Map;
 
 import misc.Direction;
+import tiles.Cell;
 import tiles.DoubleMirror;
-import tiles.Drawable;
-import tiles.DrawableLayer;
 import tiles.Filter;
-import tiles.Source;
-import tiles.SimpleMirror;
 import tiles.FixedSource;
+import tiles.SimpleMirror;
+import tiles.Source;
 import tiles.SplitMirror;
 import tiles.Target;
 import tiles.Wall;
@@ -70,55 +71,50 @@ public class ImageDrawer {
 		}
 	}
 
-	public List<Image> draw(Drawable drawable) {
-		if (drawable == null) {
+	public List<Image> draw(Cell cell) {
+		if (cell == null) {
 			throw new IllegalArgumentException();
 		}
 
 		List<Image> layers = new ArrayList<Image>();
+		drawBeams(cell, layers);
+		layers.add(draw((Drawable) cell));
 
-		Iterable<DrawableLayer> underlay = drawable.getUnderlay();
-		if (underlay != null) {
-			for (DrawableLayer layer : underlay) {
-				if (layer != null) {
-					layers.add(drawLayer(layer));
-				}
-			}
-		}
-
-		layers.add(drawLayer(drawable));
-
-		Iterable<DrawableLayer> overlay = drawable.getOverlay();
-		if (overlay != null) {
-			for (DrawableLayer layer : overlay) {
-				if (layer != null) {
-					layers.add(drawLayer(layer));
-				}
-			}
-		}
 		return layers;
 	}
 
-	private Image drawLayer(DrawableLayer drawable) {
+	private Image draw(Drawable drawable) {
 		Image image = images.get(drawable.getClass().getName());
 
 		Color color = drawable.getColor();
 		if (color != null) {
-			image = ImageUtils.replaceColor(image, MASK_COLOR, color);
+			image = replaceColor(image, color);
 		}
 
 		Direction direction = drawable.getDirection();
 		if (direction != null) {
-			image = ImageUtils.rotateImage(image, direction.ordinal());
+			image = rotate(image, direction);
 		}
 		return image;
 	}
 
-	public Image withColor(Image img, Color color) {
+	private void drawBeams(Cell cell, List<Image> layers) {
+		Direction[] directions = { Direction.EAST, Direction.WEST,
+				Direction.NORTH, Direction.SOUTH, };
+
+		for (Direction d : directions) {
+			Beam beam = cell.getBeam(d);
+			if (beam != null) {
+				layers.add(draw(beam));
+			}
+		}
+	}
+
+	private Image replaceColor(Image img, Color color) {
 		return ImageUtils.replaceColor(img, MASK_COLOR, color);
 	}
 
-	public Image withDirection(Image img, Direction direction) {
+	private Image rotate(Image img, Direction direction) {
 		return ImageUtils.rotateImage(img, direction.ordinal());
 	}
 }

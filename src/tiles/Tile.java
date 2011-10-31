@@ -1,19 +1,20 @@
 package tiles;
 
+import game.Beam;
 import game.Ray;
 
 import java.awt.Color;
 import java.io.Serializable;
-
-import tiles.direction.DirectionComponent;
-import tiles.propagation.PropagationComponent;
+import java.util.Stack;
 
 import misc.Direction;
+import tiles.direction.DirectionComponent;
+import tiles.propagation.PropagationComponent;
 
 /**
  * An abstract class that models a game tile.
  */
-public abstract class Tile implements Drawable, Serializable {
+public abstract class Tile implements Cell, Serializable {
 
 	private static final long serialVersionUID = -3314285484900811741L;
 
@@ -40,10 +41,10 @@ public abstract class Tile implements Drawable, Serializable {
 	 * Processes an incoming ray with the defined propagation component.
 	 * 
 	 * @param ray
-	 * @return Ray
+	 * @param bifurcations
 	 */
-	public Ray hit(Ray ray) {
-		return propagation.process(ray);
+	public void hit(Ray ray, Stack<Ray> bifurcations) {
+		propagation.process(ray, bifurcations);
 	}
 
 	/**
@@ -108,18 +109,19 @@ public abstract class Tile implements Drawable, Serializable {
 	}
 
 	/**
-	 * Rotates the tile
+	 * Rotates the tile.
 	 */
 	public final void rotate() {
 		direction.rotate();
 	}
 
-	public Iterable<DrawableLayer> getUnderlay() {
-		return propagation.getRays();
-	}
-
-	public Iterable<DrawableLayer> getOverlay() {
-		return null;
+	/**
+	 * Returns the list of beams that run across this tile.
+	 * 
+	 * @return Iterable
+	 */
+	public Beam getBeam(Direction direction) {
+		return propagation.getBeam(direction);
 	}
 
 	/**
@@ -127,8 +129,8 @@ public abstract class Tile implements Drawable, Serializable {
 	 * 
 	 * @return boolean
 	 */
-	public boolean hasRays() {
-		return propagation.hasRays();
+	public boolean hasBeams() {
+		return propagation.hasBeams();
 	}
 
 	/**
@@ -138,8 +140,8 @@ public abstract class Tile implements Drawable, Serializable {
 	 * @param color
 	 * @return boolean
 	 */
-	public boolean hasRay(Color color) {
-		return propagation.hasRay(color);
+	public boolean hasBeam(Color color) {
+		return propagation.hasBeam(color);
 	}
 
 	/**

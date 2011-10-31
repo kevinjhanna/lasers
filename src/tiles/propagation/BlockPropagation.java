@@ -3,6 +3,7 @@ package tiles.propagation;
 import game.Ray;
 
 import java.awt.Color;
+import java.util.Stack;
 
 import tiles.Tile;
 
@@ -18,10 +19,9 @@ public class BlockPropagation extends PropagationComponent {
 		super(tile);
 	}
 
-	public Ray process(Ray ray) {
+	public void process(Ray ray, Stack<Ray> bifurcations) {
 		setOrigin(ray);
 		ray.stop();
-		return null;
 	}
 
 	public boolean hasRays() {

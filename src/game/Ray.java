@@ -1,15 +1,15 @@
 package game;
 
 import java.awt.Color;
+import java.util.Stack;
 
 import misc.Direction;
 import misc.Position;
-import tiles.DrawableLayer;
 
 /**
  * Class that models a ray in the game.
  */
-public class Ray implements DrawableLayer, Cloneable {
+public class Ray implements Beam, Cloneable {
 
 	private Color color;
 	private Direction direction;
@@ -46,9 +46,10 @@ public class Ray implements DrawableLayer, Cloneable {
 	 * Hits the tile at the current position.
 	 */
 	private void hit(Board board, Position position) {
-		Ray bifurcate = board.getTile(position).hit(this);
-		if (bifurcate != null) {
-			bifurcate.propagate(board, position);
+		Stack<Ray> bifurcations = new Stack<Ray>();
+		board.getTile(position).hit(this, bifurcations);
+		while (!bifurcations.isEmpty()) {
+			bifurcations.pop().propagate(board, position);
 		}
 	}
 
@@ -79,9 +80,10 @@ public class Ray implements DrawableLayer, Cloneable {
 		return new Ray(color, direction);
 	}
 
-	/**
-	 * Returns the ray color.
+	/* (non-Javadoc)
+	 * @see game.Beam#getColor()
 	 */
+	@Override
 	public Color getColor() {
 		return color;
 	}
@@ -95,9 +97,10 @@ public class Ray implements DrawableLayer, Cloneable {
 		this.color = color;
 	}
 
-	/**
-	 * Returns the ray direction.
+	/* (non-Javadoc)
+	 * @see game.Beam#getDirection()
 	 */
+	@Override
 	public Direction getDirection() {
 		return direction;
 	}

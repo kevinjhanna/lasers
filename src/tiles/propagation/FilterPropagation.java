@@ -4,6 +4,7 @@ import game.Ray;
 import gui.ImageUtils;
 
 import java.awt.Color;
+import java.util.Stack;
 
 import tiles.Tile;
 
@@ -18,16 +19,15 @@ public class FilterPropagation extends PropagationComponent {
 		super(tile);
 	}
 
-	public Ray process(Ray ray) {
+	public void process(Ray ray, Stack<Ray> bifurcations) {
 		setOrigin(ray);
 		if (!ray.getDirection().equalsIgnoreSense(getDirection())) {
 			Color filter = ImageUtils.filter(ray.getColor(), getColor());
 			ray.setColor(filter);
-			setRay(ray.getDirection(), ray);
+			setBeam(ray.getDirection(), ray);
 		} else {
 			ray.stop();
 		}
-		return null;
 	}
 
 }

@@ -15,24 +15,18 @@ public class DoubleMirrorPropagation extends MirrorPropagation {
 		super(tile);
 	}
 
-	public Ray process(Ray ray) {
+	public void process(Ray ray) {
 		setOrigin(ray);
 
 		Direction dTile = getDirection();
 		Direction dRay = ray.getDirection();
 
-		Direction m1 = mirrorDirection(dTile, dRay);
-		if (m1 != null) {
-			setRay(m1, ray);
-			ray.setDirection(m1);
-		} else {
-			Direction m2 = mirrorDirection(dTile.getOpposite(), dRay);
-			if (m2 != null) {
-				setRay(m2, ray);
-				ray.setDirection(m2);
-			}
+		Direction mirror = mirrorDirection(dTile, dRay);
+		if (mirror != null) {
+			mirror = mirrorDirection(dTile.getOpposite(), dRay);
 		}
-		return null;
+		setBeam(mirror, ray);
+		ray.setDirection(mirror);
 	}
 
 }
