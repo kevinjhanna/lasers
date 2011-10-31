@@ -3,7 +3,7 @@ package misc;
 import java.io.Serializable;
 
 /**
- * A position in a board.
+ * A class that represents a position.
  */
 public class Position implements Serializable {
 

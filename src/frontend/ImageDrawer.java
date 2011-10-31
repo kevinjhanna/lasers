@@ -16,9 +16,9 @@ import tiles.DoubleMirror;
 import tiles.Drawable;
 import tiles.DrawableLayer;
 import tiles.Filter;
-import tiles.MoveableSource;
-import tiles.SimpleMirror;
 import tiles.Source;
+import tiles.SimpleMirror;
+import tiles.FixedSource;
 import tiles.SplitMirror;
 import tiles.Target;
 import tiles.Wall;
@@ -54,8 +54,8 @@ public class ImageDrawer {
 					.loadImage("resources/split-mirror.png");
 			Image ray = ImageUtils.loadImage("resources/half-laser.png");
 
+			images.put(FixedSource.class.getName(), source);
 			images.put(Source.class.getName(), source);
-			images.put(MoveableSource.class.getName(), source);
 			images.put(Target.class.getName(), target);
 			images.put(Wall.class.getName(), wall);
 			images.put(Filter.class.getName(), filter);

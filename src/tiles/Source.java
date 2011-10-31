@@ -10,28 +10,15 @@ import tiles.propagation.PropagationComponent;
 import misc.Direction;
 
 /**
- * A <tt>Source</tt> tile that does not support rotation or movement.
+ * A <tt>MoveableSource</tt> tile that supports movement but not rotation.
  */
 public class Source extends ColoredTile {
 
-	private static final long serialVersionUID = -7755886326140761567L;
+	private static final long serialVersionUID = -5430284811313280074L;
 
-	/**
-	 * Creates a new source tile
-	 * 
-	 * @param color
-	 * @param direction
-	 */
 	public Source(Color color, Direction direction) {
 		super(color);
 		setDirection(direction);
-	}
-
-	/**
-	 * Returns true because this tile is fixed in its position
-	 */
-	public boolean isFixed() {
-		return true;
 	}
 
 	@Override
@@ -43,4 +30,5 @@ public class Source extends ColoredTile {
 	protected PropagationComponent getPropagationComponent(Tile tile) {
 		return new BlockPropagation(tile);
 	}
+
 }
