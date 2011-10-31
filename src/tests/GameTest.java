@@ -43,12 +43,6 @@ public class GameTest {
 	}
 	
 	@Test
-	public void testRestart() {
-		g.restart();
-		assertTrue(g.isFixed(0, 0));
-	}
-	
-	@Test
 	public void testBoardMethods() {
 		assertTrue(g.getBoardHeight() == 10);
 		assertTrue(g.getBoardWidth() == 15);

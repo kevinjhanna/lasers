@@ -62,14 +62,6 @@ public class Game implements Serializable {
 	}
 
 	/**
-	 * Restarts the game.
-	 */
-	public void restart() {
-		board.reset();
-		populateBoard();
-	}
-
-	/**
 	 * Check if the given size properties are valid for this game.
 	 * 
 	 * @param height
