@@ -22,7 +22,7 @@ public class IOSerializer {
 	 * Creates a new game from a saved game file.
 	 * 
 	 * @param f
-	 * 		The file to lead the game from
+	 * 		The file to load the game from
 	 * @return Game
 	 * @throws IOException
 	 * @throws FileNotFoundException
