@@ -15,7 +15,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import tiles.SimpleMirror;
-import tiles.Source;
+import tiles.FixedSource;
 import tiles.Tile;
 import tiles.Wall;
 
@@ -28,7 +28,7 @@ public class GameTest {
 		Map<Tile, Position> tiles = new HashMap<Tile, Position>();
 		tiles.put(new Wall(), new Position(0, 0));
 		tiles.put(new SimpleMirror(Direction.EAST), new Position(1, 1));
-		tiles.put(new Source(Color.RED, Direction.EAST), new Position(2, 0));
+		tiles.put(new FixedSource(Color.RED, Direction.EAST), new Position(2, 0));
 		
 		g = new Game(10, 15, tiles);
 		g.start(new NullObserver());
@@ -40,12 +40,6 @@ public class GameTest {
 		assertFalse(g.isFixed(1, 1));
 		assertFalse(g.canRotate(0, 0));
 		assertTrue(g.canRotate(1, 1));
-	}
-	
-	@Test
-	public void testRestart() {
-		g.restart();
-		assertTrue(g.isFixed(0, 0));
 	}
 	
 	@Test

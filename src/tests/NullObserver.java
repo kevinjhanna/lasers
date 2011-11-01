@@ -1,7 +1,7 @@
 package tests;
 
-import tiles.Drawable;
 import game.Observer;
+import tiles.Cell;
 
 /**
  * Implementation of the observer interface that does not act on any callback.
@@ -10,7 +10,7 @@ import game.Observer;
 public class NullObserver implements Observer {
 
 	@Override
-	public void onTileUpdate(int row, int column, Drawable drawable) {
+	public void onCellUpdate(int row, int column, Cell cell) {
 	}
 
 	@Override

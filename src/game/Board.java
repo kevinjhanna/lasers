@@ -125,13 +125,6 @@ public class Board implements Serializable {
 	public int getHeight() {
 		return height;
 	}
-	
-	/**
-	 * Resets the board to blank state
-	 */
-	public void reset() {
-		fillEmpty();
-	}
 
 	/**
 	 * Fills the board with empty cells

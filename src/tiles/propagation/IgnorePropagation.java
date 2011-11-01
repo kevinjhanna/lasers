@@ -1,5 +1,7 @@
 package tiles.propagation;
 
+import java.util.Stack;
+
 import tiles.Tile;
 import game.Ray;
 
@@ -14,10 +16,9 @@ public class IgnorePropagation extends PropagationComponent {
 		super(tile);
 	}
 
-	public Ray process(Ray ray) {
+	public void process(Ray ray, Stack<Ray> bifurcations) {
 		setOrigin(ray);
-		setRay(ray.getDirection(), ray);
-		return null;
+		setBeam(ray.getDirection(), ray);
 	}
 
 }

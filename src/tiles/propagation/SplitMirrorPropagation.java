@@ -1,8 +1,11 @@
 package tiles.propagation;
 
-import tiles.Tile;
-import misc.Direction;
 import game.Ray;
+
+import java.util.Stack;
+
+import misc.Direction;
+import tiles.Tile;
 
 /**
  * Propagation component that lets rays continue in the direction they came from
@@ -17,26 +20,19 @@ public class SplitMirrorPropagation extends MirrorPropagation {
 	}
 
 	@Override
-	public Ray process(Ray ray) {
+	public void process(Ray ray, Stack<Ray> bifurcations) {
 		setOrigin(ray);
 
 		Direction dTile = getDirection();
 		Direction dRay = ray.getDirection();
 
-		Direction m1 = mirrorDirection(dTile, dRay);
-		if (m1 != null) {
-			setRay(m1, ray);
-			setRay(ray.getDirection(), ray);
-			return ray.bifurcate(m1);
-		} else {
-			Direction m2 = mirrorDirection(dTile.getOpposite(), dRay);
-			if (m2 != null) {
-				setRay(m2, ray);
-				setRay(ray.getDirection(), ray);
-				return ray.bifurcate(m2);
-			}
+		Direction mirror = mirrorDirection(dTile, dRay);
+		if (mirror == null) {
+			mirror = mirrorDirection(dTile.getOpposite(), dRay);
 		}
-		return null;
+		setBeam(mirror, ray);
+		setBeam(ray.getDirection(), ray);
+		bifurcations.push(ray.bifurcate(mirror));
 	}
 
 }

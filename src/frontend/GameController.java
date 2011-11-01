@@ -15,8 +15,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import parser.GameParser;
-
-import tiles.Drawable;
+import tiles.Cell;
 
 /**
  * Implementation of the <tt>Controller</tt> in the MVC architecture.
@@ -138,10 +137,10 @@ public class GameController implements Controller, Observer {
 	 * 
 	 * @param row
 	 * @param column
-	 * @param drawable
+	 * @param cell
 	 */
-	public void onTileUpdate(int row, int column, Drawable drawable) {
-		container.getView().updateCell(row, column, drawable);
+	public void onCellUpdate(int row, int column, Cell cell) {
+		container.getView().updateCell(row, column, cell);
 	}
 
 	/**

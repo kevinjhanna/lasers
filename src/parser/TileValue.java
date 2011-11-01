@@ -3,10 +3,9 @@ package parser;
 import java.awt.Color;
 
 import misc.Direction;
-
 import tiles.DoubleMirror;
 import tiles.Filter;
-import tiles.MoveableSource;
+import tiles.FixedSource;
 import tiles.SimpleMirror;
 import tiles.Source;
 import tiles.SplitMirror;
@@ -19,7 +18,7 @@ import tiles.Wall;
  * basic validations.
  */
 public enum TileValue {
-	SOURCE(1, 3, true), MOVEABLESOURCE(2, 3, true), TARGET(3, 0, true), SIMPLEMIRROR(
+	FIXEDSOURCE(1, 3, true), SOURCE(2, 3, true), TARGET(3, 0, true), SIMPLEMIRROR(
 			4, 3, false), DOUBLEMIRROR(5, 1, false), SPLITMIRROR(6, 1, false), WALL(
 			7, 0, false), FILTER(8, 1, true);
 
@@ -57,8 +56,8 @@ public enum TileValue {
 		case SOURCE:
 			realTile = new Source(color, direction);
 			break;
-		case MOVEABLESOURCE:
-			realTile = new MoveableSource(color, direction);
+		case FIXEDSOURCE:
+			realTile = new FixedSource(color, direction);
 			break;
 		case TARGET:
 			realTile = new Target(color);

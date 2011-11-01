@@ -1,8 +1,11 @@
 package tiles.propagation;
 
-import tiles.Tile;
 import game.Ray;
+
+import java.util.Stack;
+
 import misc.Direction;
+import tiles.Tile;
 
 /**
  * Propagation component that changes the direction of the ray in a mirrored
@@ -16,7 +19,7 @@ public class MirrorPropagation extends PropagationComponent {
 		super(tile);
 	}
 
-	public Ray process(Ray ray) {
+	public void process(Ray ray, Stack<Ray> bifurcations) {
 		setOrigin(ray);
 
 		Direction dTile = getDirection();
@@ -24,12 +27,11 @@ public class MirrorPropagation extends PropagationComponent {
 
 		Direction mirror = mirrorDirection(dTile, dRay);
 		if (mirror != null) {
-			setRay(mirror, ray);
+			setBeam(mirror, ray);
 			ray.setDirection(mirror);
 		} else {
 			ray.stop();
 		}
-		return null;
 	}
 
 	protected final Direction mirrorDirection(Direction tile, Direction ray) {
