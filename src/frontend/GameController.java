@@ -9,6 +9,7 @@ import exceptions.TargetTileNotEmptyException;
 import game.Cell;
 import game.Game;
 import game.Observer;
+import iogame.IOHandler;
 import iogame.IOSerializer;
 
 import java.io.File;
@@ -66,7 +67,7 @@ public class GameController implements Controller, Observer {
 		File f = container.showLoad();
 		if (f != null) {
 			try {
-				IOSerializer io = new IOSerializer(f);
+				IOHandler io = new IOSerializer(f);
 				game = io.load();
 				startGame();
 			} catch (FileNotFoundException e) {
@@ -192,7 +193,7 @@ public class GameController implements Controller, Observer {
 		File f = container.showSave();
 		if (f != null) {
 			try {
-				IOSerializer io = new IOSerializer(f);
+				IOHandler io = new IOSerializer(f);
 				io.save(game);
 			} catch (FileNotFoundException e) {
 				container.showError("Unable to save game in " + f.getName());

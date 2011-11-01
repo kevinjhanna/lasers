@@ -16,7 +16,7 @@ import game.Game;
 /**
  * This class handles game saving and loading through serialization.
  */
-public class IOSerializer {
+public class IOSerializer implements IOHandler{
 	private File file;
 
 	/**
