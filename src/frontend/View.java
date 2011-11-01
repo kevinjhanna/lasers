@@ -1,6 +1,6 @@
 package frontend;
 
-import tiles.Cell;
+import game.Cell;
 
 /**
  * Interface that defines the actions that can be performed in a <tt>View</tt>.

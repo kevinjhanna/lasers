@@ -1,6 +1,7 @@
 package frontend;
 
 import game.Beam;
+import game.Cell;
 import game.Drawable;
 import game.Ray;
 import gui.ImageUtils;
@@ -14,7 +15,6 @@ import java.util.List;
 import java.util.Map;
 
 import misc.Direction;
-import tiles.Cell;
 import tiles.DoubleMirror;
 import tiles.Filter;
 import tiles.FixedSource;

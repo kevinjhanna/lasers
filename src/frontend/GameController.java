@@ -6,6 +6,7 @@ import exceptions.InvalidBoardSizeException;
 import exceptions.NoGameException;
 import exceptions.SourceTileEmptyException;
 import exceptions.TargetTileNotEmptyException;
+import game.Cell;
 import game.Game;
 import game.Observer;
 import iogame.IOSerializer;
@@ -15,7 +16,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import parser.GameParser;
-import tiles.Cell;
 
 /**
  * Implementation of the <tt>Controller</tt> in the MVC architecture.

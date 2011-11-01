@@ -1,5 +1,6 @@
 package frontend;
 
+import game.Cell;
 import gui.BoardPanel;
 import gui.BoardPanelListener;
 
@@ -14,7 +15,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-import tiles.Cell;
 
 /**
  * Implementation of the <tt>View</tt> in the MVC architecture.

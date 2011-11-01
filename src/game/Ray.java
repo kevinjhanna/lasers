@@ -48,8 +48,10 @@ public class Ray implements Beam, Cloneable {
 	private void hit(Board board, Position position) {
 		Stack<Ray> bifurcations = new Stack<Ray>();
 		board.getTile(position).hit(this, bifurcations);
-		while (!bifurcations.isEmpty()) {
-			bifurcations.pop().propagate(board, position);
+		if (!stopped) {
+			while (!bifurcations.isEmpty()) {
+				bifurcations.pop().propagate(board, position);
+			}
 		}
 	}
 

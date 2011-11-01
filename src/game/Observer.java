@@ -1,6 +1,5 @@
 package game;
 
-import tiles.Cell;
 
 /**
  * Interface with callbacks from the game.
