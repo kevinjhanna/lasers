@@ -64,6 +64,9 @@ public class Window extends JFrame implements ViewContainer {
 	 * @see frontend.ViewContainer#setGame(int, int)
 	 */
 	public void setGame(int boardHeight, int boardWidth) {
+		if (gamePanel != null) {
+			getContentPane().remove(gamePanel);
+		}
 		gamePanel = new GamePanel(controller, boardHeight, boardWidth);
 	}
 
