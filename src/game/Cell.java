@@ -1,7 +1,6 @@
-package tiles;
+package game;
 
-import game.Beam;
-import game.Drawable;
+import tiles.Tile;
 import misc.Direction;
 
 /**

@@ -1,6 +1,7 @@
 package tiles;
 
 import game.Beam;
+import game.Cell;
 import game.Ray;
 
 import java.awt.Color;

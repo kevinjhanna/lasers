@@ -1,7 +1,7 @@
 package tests;
 
+import game.Cell;
 import game.Observer;
-import tiles.Cell;
 
 /**
  * Implementation of the observer interface that does not act on any callback.
