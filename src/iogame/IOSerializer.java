@@ -44,7 +44,9 @@ public class IOSerializer implements IOHandler{
 			stream = new ObjectInputStream(new BufferedInputStream(
 					new FileInputStream(file)));
 			return (Game) stream.readObject();
-
+		} catch (ClassCastException e){
+			// TODO preguntar si esta bueno atrapar esta excepcion o catchear Exception
+			throw new GameIOException();
 		} catch (ClassNotFoundException e) {
 			throw new GameIOException();
 		} finally {
