@@ -1,8 +1,9 @@
 package game;
 
 import java.io.Serializable;
-import java.util.Map;
+import java.util.List;
 
+import misc.Pair;
 import misc.Position;
 import tiles.Source;
 import tiles.Target;
@@ -26,7 +27,6 @@ public class Game implements Serializable {
 	private transient Observer observer;
 	private Integer score;
 	private Board board;
-	private Map<Tile, Position> tiles;
 	public static final int MIN_HEIGHT = 5;
 	public static final int MIN_WIDTH = 5;
 	public static final int MAX_HEIGHT = 20;
@@ -42,23 +42,26 @@ public class Game implements Serializable {
 	 * @param tiles
 	 * @throws InvalidBoardSizeException
 	 */
-	public Game(int boardHeight, int boardWidth, Map<Tile, Position> tiles)
-			throws InvalidBoardSizeException {
+	public Game(int boardHeight, int boardWidth,
+			List<Pair<Tile, Position>> tiles) throws InvalidBoardSizeException {
 
 		if (!validSize(boardHeight, boardWidth)) {
 			throw new InvalidBoardSizeException();
 		}
-		this.tiles = tiles;
 
 		board = new Board(boardHeight, boardWidth);
+		populateBoard(tiles);
 	}
 
 	/**
 	 * Starts the game.
 	 */
 	public void start(Observer observer) {
+		if (observer == null) {
+			throw new IllegalArgumentException("Observer can't be null.");
+		}
 		this.observer = observer;
-		populateBoard();
+		calculateRays();
 	}
 
 	/**
@@ -140,9 +143,6 @@ public class Game implements Serializable {
 		Position target = new Position(targetRow, targetColumn);
 		board.moveTile(source, target);
 
-		Tile tile = getTile(targetRow, targetColumn);
-		tiles.put(tile, target);
-
 		calculateRays();
 	}
 
@@ -196,12 +196,15 @@ public class Game implements Serializable {
 	/**
 	 * Populates the board with the current set of tiles and their corresponding
 	 * locations.
+	 * 
+	 * @param tiles
 	 */
-	private void populateBoard() {
-		for (Map.Entry<Tile, Position> e : tiles.entrySet()) {
-			board.setTile(e.getValue(), e.getKey());
+	private void populateBoard(List<Pair<Tile, Position>> tiles) {
+		for (Pair<Tile, Position> p : tiles) {
+			if (p != null) {				
+				board.setTile(p.getSecond(), p.getFirst());
+			}
 		}
-		calculateRays();
 	}
 
 	/**
@@ -210,10 +213,13 @@ public class Game implements Serializable {
 	private void calculateRays() {
 		clearBoardRays();
 
-		for (Map.Entry<Tile, Position> e : tiles.entrySet()) {
-			if (e.getKey() instanceof Source) {
-				new Ray(e.getKey().getColor(), e.getKey().getDirection())
-						.propagate(board, e.getValue());
+		for (int i = 0; i < getBoardHeight(); i++) {
+			for (int j = 0; j < getBoardWidth(); j++) {
+				Tile tile = getTile(i, j);
+				if (tile instanceof Source) {
+					new Ray(tile.getColor(), tile.getDirection()).propagate(
+							board, new Position(i, j));
+				}
 			}
 		}
 
@@ -231,13 +237,16 @@ public class Game implements Serializable {
 	 */
 	private void verifyWinCondition() {
 		boolean win = true;
-		for (Map.Entry<Tile, Position> e : tiles.entrySet()) {
-			if (e.getKey() instanceof Target) {
-				if (!e.getKey().hasBeam(e.getKey().getColor())) {
+
+		for (int i = 0; i < getBoardHeight(); i++) {
+			for (int j = 0; j < getBoardWidth(); j++) {
+				Tile tile = getTile(i, j);
+				if (tile instanceof Target && !tile.hasBeam(tile.getColor())) {
 					win = false;
 				}
 			}
 		}
+
 		if (win) {
 			observer.onWin();
 		}
