@@ -1,8 +1,11 @@
 package tiles.propagation;
 
-import tiles.Tile;
 import game.Ray;
+
+import java.util.Stack;
+
 import misc.Direction;
+import tiles.Tile;
 
 /**
  * Propagation component that reflects rays in every direction.
@@ -15,14 +18,15 @@ public class DoubleMirrorPropagation extends MirrorPropagation {
 		super(tile);
 	}
 
-	public void process(Ray ray) {
+	@Override
+	public void process(Ray ray, Stack<Ray> bifurcations) {
 		setOrigin(ray);
 
 		Direction dTile = getDirection();
 		Direction dRay = ray.getDirection();
 
 		Direction mirror = mirrorDirection(dTile, dRay);
-		if (mirror != null) {
+		if (mirror == null) {
 			mirror = mirrorDirection(dTile.getOpposite(), dRay);
 		}
 		setBeam(mirror, ray);
