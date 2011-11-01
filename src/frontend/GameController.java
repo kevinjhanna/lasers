@@ -69,6 +69,9 @@ public class GameController implements Controller, Observer {
 				IOSerializer io = new IOSerializer(f);
 				game = io.load();
 				startGame();
+			} catch (FileNotFoundException e) {
+				container
+						.showError("The saved file you are trying to load does not exist.");
 			} catch (IOException e) {
 				container.showError("Unable to load saved game.");
 			} catch (GameIOException e) {
@@ -110,6 +113,9 @@ public class GameController implements Controller, Observer {
 				GameParser parser = new GameParser(f);
 				game = parser.parse();
 				startGame();
+			} catch (FileNotFoundException e) {
+				container
+						.showError("The board file you are trying to load does not exist.");
 			} catch (IOException e) {
 				container.showError("Unable to load board file.");
 			} catch (InvalidBoardFileException e) {
