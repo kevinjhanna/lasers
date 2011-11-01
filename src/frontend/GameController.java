@@ -66,7 +66,8 @@ public class GameController implements Controller, Observer {
 		File f = container.showLoad();
 		if (f != null) {
 			try {
-				game = IOSerializer.load(f);
+				IOSerializer io = new IOSerializer(f);
+				game = io.load();
 				startGame();
 			} catch (IOException e) {
 				container.showError("Unable to load saved game.");
@@ -185,7 +186,8 @@ public class GameController implements Controller, Observer {
 		File f = container.showSave();
 		if (f != null) {
 			try {
-				IOSerializer.save(game, f);
+				IOSerializer io = new IOSerializer(f);
+				io.save(game);
 			} catch (FileNotFoundException e) {
 				container.showError("Unable to save game in " + f.getName());
 			} catch (IOException e) {
