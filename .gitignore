@@ -3,3 +3,4 @@ bin
 .project
 *.class
 *.jar
+*.DS_Store

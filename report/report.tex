@@ -1,0 +1,62 @@
+\documentclass[a4paper, 11pt]{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+\usepackage{fancyhdr}
+
+\usepackage[pdftex]{graphicx}
+
+
+\usepackage[utf8]{inputenc} 
+\usepackage[spanish]{babel} 
+
+
+\pagestyle{fancy}
+
+\fancyhead{}
+\fancyhead[L]{Lasers and Mirors - POO}
+\fancyhead[R]{Bond - Hanna}
+
+% define the title
+\title{\Huge {Lasers and Mirrors} \\ Programación Orientada a Objetos\\[0.7cm] Trabajo Práctico}
+\author{Federico Bond\\ndelegajo \and Kevin J. Hanna\\ndelegajo}
+\date{Fecha de Entrega: 4 de Noviembre, 2011}
+\begin{document} 
+
+
+\maketitle
+\begin{abstract}
+
+\end{abstract}
+
+
+\newpage
+\tableofcontents
+\clearpage 
+
+
+\section{Diseño}
+La implementación del juego Lasers and Mirrors intenta recrear una arquitectura MVC (Model, View y Controller). En el modelo (Game.java), se encuentra toda la lógica de negocios del juego. Las vistas, en nuestro caso las clases que implementan View, sirven para interactuar con el usuario. El controlador (GameController.java) es un intermediario entre las vistas y el modelo. Este sigue siendo de frontend y se encarga de llamar al modelo que está en el backend.
+	\subsection{Game}
+		
+
+\section{Problemas}
+	\subsection{Organización}
+		Decidimos utilizar github (git) como repositorio para nuestro proyecto y las decisiones tomadas por chat en gmail para tenerlas documentadas.
+		
+	\subsection{Reset}
+	% seguir esto...
+		Al principio, diseñamos un opción de restart. El problema fue que esto nos llevo a armar una estructura que almacenaba como se guardaban las tiles inicialmente, para poder resetear el juego desde un juego cargado sin el archivo board original. Con esta estructura armada nos empezó a demorar y ensuciar el código de cargar un juego previamente guardado. Solución: cut down features...
+		
+	\subsection{Forma imperativa del parser}
+		Para poder consumir el archivo board tuvimos que armar toda una secuencia lógica bastante imperativa..
+\section{Decisiones de desarrollo} 
+	\subsection{Game vs. Board}
+		Una de las decisiones que tomamos fue hacer un tablero genérico (con celdas), independiente del juego para el que se use. Es decir, las constantes de tamaño máximo y el método para validarlo se encuentran en la clase Game y no en la clase Board.
+		
+	\subsection{Método de guardar y cargar juego}
+		Inicialmente, la clase Game contaba con métodos para cargar y guardar una partida. Decidimos armar un paquete IOGame para organizar todas las opciones de guardado y cargado. Aunque en nuestro caso solo es posible mediante serialización, se podría extender a otras formas.\footnote{Habría que armar un controlador con los métodos save y load, pero al ser static es imposible en esta versión de java}. De la misma forma se llegó a la conclusión de separar el parser de Game.
+		
+
+\end{document} 
+ 
