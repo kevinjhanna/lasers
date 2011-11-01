@@ -6,7 +6,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -24,7 +24,6 @@ import game.Game;
 public class GameParser {
 
 	private File file;
-	private Scanner stream;
 	private int width;
 	private int height;
 
@@ -33,15 +32,9 @@ public class GameParser {
 	 * 
 	 * @param file
 	 *            The file to parse
-	 * @throws IOException
-	 *             In case the file exists
 	 */
-	public GameParser(File file) throws FileNotFoundException {
-		if (file.exists() && file.isFile()) {
-			this.file = file;
-		} else {
-			throw new FileNotFoundException();
-		}
+	public GameParser(File file) {
+		this.file = file;
 	}
 
 	/**
@@ -49,22 +42,25 @@ public class GameParser {
 	 * 
 	 * @return Game
 	 * @throws IOException
+	 *             In case the file does not exist
+	 * @throws IOException
 	 *             In case there is a problem reading the file
 	 * @throws InvalidBoardFileException
 	 * @throws InvalidBoardSizeException
 	 */
 	public Game parse() throws IOException, InvalidBoardFileException,
-			InvalidBoardSizeException {
+			InvalidBoardSizeException, FileNotFoundException {
 
-		List<Pair<Tile, Position>> tiles = new LinkedList<Pair<Tile, Position>>();
+		List<Pair<Tile, Position>> tiles = new ArrayList<Pair<Tile, Position>>();
 
+		Scanner stream = null;
 		try {
 			stream = new Scanner(new BufferedInputStream(new FileInputStream(
 					file)));
 
 			boolean hasSize = false;
 			while (stream.hasNextLine()) {
-				/* leave out comments (starting with #) and whitespaces */
+				/* leave out comments (starting with #) and whitespace */
 				String aLine = stream.nextLine().replaceAll("(#.*|\\s)", "");
 				if (aLine.length() > 0) {
 					/* do not process empty lines */

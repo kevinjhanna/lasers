@@ -30,7 +30,8 @@ public class Pair<S, T> {
 
 	/**
 	 * Returns the second and last element of the pair.
-	 * @return
+	 * 
+	 * @return T
 	 */
 	public T getSecond() {
 		return second;
