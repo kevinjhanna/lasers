@@ -5,17 +5,18 @@ import static org.junit.Assert.assertTrue;
 import game.Game;
 
 import java.awt.Color;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 import misc.Direction;
+import misc.Pair;
 import misc.Position;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import tiles.SimpleMirror;
 import tiles.FixedSource;
+import tiles.SimpleMirror;
 import tiles.Tile;
 import tiles.Wall;
 
@@ -25,10 +26,10 @@ public class GameTest {
 	
 	@Before
 	public void init() {
-		Map<Tile, Position> tiles = new HashMap<Tile, Position>();
-		tiles.put(new Wall(), new Position(0, 0));
-		tiles.put(new SimpleMirror(Direction.EAST), new Position(1, 1));
-		tiles.put(new FixedSource(Color.RED, Direction.EAST), new Position(2, 0));
+		List<Pair<Tile, Position>> tiles = new ArrayList<Pair<Tile, Position>>();
+		tiles.add(new Pair<Tile, Position>(new Wall(), new Position(0, 0)));
+		tiles.add(new Pair<Tile, Position>(new SimpleMirror(Direction.EAST), new Position(1, 1)));
+		tiles.add(new Pair<Tile, Position>(new FixedSource(Color.RED, Direction.EAST), new Position(2, 0))	);
 		
 		g = new Game(10, 15, tiles);
 		g.start(new NullObserver());
