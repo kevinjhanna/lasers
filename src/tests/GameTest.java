@@ -2,6 +2,7 @@ package tests;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import exceptions.InvalidBoardSizeException;
 import game.Game;
 
 import java.awt.Color;
@@ -55,4 +56,17 @@ public class GameTest {
 		
 	}
 	
+	@Test(expected = InvalidBoardSizeException.class)
+	public void testInvalidGameBoardSize(){
+		List<Pair<Tile, Position>> tiles = new ArrayList<Pair<Tile, Position>>();
+		tiles.add(new Pair<Tile, Position>(new Wall(), new Position(0, 0)));
+		new Game(21, 21, tiles);
+	}
+	
+	@Test
+	public void testValidMaxGameBoardSize(){
+		List<Pair<Tile, Position>> tiles = new ArrayList<Pair<Tile, Position>>();
+		tiles.add(new Pair<Tile, Position>(new Wall(), new Position(0, 0)));
+		new Game(20, 20, tiles);
+	}
 }

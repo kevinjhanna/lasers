@@ -50,7 +50,7 @@ public class GameParserTest {
 	}
 
 	@Test
-	public void tesValidTileRotation() throws IOException,
+	public void testValidTileRotation() throws IOException,
 			InvalidBoardFileException, InvalidBoardSizeException {
 
 		GameParser parser = new GameParser(new File(
@@ -94,4 +94,13 @@ public class GameParserTest {
 		parser.parse();
 	}
 
+	@Test
+	public void testMissingParameters() throws IOException, InvalidBoardFileException,
+			InvalidBoardSizeException {
+
+		GameParser parser = new GameParser(
+				new File("boards/tests/MissingParameters.board"));
+		parser.parse();
+	}
+	
 }

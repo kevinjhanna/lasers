@@ -44,10 +44,11 @@ public class IOSerializer implements IOHandler{
 			stream = new ObjectInputStream(new BufferedInputStream(
 					new FileInputStream(file)));
 			return (Game) stream.readObject();
-		} catch (ClassCastException e){
-			// TODO preguntar si esta bueno atrapar esta excepcion o catchear Exception
-			throw new GameIOException();
-		} catch (ClassNotFoundException e) {
+		} catch (FileNotFoundException e){
+			// on purpose
+			throw e;
+		} catch (Exception e){
+			// abstract all Exceptions caused by serializing
 			throw new GameIOException();
 		} finally {
 			if (stream != null) {
@@ -68,7 +69,6 @@ public class IOSerializer implements IOHandler{
 			stream = new ObjectOutputStream(new BufferedOutputStream(
 					new FileOutputStream(file)));
 			stream.writeObject(game);
-
 		} finally {
 			if (stream != null) {
 				stream.close();
