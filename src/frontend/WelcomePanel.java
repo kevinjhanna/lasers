@@ -1,14 +1,17 @@
 package frontend;
 
-import java.awt.Font;
+import gui.ImageUtils;
+
+import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
-import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.SwingConstants;
 
 /**
  * Panel that presents a menu with program options if a game has not yet been
@@ -39,10 +42,16 @@ public class WelcomePanel extends JPanel {
 	private JButton quit;
 
 	/**
+	 * Background image
+	 */
+	private Image background;
+
+	/**
 	 * Creates a new Welcome panel that responds to the controller parameter.
 	 * 
 	 * @param controller
 	 *            The controller that will respond to this panel
+	 * @param image 
 	 */
 	public WelcomePanel(Controller controller) {
 		this.controller = controller;
@@ -56,18 +65,18 @@ public class WelcomePanel extends JPanel {
 	public void initialize() {
 		setBorder(BorderFactory.createEmptyBorder(30, 30, 30, 30));
 		setLayout(null);
-
-		// Title label
-		JLabel title = new JLabel("Lasers & Mirrors");
-		title.setFont(new Font("Helvetica", Font.BOLD, 18));
-		title.setHorizontalAlignment(SwingConstants.CENTER);
-		title.setBounds(117, 28, 200, 16);
-		add(title);
+		
+		// Load background image
+		try {
+			background = ImageUtils.loadImage("resources/title.png");
+		} catch (IOException e) {
+			JOptionPane.showMessageDialog(this, "Unable to load all resources. You may continue to play the game, but some images may not show.", "Resource error", JOptionPane.WARNING_MESSAGE);
+		}
 
 		// New game button
 		newGame = new JButton("New game");
 		newGame.putClientProperty("JButton.buttonType", "gradient");
-		newGame.setBounds(117, 73, 200, 40);
+		newGame.setBounds(50, 122, 200, 40);
 		newGame.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
@@ -80,7 +89,7 @@ public class WelcomePanel extends JPanel {
 		// Load game button
 		loadGame = new JButton("Load game");
 		loadGame.putClientProperty("JButton.buttonType", "gradient");
-		loadGame.setBounds(117, 115, 200, 40);
+		loadGame.setBounds(50, 173, 200, 40);
 		loadGame.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
@@ -93,7 +102,7 @@ public class WelcomePanel extends JPanel {
 		// Quit game button
 		quit = new JButton("Quit");
 		quit.putClientProperty("JButton.buttonType", "gradient");
-		quit.setBounds(117, 157, 200, 40);
+		quit.setBounds(50, 223, 200, 40);
 		quit.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
@@ -102,5 +111,13 @@ public class WelcomePanel extends JPanel {
 
 		});
 		add(quit);
+	}
+
+	@Override
+	public void paint(Graphics g) {
+		if (background != null) {
+			g.drawImage(background, 0, 0, null);			
+		}
+		paintComponents(g);
 	}
 }

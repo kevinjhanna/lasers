@@ -36,16 +36,15 @@ public class Window extends JFrame implements ViewContainer {
 	public void initialize() {
 		setTitle("Lasers & Mirrors");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
 		setResizable(false);
 		initializeContentPane();
 
 		menu = new Menu(controller);
 		setJMenuBar(menu);
-		
+
 		welcomePanel = new WelcomePanel(controller);
-		contentPane.add(welcomePanel);
-		
+
+		setGameVisible(false);
 		setVisible(true);
 	}
 
@@ -83,9 +82,11 @@ public class Window extends JFrame implements ViewContainer {
 					menu.getHeight() + gamePanel.getHeight());
 			menu.enableGameItems(true);
 		} else {
-			getContentPane().remove(gamePanel);
-			getContentPane().add(welcomePanel);
-			setBounds(100, 100, 450, 300);
+			if (gamePanel != null) {
+				contentPane.remove(gamePanel);
+			}
+			contentPane.add(welcomePanel);
+			setBounds(100, 100, 300, 350);
 			menu.enableGameItems(false);
 		}
 	}

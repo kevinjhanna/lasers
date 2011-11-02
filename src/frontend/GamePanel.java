@@ -3,18 +3,21 @@ package frontend;
 import game.Cell;
 import gui.BoardPanel;
 import gui.BoardPanelListener;
+import gui.ImageUtils;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.Timer;
-
 
 /**
  * Implementation of the <tt>View</tt> in the MVC architecture.
@@ -40,6 +43,7 @@ public class GamePanel extends JPanel implements View {
 	private String timeFormatSmall = "%s";
 	private Timer timer;
 	private boolean useSmallTimeFormat = false;
+	private Image background;
 
 	private int elapsedTime;
 
@@ -65,6 +69,18 @@ public class GamePanel extends JPanel implements View {
 	 */
 	public void initialize() {
 		setLayout(new BorderLayout());
+
+		// Load background image
+		try {
+			background = ImageUtils.loadImage("resources/background.png");
+		} catch (IOException e) {
+			JOptionPane
+					.showMessageDialog(
+							this,
+							"Unable to load all resources. You may continue to play the game, but some images may not show.",
+							"Resource error", JOptionPane.WARNING_MESSAGE);
+		}
+
 		initializeBoard();
 		initializeStatusPanel();
 		setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
@@ -103,6 +119,7 @@ public class GamePanel extends JPanel implements View {
 		statusPanel = new JPanel();
 		statusPanel.setLayout(new BorderLayout());
 		statusPanel.setBorder(BorderFactory.createEmptyBorder(10, 0, 0, 0));
+		statusPanel.setOpaque(false);
 		initializeScore();
 		initializeTimer();
 		add(statusPanel, BorderLayout.SOUTH);
@@ -160,4 +177,13 @@ public class GamePanel extends JPanel implements View {
 	public void updateScore(int score) {
 		scoreLabel.setText(String.format(scoreFormat, score));
 	}
+
+	@Override
+	public void paint(Graphics g) {
+		if (background != null) {			
+			g.drawImage(background, 0, 0, null);
+		}
+		paintComponents(g);
+	}
+
 }

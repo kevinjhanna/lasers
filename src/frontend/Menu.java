@@ -31,7 +31,7 @@ public class Menu extends JMenuBar {
 	private JMenu file;
 
 	private JMenuItem fileNew;
-	private JMenuItem fileOpen;
+	private JMenuItem fileLoad;
 	private JMenuItem fileSave;
 	private JMenuItem fileClose;
 	private JMenuItem fileQuit;
@@ -68,16 +68,16 @@ public class Menu extends JMenuBar {
 		file.add(fileNew);
 
 		// File -> Open saved game...
-		fileOpen = new JMenuItem("Open saved game...");
-		fileOpen.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, mask));
-		fileOpen.addActionListener(new ActionListener() {
+		fileLoad = new JMenuItem("Load saved game...");
+		fileLoad.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, mask));
+		fileLoad.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
 				controller.loadGame();
 			}
 
 		});
-		file.add(fileOpen);
+		file.add(fileLoad);
 
 		file.add(new JSeparator());
 
