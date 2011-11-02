@@ -59,21 +59,26 @@ public class GameParser {
 					file)));
 
 			boolean hasSize = false;
-			while (stream.hasNextLine()) {
-				/* leave out comments (starting with #) and whitespace */
-				String aLine = stream.nextLine().replaceAll("(#.*|\\s)", "");
-				if (aLine.length() > 0) {
-					/* do not process empty lines */
-					if (!hasSize) {
-						processSize(aLine);
-						hasSize = true;
-					} else {
-						processTile(aLine, tiles);
+			try {
+				while (stream.hasNextLine()) {
+
+					/* leave out comments (starting with #) and whitespace */
+					String aLine = stream.nextLine()
+							.replaceAll("(#.*|\\s)", "");
+					if (aLine.length() > 0) {
+						/* do not process empty lines */
+						if (!hasSize) {
+							processSize(aLine);
+							hasSize = true;
+						} else {
+							processTile(aLine, tiles);
+						}
 					}
 				}
+				return new Game(width, height, tiles);
+			} catch (NumberFormatException e) {
+				throw new InvalidBoardFileException();
 			}
-			return new Game(width, height, tiles);
-
 		} finally {
 			if (stream != null) {
 				stream.close();
@@ -122,9 +127,10 @@ public class GameParser {
 		lineScanner.useDelimiter(",");
 		// We know each value will be a non-negative integer
 
-		// Board Size
+		// Position
 		Integer row = Integer.parseInt(lineScanner.next());
 		Integer column = Integer.parseInt(lineScanner.next());
+
 		if (row >= height || column >= width) {
 			throw new InvalidBoardFileException();
 		}
