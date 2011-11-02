@@ -74,9 +74,9 @@ public class GameController implements Controller, Observer {
 				container
 						.showError("The saved file you are trying to load does not exist.");
 			} catch (IOException e) {
-				container.showError("Unable to load saved game.");
+				container.showError("Unable to load saved game. Please try again.");
 			} catch (GameIOException e) {
-				container.showError("Unable to load saved game. " + f.getName()
+				container.showError("Unable to load saved game. The file " + f.getName()
 						+ " has been corrupted.");
 			}
 		}
