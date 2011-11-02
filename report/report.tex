@@ -7,10 +7,8 @@
 
 \usepackage[pdftex]{graphicx}
 
-
 \usepackage[utf8]{inputenc} 
 \usepackage[spanish]{babel} 
-
 
 \pagestyle{fancy}
 
@@ -31,7 +29,7 @@
 \clearpage 
 
 \section{Introducción}
-El objetivo del trabajo práctico consistió en implementar una variante del juego Lasers \& Mirors en el lenguaje Java. El trabajo nos permitió reforzar varios conceptos de diseño e implementación de objetos.
+El objetivo del trabajo práctico consistió en implementar una variante del juego Lasers \& Mirors en el lenguaje Java. El trabajo nos permitió reforzar varios conceptos de diseño e implementación de objetos aprendidos en Java.
 
 \section{Diseño}
 
@@ -72,7 +70,7 @@ El objetivo del trabajo práctico consistió en implementar una variante del jue
 	La lógica del juego en sí no presentó problemas muy grandes a la hora de implementar, pero sí perdimos bastante tiempo al principio al encontrar inconsistencias en los métodos que trabajaban con coordenadas, donde los parámetros estában en el órden equivocado. Esto motivó el uso de la nomenclatura \texttt{row} y \texttt{column} en lugar de \texttt{x} e \texttt{y} para facilitar la comprensión y la búsqueda de errores. 
 
 	\subsection{Game vs. Board}
-	Una de las decisiones que tomamos fue hacer un tablero genérico (con celdas), independiente del juego para el que se use. Es decir, las constantes de tamaño máximo y el método para validarlo se encuentran en la clase Game y no en la clase Board.
+	Se separó desde un principio la lógica de juego del manejo del tablero, para facilitar el testeo.
 		
 	\subsection{Método de guardar y cargar juego}
 	Inicialmente, la clase Game contaba con métodos para cargar y guardar una partida. Decidimos armar un paquete \texttt{iogame} para organizar todas las opciones de guardado y cargado. Aunque en nuestro caso solo es posible mediante serialización, se podría extender a otras formas.\footnote{Habría que armar un controlador con los métodos save y load, pero al ser static es imposible en esta versión de Java}. De la misma forma se llegó a la conclusión de separar el parser de Game.
@@ -82,6 +80,9 @@ El objetivo del trabajo práctico consistió en implementar una variante del jue
 
 	\subsubsection{Prevención de ciclos}
 	Para evitar que los rayos queden atrapados en un ciclo infinito de espejos, si el \texttt{PropagationComponent} detecta que está persistiendo el trazo de un rayo del mismo color, lo detiene en ese momento, con lo cual no hace falta prestar atención a eso en cada subclase.
+
+	\subsection{View y ViewContainer}
+	Dada la naturaleza de las aplicaciones de escritorio, buscamos separar desde el principio la \texttt{View} propiamente dicha, que maneja los elemento visuales del juego, del contenedor en el que se encuentra. En este caso, el contenedor es un \texttt{JFrame}.
 
 \end{document} 
  
