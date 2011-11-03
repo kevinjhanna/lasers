@@ -25,8 +25,8 @@ public class IOSerializer implements IOHandler{
 	 * @param file
 	 *            The file to handle
 	 */
-	public IOSerializer(File f) {
-		this.file = f;
+	public IOSerializer(File file) {
+		this.file = file;
 	}
 
 	/**
