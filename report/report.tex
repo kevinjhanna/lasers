@@ -29,19 +29,25 @@
 \clearpage 
 
 \section{Introducción}
-El objetivo del trabajo práctico consistió en implementar una variante del juego Lasers \& Mirors en el lenguaje Java. El trabajo nos permitió reforzar varios conceptos de diseño e implementación de objetos aprendidos en Java.
+El objetivo de este trabajo práctico consistió en implementar una variante del juego Lasers \& Mirors en el lenguaje Java. El trabajo nos permitió reforzar varios conceptos de diseño e implementación de objetos aprendidos en la materia.
 
-\section{Diseño}
+\section{Explicación de la jerarquía}
+El proyecto sigue a grandes rasgos una arquitectura MVC (Modelo-Vista-Controlador). La elección de este patrón nos permitió separar bien los distintos componentes del programa, principalmente el frontend del backend, de una forma prolija y elegante.
 
-	\subsection{Explicación de la jerarquía}
-	El proyecto sigue a grandes rasgos una arquitectura MVC (Modelo-Vista-Controlador).
+El modelo se encuentra en el paquete \texttt{game}, específicamente en la clase \texttt{Game}. En este mismo paquete se encuentran también las interfaces \texttt{Cell}, \texttt{Beam} y \texttt{Drawable} que permiten exportar objetos al frontend para su visualización. La clase \texttt{Ray} modela un rayo láser que se puede propagar por el tablero.
 
-	El modelo se encuentra en el paquete \texttt{game}, específicamente en la clase \texttt{Game}. Las interfaces \texttt{Cell}, \texttt{Beam} y \text{Drawable} sirven para exportar objetos al frontend. La clase \texttt{Ray} modela un rayo láser que se puede propagar por el tablero.
+En el paquete \texttt{frontend} se encuentran todas las clases relacionadas con elementos visuales, en particular las interfaces \texttt{View} y \texttt{ViewContainer} con sus respectivas implementaciones, junto con la implementación del controlador.
+
+En el paquete \texttt{tiles} se encuentran las implementaciones de los distintos elementos que se pueden incluir en el tablero. A su vez, los paquetes \texttt{direction} y \texttt{propagation} contienen componentes reutilizables que definen la funcionalidad de cada elemento.
+
+En los paquetes \texttt{parser} e \texttt{iogame} se encuentran las clases que se encargan del manejo de archivos, tanto para cargar archivos de tablero como para guardar y recuperar juegos.
+
+Por último, en el paquete \texttt{tests}, como su nombre lo indica, se encuentra el conjunto de tests unitarios diseñados.
 
 \section{Organización del trabajo}
 
 	\subsection{Herramientas utilizadas}
-	Ambos miembros del equipo teníamos experiencia trabajando con el sistema de control de versiones Git, por lo que decidimos desde el primer momento alojar el proyecto en el servicio GitHub\footnote{GitHub es un servicio que ofrece alojaminento de repositorios Git y herramientas de colaboración a través de una interfaz muy usable \href{http://github.com/}{http://github.com/}} para poder facilitar la colaboración. Esto nos trajo también otras ventajas Esto nos permitió iterar muy rápido, haciendo cambios sustanciales en el diseño del programa sin perder tiempo intentando combinar manualmente el código escrito por cada uno.
+	Ambos miembros del equipo teníamos experiencia trabajando con el sistema de control de versiones Git, por lo que decidimos desde el primer momento alojar el proyecto en el servicio GitHub\footnote{GitHub es un servicio que ofrece alojaminento de repositorios Git y herramientas de colaboración a través de una interfaz muy usable \href{http://github.com/}{http://github.com/}} para poder facilitar la colaboración. Una de las ventajas que nos trajo fue que nos permitió iterar muy rápido, haciendo cambios sustanciales en el diseño del programa sin perder tiempo intentando combinar manualmente el código escrito por cada uno.
 
 \section{Problemas encontrados}
 
@@ -51,41 +57,38 @@ El objetivo del trabajo práctico consistió en implementar una variante del jue
 	\subsection{Uso de Componentes}
 	Otro desafío de diseño que se nos presentó fue cómo manejar los multiples tipos de comportamiento que tenían los distinto objetos del tablero (en adelante, Tiles) frente a la forma en que propagaban rayos y la forma en que rotaban. En un primer momento se probó con iterfaces, pero el código resultaba bastante incómodo de manejar y carecía de elegancia. Por sugerencia de Pablo Costesich, alumno también del ITBA, investigamos el uso de componentes para compartir comportamiento común de forma reusable y elegante.
 
-	Se implementaron dos tipos de componentes, unos de Dirección y otros de Propagación. El código resultante quedo, a nuestro criterio, muy elegante y flexible, con un correcto encapsulamiento y alta cohesión. Los componente de propagación resultaron más difícil de implementar porque necesitaban acceso al estado del tile, por lo que caímos un el problema bastante conocido de compartir información entre componentes. La solución sencilla fué incluir una referencia al tile desde la construcción del componente, pero manejar todo el acceso a los datos del mismo a través de la clase abstracta \texttt{PropagationComponent}.
+	Se implementaron dos tipos de componentes, unos de Dirección y otros de Propagación. El código resultante quedó, a nuestro criterio, muy elegante y flexible, con un correcto encapsulamiento y alta cohesión. Los componente de propagación resultaron más difícil de implementar porque necesitaban acceso al estado del tile, por lo que caímos un el problema bastante conocido de compartir información entre componentes. La solución sencilla fué incluir una referencia al tile desde la construcción del componente, pero manejar todo el acceso a los datos del mismo a través de la clase abstracta \texttt{PropagationComponent}.
 
 	\subsection{Interfaces para frontend}
 	Desde el principio estabamos decididos a compartir desde el backend sólo lo justo y necesario con el frontend, lo que nos planteó un par de desafíos para definir las interfaces a usar para ejercer este ocultamiento. En particular, al ejecutar el callback de actualización de celda, queríamos evitar pasar un objeto tile completo, sino algo que sólo permitiera acceder a los métodos necesarios para dibujarlo. Nuestra primera aproximación al problema fue definir una sóla interfaz \texttt{Drawable}. Esta interfaz nos permitía ocultar tiles frente al frontend, pero perdía su valor semántico si a un Drawable le pedíamos sus rayos, para poder tambien dibujarlos (los rayos tendrían que tambien implementar drawable, pero no tenía sentido pedirles a su vez sus rayos). Luego de días de discusión, nos dimos cuenta que teníamos más un problema de nombres que de diseño, entonces la interfaz Drawable pasó a ser base para otras dos, con mayor valor semántico: \texttt{Cell} que oculta un \texttt{Tile}, y \texttt{Beam} que oculta un \texttt{Ray}. Esto nos permitió ademas ganar valor semántico en el frontend y hacer el código más elegante.
 
 	\subsection{Forma imperativa del parser}
-	La implementación del parser no nos permitió hacer un buen uso del paradigma orientado a objetos por la naturaleza imperativa de los archivos que hubo que parsear, pero si intentamos hacer uso de conceptos aprendidos como expresiones regulares para simplificar el código. Además, separamos el parseo en sí de valores posibles (dados por la cátedra) para la construcción de los tiles (en TileValues.java).
+	La implementación del parser no nos permitió hacer un buen uso del paradigma orientado a objetos por la naturaleza imperativa de los archivos que hubo que parsear, pero si intentamos hacer uso de conceptos aprendidos como expresiones regulares para simplificar el código. Además, separamos el parseo en sí de los valores posibles (dados por la cátedra) para la construcción de los tiles (en \texttt{TileValues.java}).
 
 \section{Decisiones de diseño} 
 
 	\subsection{Arquitectura general}
-	El diseño general del juego responde a la arquitectura MVC (Modelo, Vista, Controlador), lo que permitió una muy buena separación de responsabilidades entre los componente del programa. Creemos importante destacar que este diseño no surgió desde el principio sino que se decidió implementar en respuesta al crecimiento orgánico que sufrió la implementación del frontend. Nos resultó provechoso haber ya implementado parte del frontend en Swing para conocer cómo se manejaba esta librería en la práctica y tomar una mejor desición acerca de cómo organizar el código.
+	Al haber elegido una arquitectura MVC, hay que destacar que este diseño no surgió desde el principio sino que se decidió implementar en respuesta al crecimiento orgánico que sufrió la implementación del frontend. Nos resultó provechoso haber ya implementado parte del frontend en Swing para conocer cómo se manejaba esta librería en la práctica y tomar una mejor desición acerca de cómo organizar el código.
 
 	En las primeras iteraciones del programa, la ventana, los paneles y el menú estaban muy acoplados y nos resultaba difícil lograr una buena separación sin plantear la figura del controlador, que iba a responder por las vistas y manejar el flujo principal del programa. De esta forma, el controlador, cuya inter 
 	
-	% algo paso aca corregir,
-	La implementación del juego Lasers and Mirrors intenta recrear una arquitectura MVC (Model, View y Controller). En el modelo (\texttt{Game.java}), se encuentra toda la lógica de negocios del juego. Las vistas, en nuestro caso las clases que implementan View, sirven para interactuar con el usuario. El controlador (\texttt{GameController.java}) es un intermediario entre las vistas y el modelo. Este sigue siendo de frontend y se encarga de llamar al modelo que está en el backend.
-
 	\subsection{Game}
 	La lógica del juego en sí no presentó problemas muy grandes a la hora de implementar, pero sí perdimos bastante tiempo al principio al encontrar inconsistencias en los métodos que trabajaban con coordenadas, donde los parámetros estában en el órden equivocado. Esto motivó el uso de la nomenclatura \texttt{row} y \texttt{column} en lugar de \texttt{x} e \texttt{y} para facilitar la comprensión y la búsqueda de errores. 
 
-	\subsection{Game vs. Board}
-	Se separó desde un principio la lógica de juego del manejo del tablero, para facilitar el testeo.
-		
+	\subsection{Separación del tablero}
+	Se separó desde un principio la lógica de juego del manejo del tablero, para facilitar el testeo y evitar incluir código de validaciones genéricas de tablero en la implementación del juego.
+
 	\subsection{Método de guardar y cargar juego}
 	Inicialmente, la clase Game contaba con métodos para cargar y guardar una partida. Decidimos armar un paquete \texttt{iogame} para organizar todas las opciones de guardado y cargado. Aunque en nuestro caso solo es posible mediante serialización (\texttt{IOSerialize.java}), se podría proveer otras clases que implementen \texttt{IOHandler} y abstraigan sus excepciones a \texttt{GameIOException}.
 
 	\subsection{Propagación de rayos}
-	La propagación de rayos fue una de las partes más complicadas de diseñar. La separación en componentes de propagación permitiría que los rayos se propaguen a través de los tiles como si estos fueran una caja negra, moviendo efectivamente la lógica de routeo a cada componente, pero todavía quedaba definir cómo manejar las bifurcaciones. El primer diseño, implementado de forma recursiva, permitía un manejo sencillo de rayos, porque el componente pasaba el mensaje al rayo con la siguiente acción a ejecutar. La desventaja era que los objetos \texttt{Ray} eran bastante pesados, dado que contaban con referencias tanto a su posición como al tablero, que eran copiadas junto con el estado del rayo para persistir cada segmento del mismo (su trazo). La reimplementación de la propagación de forma recursiva permitió eliminar estas referencias porque son inyectadas por el juego sólo al momento de iniciar la propagación. Con este diseño, se imcorporó una pila de bifurcaciones al que cada componente puede apilar tantas bifurcaciones como quiera. La última ventaja del diseño iterativo es que el rayo sólo continúa su curso de propagación una vez que retornó del componente y se propagaron sus bifurcaciones, lo que evita problemas relacionados con rayos que retornan a un tile luego de haber seguido su curso, lo que podría provocar comportamiento inadecuado si uno no es muy cuidadoso.
+	La propagación de rayos fue una de las partes más complicadas de diseñar. La separación en componentes de propagación permitiría que los rayos se propaguen a través de los tiles como si estos fueran una caja negra, moviendo efectivamente la lógica de routeo a cada componente, pero todavía quedaba definir cómo manejar las bifurcaciones. El primer diseño, implementado de forma recursiva, permitía un manejo sencillo de rayos, porque el componente pasaba el mensaje al rayo con la siguiente acción a ejecutar. La desventaja era que los objetos \texttt{Ray} eran bastante pesados, dado que contaban con referencias tanto a su posición como al tablero, que eran copiadas junto con el estado del rayo para persistir cada segmento del mismo (su trazo). La reimplementación de la propagación de forma recursiva permitió eliminar estas referencias porque son inyectadas por el juego sólo al momento de iniciar la propagación. Con este diseño, se incorporó una pila de bifurcaciones al que cada componente puede apilar tantas bifurcaciones como quiera. La última ventaja del diseño iterativo es que el rayo sólo continúa su curso de propagación una vez que retornó del componente y se propagaron sus bifurcaciones, lo que evita problemas relacionados con rayos que retornan a un tile luego de haber seguido su curso, lo que podría provocar comportamiento inadecuado si uno no es muy cuidadoso.
 
 	\subsubsection{Prevención de ciclos}
 	Para evitar que los rayos queden atrapados en un ciclo infinito de espejos, si el \texttt{PropagationComponent} detecta que está persistiendo el trazo de un rayo del mismo color, lo detiene en ese momento, con lo cual no hace falta prestar atención a eso en cada subclase.
 
 	\subsection{View y ViewContainer}
-	Dada la naturaleza de las aplicaciones de escritorio, buscamos separar desde el principio la \texttt{View} propiamente dicha, que maneja los elemento visuales del juego, del contenedor en el que se encuentra. En este caso, el contenedor es un \texttt{JFrame}.
+	Dada la naturaleza de las aplicaciones de escritorio, buscamos separar desde el principio la \texttt{View} propiamente dicha, que maneja los elemento visuales del juego, del contenedor en el que se encuentra. En este caso, el contenedor es un \texttt{JFrame} que expone una interfaz para realizar acciones incluso cuando un juego no ha sido cargado.
 
 \end{document} 
  
