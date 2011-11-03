@@ -179,7 +179,7 @@ public class GamePanel extends JPanel implements View {
 	}
 
 	@Override
-	public void paint(Graphics g) {
+	public void paintComponent(Graphics g) {
 		if (background != null) {			
 			g.drawImage(background, 0, 0, null);
 		}

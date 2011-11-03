@@ -51,7 +51,6 @@ public class WelcomePanel extends JPanel {
 	 * 
 	 * @param controller
 	 *            The controller that will respond to this panel
-	 * @param image 
 	 */
 	public WelcomePanel(Controller controller) {
 		this.controller = controller;
@@ -65,12 +64,16 @@ public class WelcomePanel extends JPanel {
 	public void initialize() {
 		setBorder(BorderFactory.createEmptyBorder(30, 30, 30, 30));
 		setLayout(null);
-		
+
 		// Load background image
 		try {
 			background = ImageUtils.loadImage("resources/title.png");
 		} catch (IOException e) {
-			JOptionPane.showMessageDialog(this, "Unable to load all resources. You may continue to play the game, but some images may not show.", "Resource error", JOptionPane.WARNING_MESSAGE);
+			JOptionPane
+					.showMessageDialog(
+							this,
+							"Unable to load all resources. You may continue to play the game, but some images may not show.",
+							"Resource error", JOptionPane.WARNING_MESSAGE);
 		}
 
 		// New game button
@@ -114,10 +117,9 @@ public class WelcomePanel extends JPanel {
 	}
 
 	@Override
-	public void paint(Graphics g) {
+	public void paintComponent(Graphics g) {
 		if (background != null) {
-			g.drawImage(background, 0, 0, null);			
+			g.drawImage(background, 0, 0, null);
 		}
-		paintComponents(g);
 	}
 }
