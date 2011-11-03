@@ -85,7 +85,6 @@ public class Ray implements Beam, Cloneable {
 	/* (non-Javadoc)
 	 * @see game.Beam#getColor()
 	 */
-	@Override
 	public Color getColor() {
 		return color;
 	}
@@ -102,7 +101,6 @@ public class Ray implements Beam, Cloneable {
 	/* (non-Javadoc)
 	 * @see game.Beam#getDirection()
 	 */
-	@Override
 	public Direction getDirection() {
 		return direction;
 	}
@@ -133,7 +131,6 @@ public class Ray implements Beam, Cloneable {
 	/**
 	 * Returns the string representation of a ray.
 	 */
-	@Override
 	public String toString() {
 		return "Ray [direction=" + direction + ", color=" + color + "]";
 	}

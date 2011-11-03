@@ -26,6 +26,7 @@ public class GameParser {
 	private File file;
 	private int width;
 	private int height;
+	private List<Pair<Tile, Position>> tiles;
 
 	/**
 	 * Creates a new parser for the given file
@@ -51,7 +52,7 @@ public class GameParser {
 	public Game parse() throws IOException, InvalidBoardFileException,
 			InvalidBoardSizeException, FileNotFoundException {
 
-		List<Pair<Tile, Position>> tiles = new ArrayList<Pair<Tile, Position>>();
+		tiles = new ArrayList<Pair<Tile, Position>>();
 
 		Scanner stream = null;
 		try {
@@ -161,8 +162,20 @@ public class GameParser {
 		// Create the tile
 		Tile realTile = TileValue
 				.generateTileObject(mockTile, color, direction);
-
+		
+		if (duplicatedPosition(position)){
+			throw new InvalidBoardFileException();
+		}
 		tiles.add(new Pair<Tile, Position>(realTile, position));
 	}
 
+	private boolean duplicatedPosition(Position position){
+		Boolean found = false;
+		for(Pair<Tile, Position> pair: tiles){
+			if (pair.getSecond().equals(position)){
+				found = true;
+			}
+		}
+		return found;
+	}
 }
