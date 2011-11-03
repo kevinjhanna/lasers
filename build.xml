@@ -34,7 +34,7 @@
 		<copy todir="bin/resources">
 			<fileset dir="resources" />
 		</copy>
-		<jar destfile="lasers.jar" basedir="bin">
+		<jar destfile="tpe.jar" basedir="bin">
 			<manifest>
 				<attribute name="Main-Class" value="frontend.LasersAndMirrors" />
 			</manifest>
@@ -45,7 +45,7 @@
 	<target name="clean">
 		<delete dir="bin" />
 		<delete dir="doc" />
-		<delete file="lasers.jar" />
+		<delete file="tpe.jar" />
 	</target>
 
 </project>
