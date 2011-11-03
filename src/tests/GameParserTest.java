@@ -13,7 +13,6 @@ import exceptions.InvalidBoardSizeException;
 
 public class GameParserTest {
 
-	@SuppressWarnings("unused")
 	@Test(expected = FileNotFoundException.class)
 	public void testFileNotFound() throws IOException,
 			InvalidBoardFileException, InvalidBoardSizeException {
