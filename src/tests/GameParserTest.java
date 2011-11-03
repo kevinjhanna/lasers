@@ -20,6 +20,7 @@ public class GameParserTest {
 
 		GameParser parser = new GameParser(new File(
 				"boards/tests/FileNotFound.board"));
+		parser.parse();
 	}
 
 	@Test(expected = InvalidBoardSizeException.class)
@@ -94,12 +95,21 @@ public class GameParserTest {
 		parser.parse();
 	}
 
-	@Test
+	@Test(expected = InvalidBoardFileException.class)
 	public void testMissingParameters() throws IOException, InvalidBoardFileException,
 			InvalidBoardSizeException {
 
 		GameParser parser = new GameParser(
 				new File("boards/tests/MissingParameters.board"));
+		parser.parse();
+	}
+
+	@Test(expected = InvalidBoardFileException.class)
+	public void testTwoTilesSamePosition() throws IOException, InvalidBoardFileException,
+			InvalidBoardSizeException {
+
+		GameParser parser = new GameParser(
+				new File("boards/tests/DuplicatedPositions.board"));
 		parser.parse();
 	}
 	
