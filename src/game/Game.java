@@ -136,8 +136,7 @@ public class Game implements Serializable {
 	 * @throws TargetTileNotEmptyException
 	 */
 	public void move(int sourceRow, int sourceColumn, int targetRow,
-			int targetColumn) throws SourceTileEmptyException,
-			TargetTileNotEmptyException {
+			int targetColumn) {
 
 		Position source = new Position(sourceRow, sourceColumn);
 		Position target = new Position(targetRow, targetColumn);
@@ -201,7 +200,7 @@ public class Game implements Serializable {
 	 */
 	private void populateBoard(List<Pair<Tile, Position>> tiles) {
 		for (Pair<Tile, Position> p : tiles) {
-			if (p != null) {				
+			if (p != null) {
 				board.setTile(p.getSecond(), p.getFirst());
 			}
 		}
@@ -272,6 +271,17 @@ public class Game implements Serializable {
 	 */
 	public boolean isFixed(int row, int column) {
 		return getTile(row, column).isFixed();
+	}
+
+	/**
+	 * Returns whether the tile at the specified position is empty.
+	 * 
+	 * @param row
+	 * @param column
+	 * @return boolean
+	 */
+	public boolean isEmpty(int row, int column) {
+		return getTile(row, column).isEmpty();
 	}
 
 }

@@ -4,8 +4,6 @@ import exceptions.GameIOException;
 import exceptions.InvalidBoardFileException;
 import exceptions.InvalidBoardSizeException;
 import exceptions.NoGameException;
-import exceptions.SourceTileEmptyException;
-import exceptions.TargetTileNotEmptyException;
 import game.Cell;
 import game.Game;
 import game.Observer;
@@ -74,10 +72,11 @@ public class GameController implements Controller, Observer {
 				container
 						.showError("The saved file you are trying to load does not exist.");
 			} catch (IOException e) {
-				container.showError("Unable to load saved game. Please try again.");
+				container
+						.showError("Unable to load saved game. Please try again.");
 			} catch (GameIOException e) {
-				container.showError("Unable to load saved game. The file " + f.getName()
-						+ " has been corrupted.");
+				container.showError("Unable to load saved game. The file "
+						+ f.getName() + " is not a valid board file.");
 			}
 		}
 	}
@@ -93,14 +92,11 @@ public class GameController implements Controller, Observer {
 	public void move(int sourceRow, int sourceColumn, int targetRow,
 			int targetColumn) {
 
-		if (!game.isFixed(sourceRow, sourceColumn)) {
-			try {
-				game.move(sourceRow, sourceColumn, targetRow, targetColumn);
-			} catch (SourceTileEmptyException e) {
-				// Empty catch on purpose. Do nothing
-			} catch (TargetTileNotEmptyException e) {
-				// Empty catch on purpose. Do nothing
-			}
+		if (!game.isFixed(sourceRow, sourceColumn)
+				&& !game.isEmpty(sourceRow, sourceColumn)
+				&& game.isEmpty(targetRow, targetColumn)) {
+
+			game.move(sourceRow, sourceColumn, targetRow, targetColumn);
 		}
 	}
 

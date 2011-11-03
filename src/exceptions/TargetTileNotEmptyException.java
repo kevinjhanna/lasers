@@ -7,7 +7,7 @@ package exceptions;
  * @author federicobond
  * 
  */
-public class TargetTileNotEmptyException extends Exception {
+public class TargetTileNotEmptyException extends RuntimeException {
 
 	private static final long serialVersionUID = -8063237555153282580L;
 
